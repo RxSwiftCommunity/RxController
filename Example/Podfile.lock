@@ -1,0 +1,16 @@
+PODS:
+  - RxController (0.1.0)
+
+DEPENDENCIES:
+  - RxController (from `../`)
+
+EXTERNAL SOURCES:
+  RxController:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  RxController: d7d32aa2a86246e6eb812b9a54746b69d098a058
+
+PODFILE CHECKSUM: a15c7b5ac20e25505a14587b47218e9acce1befb
+
+COCOAPODS: 1.6.1

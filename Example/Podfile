@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'RxController_Example' do
+  pod 'RxController', :path => '../'
+
+  target 'RxController_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

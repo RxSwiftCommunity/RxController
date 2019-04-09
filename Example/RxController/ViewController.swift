@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import RxController
 
-class ViewController: UIViewController {
+class ViewController: RxViewController<ViewModel> {
 
     override func viewDidLoad() {
         super.viewDidLoad()

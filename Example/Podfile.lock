@@ -1,16 +1,34 @@
 PODS:
-  - RxController (0.1.0)
+  - RxCocoa (4.5.0):
+    - RxSwift (>= 4.4.2, ~> 4.4)
+  - RxController (0.1):
+    - RxCocoa (~> 4.5)
+    - RxFlow (~> 2.1)
+    - RxSwift (~> 4.5)
+  - RxFlow (2.1.0):
+    - RxCocoa (>= 4.5.0)
+    - RxSwift (>= 4.5.0)
+  - RxSwift (4.5.0)
 
 DEPENDENCIES:
   - RxController (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - RxCocoa
+    - RxFlow
+    - RxSwift
 
 EXTERNAL SOURCES:
   RxController:
     :path: "../"
 
 SPEC CHECKSUMS:
-  RxController: d7d32aa2a86246e6eb812b9a54746b69d098a058
+  RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
+  RxController: 80c2159b5f97fcc0720b092a010be9f299a60fdc
+  RxFlow: 78df76493bd7fc6a0181014cc2be3f29a2cd54fb
+  RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
 
-PODFILE CHECKSUM: a15c7b5ac20e25505a14587b47218e9acce1befb
+PODFILE CHECKSUM: 5398ef695cbb6bd1852a98560881034f4f969987
 
 COCOAPODS: 1.6.1

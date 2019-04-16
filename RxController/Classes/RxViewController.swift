@@ -50,7 +50,3 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
     }
   
 }
-
-open class RxChildViewController<ViewModel: RxChildViewModel>: RxViewController<ViewModel> {
-    
-}

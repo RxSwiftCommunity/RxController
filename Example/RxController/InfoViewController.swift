@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  InfoViewController.swift
 //  RxController
 //
 //  Created by Meng Li on 04/01/2019.
@@ -10,7 +10,7 @@ import UIKit
 import RxController
 import SnapKit
 
-class ViewController: RxViewController<ViewModel> {
+class InfoViewController: RxViewController<InfoViewModel> {
     
     private lazy var nameLabel = UILabel()
     
@@ -40,9 +40,6 @@ class ViewController: RxViewController<ViewModel> {
         view.addSubview(updateButton)
         createConstraints()
         
-        nameLabel.text = "Alice"
-        numberLabel.text = "1234567890"
-        
         addChild(nameViewController) {
             $0.snp.makeConstraints {
                 $0.left.right.equalToSuperview()
@@ -50,6 +47,9 @@ class ViewController: RxViewController<ViewModel> {
                 $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
             }
         }
+        
+        viewModel.name ~> nameLabel.rx.text ~ disposeBag
+        viewModel.number ~> numberLabel.rx.text ~ disposeBag
     }
     
     private func createConstraints() {

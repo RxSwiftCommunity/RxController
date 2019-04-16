@@ -34,9 +34,9 @@ class AppFlow: Flow {
         }
         switch appStep {
         case .start:
-            let viewController = ViewController(viewModel: ViewModel())
-            navigationController.pushViewController(viewController, animated: false)
-            return .viewController(viewController)
+            let infoViewController = InfoViewController(viewModel: InfoViewModel())
+            navigationController.pushViewController(infoViewController, animated: false)
+            return .viewController(infoViewController)
         }
     }
     

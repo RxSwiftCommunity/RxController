@@ -28,7 +28,7 @@ class NameViewController: RxChildViewController<NameViewModel> {
     
     private lazy var updateButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Update All", for: .normal)
+        button.setTitle("Update Name", for: .normal)
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true

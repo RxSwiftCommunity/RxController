@@ -9,12 +9,12 @@
 /* Begin PBXBuildFile section */
 		51250CABAD21E9150BC9E5E5 /* Pods_RxController_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B7364AF4E4CEC90176D8BC /* Pods_RxController_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
-		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
+		607FACD81AFB9204008FA782 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* InfoViewController.swift */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		77EE85172265684A00F06394 /* AppFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE85162265684A00F06394 /* AppFlow.swift */; };
-		77EE851922656BBE00F06394 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851822656BBE00F06394 /* ViewModel.swift */; };
+		77EE851922656BBE00F06394 /* InfotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851822656BBE00F06394 /* InfotViewModel.swift */; };
 		77EE851B22656EBA00F06394 /* NameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851A22656EBA00F06394 /* NameViewController.swift */; };
 		77EE851D22656EC400F06394 /* NameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851C22656EC400F06394 /* NameViewModel.swift */; };
 		77EE851F22656EEB00F06394 /* NumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851E22656EEB00F06394 /* NumberViewController.swift */; };
@@ -42,14 +42,14 @@
 		607FACD01AFB9204008FA782 /* RxController_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxController_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		607FACD71AFB9204008FA782 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		607FACD71AFB9204008FA782 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		607FACDC1AFB9204008FA782 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		607FACDF1AFB9204008FA782 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		607FACE51AFB9204008FA782 /* RxController_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxController_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		77EE85162265684A00F06394 /* AppFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFlow.swift; sourceTree = "<group>"; };
-		77EE851822656BBE00F06394 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		77EE851822656BBE00F06394 /* InfotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfotViewModel.swift; sourceTree = "<group>"; };
 		77EE851A22656EBA00F06394 /* NameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewController.swift; sourceTree = "<group>"; };
 		77EE851C22656EC400F06394 /* NameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewModel.swift; sourceTree = "<group>"; };
 		77EE851E22656EEB00F06394 /* NumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberViewController.swift; sourceTree = "<group>"; };
@@ -184,8 +184,8 @@
 				77EE851C22656EC400F06394 /* NameViewModel.swift */,
 				77EE851E22656EEB00F06394 /* NumberViewController.swift */,
 				77EE852022656EF600F06394 /* NumberViewModel.swift */,
-				607FACD71AFB9204008FA782 /* ViewController.swift */,
-				77EE851822656BBE00F06394 /* ViewModel.swift */,
+				607FACD71AFB9204008FA782 /* InfoViewController.swift */,
+				77EE851822656BBE00F06394 /* InfotViewModel.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -201,6 +201,7 @@
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
+				77EE852222659BD400F06394 /* Rebuild Pods */,
 				EC5052F63E895B1E72B595FA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -291,6 +292,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		77EE852222659BD400F06394 /* Rebuild Pods */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Rebuild Pods";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "find \"${SRCROOT}/Pods\" -type f -name *frameworks.sh -exec bash -c \"touch \\\"{}\\\"\" \\;\n";
+		};
 		7F812BEB5D5DD6987BD799A5 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -376,9 +395,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
+				607FACD81AFB9204008FA782 /* InfoViewController.swift in Sources */,
 				77EE85172265684A00F06394 /* AppFlow.swift in Sources */,
-				77EE851922656BBE00F06394 /* ViewModel.swift in Sources */,
+				77EE851922656BBE00F06394 /* InfotViewModel.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				77EE851B22656EBA00F06394 /* NameViewController.swift in Sources */,
 				77EE852122656EF600F06394 /* NumberViewModel.swift in Sources */,

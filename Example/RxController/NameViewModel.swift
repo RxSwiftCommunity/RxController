@@ -20,16 +20,35 @@ class NameViewModel: RxChildViewModel {
     }
     
     var name: Observable<String?> {
-        return parentEvents.map {
-            guard let events = $0 as? InfoEvent, case let .name(name) = events else {
-                return nil
-            }
-            return name
+        return parentEvents
+            .filter { $0 is InfoEvent }.map { $0 as! InfoEvent }
+            .filter {
+                if case .name(_) = $0 {
+                    return true
+                }
+                return false
+            }.map {
+                guard case let .name(name) = $0 else {
+                    return nil
+                }
+                return name
         }
     }
     
     var number: Observable<String?> {
-        return Observable.just("1234567890")
+        return parentEvents
+            .filter { $0 is InfoEvent }.map { $0 as! InfoEvent }
+            .filter {
+                if case .number(_) = $0 {
+                    return true
+                }
+                return false
+            }.map {
+                guard case let .number(number) = $0 else {
+                    return nil
+                }
+                return number
+        }
     }
     
 }

@@ -26,6 +26,9 @@ class InfoViewController: RxViewController<InfoViewModel> {
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.updateAll()
+        }.disposed(by: disposeBag)
         return button
     }()
     
@@ -50,6 +53,11 @@ class InfoViewController: RxViewController<InfoViewModel> {
         
         viewModel.name ~> nameLabel.rx.text ~ disposeBag
         viewModel.number ~> numberLabel.rx.text ~ disposeBag
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.updateAll()
     }
     
     private func createConstraints() {

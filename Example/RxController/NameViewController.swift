@@ -9,7 +9,14 @@
 import UIKit
 import RxController
 
-class NameViewController: RxViewController<NameViewModel> {
+class NameViewController: RxChildViewController<NameViewModel> {
+    
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "NameChildViewController"
+        label.textColor = .blue
+        return label
+    }()
     
     private lazy var nameLabel = UILabel()
     
@@ -25,6 +32,9 @@ class NameViewController: RxViewController<NameViewModel> {
         button.backgroundColor = .lightGray
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.updateName()
+        }.disposed(by: disposeBag)
         return button
     }()
     
@@ -32,19 +42,26 @@ class NameViewController: RxViewController<NameViewModel> {
         super.viewDidLoad()
         view.backgroundColor = .white
         
+        view.addSubview(titleLabel)
         view.addSubview(nameLabel)
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
         createConstraints()
         
-        nameLabel.text = "Alice"
-        numberLabel.text = "1234567890"
+        viewModel.name ~> nameLabel.rx.text ~ disposeBag
+        viewModel.number ~> numberLabel.rx.text ~ disposeBag
     }
     
     private func createConstraints() {
-        nameLabel.snp.makeConstraints {
+        
+        titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
             $0.top.equalToSuperview()
+        }
+        
+        nameLabel.snp.makeConstraints {
+            $0.left.equalTo(titleLabel)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
         }
         
         numberLabel.snp.makeConstraints {

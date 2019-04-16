@@ -7,8 +7,19 @@
 //
 
 import RxSwift
+import RxCocoa
 import RxController
+import Fakery
 
-class NameViewModel: RxViewModel {
+class NameViewModel: RxChildViewModel {
+    
+    private let faker = Faker(locale: "nb-NO")
+    
+    let name = BehaviorRelay<String?>(value: "Alice")
+    let number = BehaviorRelay<String?>(value: "1234567890")
+    
+    func updateName() {
+        name.accept(faker.name.name())
+    }
     
 }

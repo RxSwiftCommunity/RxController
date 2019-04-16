@@ -28,5 +28,24 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
     deinit {
         Log.debug("[DEINIT View Controller] \(type(of: self))")
     }
+
+    public func removeChildViewControllers(excepts: [UIViewController?] = []) {
+        children.filter { !excepts.contains($0) }.forEach {
+            $0.willMove(toParent: self)
+            $0.view.removeFromSuperview()
+            $0.removeFromParent()
+        }
+    }
+    
+    public func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
+        addChild(childController)
+        view.addSubview(childController.view)
+        childController.didMove(toParent: self)
+        completion?(childController.view)
+    }
+  
+}
+
+open class RxChildViewController<ViewModel: RxChildViewModel>: RxViewController<ViewModel> {
     
 }

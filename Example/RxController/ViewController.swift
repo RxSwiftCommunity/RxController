@@ -28,6 +28,8 @@ class ViewController: RxViewController<ViewModel> {
         button.layer.masksToBounds = true
         return button
     }()
+    
+    private lazy var nameViewController = NameViewController(viewModel: NameViewModel())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +42,14 @@ class ViewController: RxViewController<ViewModel> {
         
         nameLabel.text = "Alice"
         numberLabel.text = "1234567890"
+        
+        addChild(nameViewController) {
+            $0.snp.makeConstraints {
+                $0.left.right.equalToSuperview()
+                $0.height.equalTo(100)
+                $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
+            }
+        }
     }
     
     private func createConstraints() {

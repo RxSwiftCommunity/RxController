@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxFlow
+@_exported import RxBinding
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -20,3 +20,10 @@ open class RxViewModel: NSObject, Stepper {
     }
     
 }
+
+
+open class RxChildViewModel: RxViewModel {
+    
+    
+    
+}

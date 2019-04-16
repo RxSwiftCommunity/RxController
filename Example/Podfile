@@ -3,6 +3,8 @@ platform :ios, '9.0'
 
 target 'RxController_Example' do
   pod 'RxController', :path => '../'
+  pod 'SnapKit'
+  pod 'Fakery'
 
   target 'RxController_Tests' do
     inherit! :search_paths    

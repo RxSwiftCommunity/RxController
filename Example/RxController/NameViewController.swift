@@ -1,16 +1,15 @@
 //
-//  ViewController.swift
-//  RxController
+//  NameViewController.swift
+//  RxController_Example
 //
-//  Created by Meng Li on 04/01/2019.
-//  Copyright (c) 2019 MuShare. All rights reserved.
+//  Created by Meng Li on 2019/04/16.
+//  Copyright © 2019 MuShare. All rights reserved.
 //
 
 import UIKit
 import RxController
-import SnapKit
 
-class ViewController: RxViewController<ViewModel> {
+class NameViewController: RxViewController<NameViewModel> {
     
     private lazy var nameLabel = UILabel()
     
@@ -28,7 +27,7 @@ class ViewController: RxViewController<ViewModel> {
         button.layer.masksToBounds = true
         return button
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -45,7 +44,7 @@ class ViewController: RxViewController<ViewModel> {
     private func createConstraints() {
         nameLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(10)
-            $0.top.equalToSuperview().offset(100)
+            $0.top.equalToSuperview()
         }
         
         numberLabel.snp.makeConstraints {

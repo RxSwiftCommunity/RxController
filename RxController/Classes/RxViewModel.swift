@@ -10,20 +10,18 @@ import RxSwift
 import RxCocoa
 import RxFlow
 
-public protocol RxEvent {}
-
-struct NoneEvent: RxEvent, Equatable {}
-
 open class RxViewModel: NSObject, Stepper {
     
     public let steps = PublishRelay<Step>()
-    public let events = PublishRelay<RxEvent>()
+    public let events = PublishRelay<RxControllerEvent>()
     public let disposeBag = DisposeBag()
     
     deinit {
         Log.debug("[DEINIT View Model] \(type(of: self))")
     }
     
+    public func events<Event: RxControllerEvent>(by type: Event.Type) -> Observable<Event> {
+        return events.filter(by: Event.self)
+    }
+    
 }
-
-

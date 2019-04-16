@@ -11,15 +11,15 @@ import RxCocoa
 
 open class RxChildViewModel: RxViewModel {
     
-    weak var _parentEvents: PublishRelay<RxEvent>?
+    weak var _parentEvents: PublishRelay<RxControllerEvent>?
     
-    public func accept(event: RxEvent) {
+    public func accept(event: RxControllerEvent) {
         _parentEvents?.accept(event)
     }
     
-    public var parentEvents: Observable<RxEvent> {
+    public var parentEvents: Observable<RxControllerEvent> {
         guard let events = _parentEvents else {
-            return Observable.just(NoneEvent())
+            return Observable.just(NoneEvent.none)
         }
         return events.asObservable()
     }

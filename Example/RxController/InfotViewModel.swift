@@ -11,7 +11,7 @@ import RxCocoa
 import RxController
 import Fakery
 
-enum InfoEvent: RxEvent {
+enum InfoEvent: RxControllerEvent {
     case name(String)
     case number(String)
 }
@@ -25,24 +25,22 @@ class InfoViewModel: RxViewModel {
     }
     
     var name: Observable<String?> {
-        return events
-            .filter { $0 is InfoEvent }.map { $0 as! InfoEvent }
+        return events(by: InfoEvent.self)
             .filter {
                 if case .name(_) = $0 {
                     return true
                 }
                 return false
             }.map {
-            guard case let .name(name) = $0 else {
-                return nil
-            }
-            return name
+                guard case let .name(name) = $0 else {
+                    return nil
+                }
+                return name
         }
     }
     
     var number: Observable<String?> {
-        return events
-            .filter { $0 is InfoEvent }.map { $0 as! InfoEvent }
+        return events(by: InfoEvent.self)
             .filter {
                 if case .number(_) = $0 {
                     return true

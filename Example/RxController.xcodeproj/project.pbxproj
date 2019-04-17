@@ -123,8 +123,8 @@
 		607FACD21AFB9204008FA782 /* Example for RxController */ = {
 			isa = PBXGroup;
 			children = (
-				77EE85152265679000F06394 /* Controller */,
-				77EE85142265678D00F06394 /* Flow */,
+				77EE85232266DC8B00F06394 /* Controller */,
+				77EE85242266DC9F00F06394 /* Flow */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -169,15 +169,7 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		77EE85142265678D00F06394 /* Flow */ = {
-			isa = PBXGroup;
-			children = (
-				77EE85162265684A00F06394 /* AppFlow.swift */,
-			);
-			name = Flow;
-			sourceTree = "<group>";
-		};
-		77EE85152265679000F06394 /* Controller */ = {
+		77EE85232266DC8B00F06394 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
 				77EE851A22656EBA00F06394 /* NameViewController.swift */,
@@ -187,7 +179,15 @@
 				607FACD71AFB9204008FA782 /* InfoViewController.swift */,
 				77EE851822656BBE00F06394 /* InfotViewModel.swift */,
 			);
-			name = Controller;
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		77EE85242266DC9F00F06394 /* Flow */ = {
+			isa = PBXGroup;
+			children = (
+				77EE85162265684A00F06394 /* AppFlow.swift */,
+			);
+			path = Flow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

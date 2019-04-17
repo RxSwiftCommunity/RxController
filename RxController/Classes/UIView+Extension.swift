@@ -1,8 +1,8 @@
 //
-//  RxChildViewController.swift
+//  UIView+Extension.swift
 //  RxController
 //
-//  Created by Meng Li on 04/16/2019.
+//  Created by Meng Li on 04/17/2019.
 //  Copyright (c) 2019 MuShare. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,6 +23,29 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-open class RxChildViewController<ViewModel: RxChildViewModel>: RxViewController<ViewModel> {
+extension UIView {
+    
+    var parentViewController: UIViewController? {
+        var parentResponder: UIResponder? = self
+        while parentResponder != nil {
+            parentResponder = parentResponder!.next
+            if let viewController = parentResponder as? UIViewController {
+                return viewController
+            }
+        }
+        return nil
+    }
+    
+    public func addRxChildViewController<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
+        guard let viewController = parentViewController else {
+            Log.debug("Cannot add child controller to a view without parent view controller.")
+            return
+        }
+        viewController.addChild(childController)
+        addSubview(childController.view)
+        childController.didMove(toParent: viewController)
+        completion?(self)
+    }
     
 }
+

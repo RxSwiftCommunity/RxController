@@ -10,7 +10,22 @@ import RxSwift
 
 public protocol RxControllerEventValue {}
 
+extension Int: RxControllerEventValue {}
+extension Int8: RxControllerEventValue {}
+extension Int16: RxControllerEventValue {}
+extension Int32: RxControllerEventValue {}
+extension Int64: RxControllerEventValue {}
+extension UInt: RxControllerEventValue {}
+extension UInt8: RxControllerEventValue {}
+extension UInt16: RxControllerEventValue {}
+extension UInt32: RxControllerEventValue {}
+extension UInt64: RxControllerEventValue {}
+extension Float: RxControllerEventValue {}
+extension Double: RxControllerEventValue {}
 extension String: RxControllerEventValue {}
+extension Bool: RxControllerEventValue {}
+extension CGFloat: RxControllerEventValue {}
+extension CGSize: RxControllerEventValue {}
 
 public struct RxControllerEventType {
     var identifier: String

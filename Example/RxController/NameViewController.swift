@@ -74,6 +74,7 @@ class NameViewController: RxChildViewController<NameViewModel> {
             $0.top.equalTo(numberLabel.snp.bottom).offset(10)
             $0.width.equalTo(150)
         }
+        
     }
     
 }

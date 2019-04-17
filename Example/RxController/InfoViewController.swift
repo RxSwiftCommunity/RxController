@@ -32,7 +32,8 @@ class InfoViewController: RxViewController<InfoViewModel> {
         return button
     }()
     
-    private lazy var nameViewController = NameViewController(viewModel: NameViewModel())
+    private lazy var nameViewController = NameViewController(viewModel: .init())
+    private lazy var numberViewController = NumberViewController(viewModel: .init())
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,14 @@ class InfoViewController: RxViewController<InfoViewModel> {
                 $0.left.right.equalToSuperview()
                 $0.height.equalTo(100)
                 $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
+            }
+        }
+        
+        addChild(numberViewController) {
+            $0.snp.makeConstraints {
+                $0.left.right.equalToSuperview()
+                $0.height.equalTo(100)
+                $0.top.equalTo(self.nameViewController.view.snp.bottom).offset(30)
             }
         }
         

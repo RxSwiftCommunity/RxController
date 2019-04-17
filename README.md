@@ -5,19 +5,105 @@
 [![License](https://img.shields.io/cocoapods/l/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
 [![Platform](https://img.shields.io/cocoapods/p/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
 
-## Example
+RxController is a library developing with MVVM-C based on **RxFlow** and **RxSwift**.
+If you are not familiar with them, please learn these frameworks at first:
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+- RxSwift (https://github.com/ReactiveX/RxSwift)
+- RxCocoa (https://github.com/ReactiveX/RxSwift)
+- RxFlow (https://github.com/RxSwiftCommunity/RxFlow)
 
-## Requirements
+RxController provides the basic view controller and view model classes.
+These classes make it easy to transfer data among the flows, the parent view models and the child view models.
 
-## Installation
+## Documentaion
 
 RxController is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
 pod 'RxController'
+```
+
+### Example
+
+The example app helps you to understanding how to use RxController.
+To run the example project, clone the repo, and run `pod install` from the Example directory first.
+
+### Generic class of View Controller
+
+RxController provides generic classes `RxViewController` and `RxChildViewController`.
+With the genric classes, RxController avoids using an `Optional` or an `Implicit Unwrapping Option` type for the view model property in the view controller class.
+
+In the demo app, we define the view model class by extending the RxViewModel class, and the view controller class by extending the RxViewController generic class.
+
+```Swift
+// View model class
+class InfoViewModel: RxViewModel {
+
+}
+
+// View controller class
+class InfoViewController: RxViewController<InfoViewModel> {
+
+}
+```
+
+Then, we can initialize the `InfoViewController` with a safe way as the following.
+
+```Swift 
+func navigate(to step: Step) -> FlowContributors {
+    guard let appStep = step as? AppStep else {
+        return .none
+    }
+    switch appStep {
+    case .start:
+        let infoViewController = InfoViewController(viewModel: InfoViewModel())
+        navigationController.pushViewController(infoViewController, animated: false)
+        return .viewController(infoViewController)
+    }
+}
+```
+
+### Data Transportion among parent and child view models
+
+In a standard MVVM-C architecture using RxFlow, view models exchange data via the flow classes using the `steps.accept()` method.
+With `RxChildViewModel` and `RxChildViewController`, we can exchange data among parent and child view models without the flow class.
+
+We define a event struct in the parent view model.
+
+```Swift
+struct InfoEvent {
+    static let name = RxControllerEventType(type: String.self)
+    static let number = RxControllerEventType(type: String.self)
+}
+```
+
+Send a event from the parent view model.
+
+```Swift
+events.accept(InfoEvent.name.event("Alice"))
+```
+
+Send a event from the child view model.
+
+```Swift
+accept(event: accept(event: InfoEvent.name.event("Alice")
+```
+
+Receive a event in the parent view model.
+
+```Swift
+var name: Observable<String?> {
+    return events.value(of: InfoEvent.name)
+}
+```
+
+Receive a event in the child view model.
+
+```Swift
+var name: Observable<String?> {
+    return parentEvents.value(of: InfoEvent.name)
+}
 ```
 
 ## Author

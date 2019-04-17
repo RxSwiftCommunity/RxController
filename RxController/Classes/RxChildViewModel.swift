@@ -19,7 +19,8 @@ open class RxChildViewModel: RxViewModel {
     
     public var parentEvents: Observable<RxControllerEvent> {
         guard let events = _parentEvents else {
-            return Observable.just(RxControllerEvent(identifier: "none", value: "none"))
+            Log.debug("No prerent events found in \(type(of: self))!")
+            return Observable.just(.none)
         }
         return events.asObservable()
     }

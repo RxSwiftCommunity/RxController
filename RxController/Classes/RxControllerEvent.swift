@@ -26,6 +26,8 @@ extension String: RxControllerEventValue {}
 extension Bool: RxControllerEventValue {}
 extension CGFloat: RxControllerEventValue {}
 extension CGSize: RxControllerEventValue {}
+extension CGPoint: RxControllerEventValue {}
+extension CGRect: RxControllerEventValue {}
 
 public struct RxControllerEventType {
     var identifier: String
@@ -35,21 +37,28 @@ public struct RxControllerEventType {
         self.identifier = UUID().uuidString
         self.type = type
     }
+    
+    public func event(_ value: RxControllerEventValue) -> RxControllerEvent {
+        return RxControllerEvent(identifier: identifier, value: value)
+    }
 }
 
 public struct RxControllerEvent {
+    
     var identifier: String
     var value: RxControllerEventValue
     
-    public init(identifier: String, value: RxControllerEventValue) {
+    init(identifier: String, value: RxControllerEventValue) {
         self.identifier = identifier
         self.value = value
     }
 
-    public init<Value: RxControllerEventValue>(type: RxControllerEventType, value: Value) {
+    init<Value: RxControllerEventValue>(type: RxControllerEventType, value: Value) {
         self.identifier = type.identifier
         self.value = value
     }
+    
+    static let none = RxControllerEvent(identifier: "none", value: "none")
     
 }
 

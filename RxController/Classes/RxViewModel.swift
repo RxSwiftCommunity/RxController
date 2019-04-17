@@ -20,8 +20,4 @@ open class RxViewModel: NSObject, Stepper {
         Log.debug("[DEINIT View Model] \(type(of: self))")
     }
     
-//    public func events<Event: RxControllerEvent>(by type: Event.Type) -> Observable<Event> {
-//        return events.filter(by: Event.self)
-//    }
-    
 }

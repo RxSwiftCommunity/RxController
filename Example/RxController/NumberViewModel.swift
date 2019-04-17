@@ -15,7 +15,7 @@ class NumberViewModel: RxChildViewModel {
     private let faker = Faker(locale: "nb-NO")
     
     func updateNumber() {
-        accept(event: InfoEvent.number(faker.phoneNumber.cellPhone()))
+        accept(event: InfoEvent.number.event(faker.phoneNumber.cellPhone()))
     }
     
     var name: Observable<String?> {

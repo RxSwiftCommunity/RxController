@@ -19,7 +19,7 @@ open class RxChildViewModel: RxViewModel {
     
     public var parentEvents: Observable<RxControllerEvent> {
         guard let events = _parentEvents else {
-            return Observable.just(NoneEvent.none)
+            return Observable.just(RxControllerEvent(identifier: "none", value: "none"))
         }
         return events.asObservable()
     }

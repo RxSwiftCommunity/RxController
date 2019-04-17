@@ -8,18 +8,54 @@
 
 import RxSwift
 
-public protocol RxControllerEvent {
+public protocol RxControllerEventValue {}
 
+extension String: RxControllerEventValue {}
+
+public struct RxControllerEventType {
+    var identifier: String
+    var type: RxControllerEventValue.Type
+ 
+    public init(type: RxControllerEventValue.Type) {
+        self.identifier = UUID().uuidString
+        self.type = type
+    }
 }
 
-enum NoneEvent: RxControllerEvent, Equatable {
-    case none
+public struct RxControllerEvent {
+    var identifier: String
+    var value: RxControllerEventValue
+    
+    public init(identifier: String, value: RxControllerEventValue) {
+        self.identifier = identifier
+        self.value = value
+    }
+
+    public init<Value: RxControllerEventValue>(type: RxControllerEventType, value: Value) {
+        self.identifier = type.identifier
+        self.value = value
+    }
+    
 }
 
 extension ObservableType where E == RxControllerEvent {
+
+    public func value<Value: RxControllerEventValue>(of type: RxControllerEventType) -> Observable<Value?> {
+        return filter {
+            $0.identifier == type.identifier
+        }.map {
+            $0.value as? Value
+        }
+    }
     
-    func filter<Event: RxControllerEvent>(by type: Event.Type) -> Observable<Event> {
-        return filter { $0 is Event }.map { $0 as! Event }
+    public func value<Value: RxControllerEventValue>(of type: RxControllerEventType) -> Observable<Value> {
+        return filter {
+            $0.identifier == type.identifier
+        }.filter {
+            $0.value is Value
+        }.map {
+            $0.value as! Value
+        }
     }
     
 }

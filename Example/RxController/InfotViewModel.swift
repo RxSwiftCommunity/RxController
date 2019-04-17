@@ -11,52 +11,36 @@ import RxCocoa
 import RxController
 import Fakery
 
-enum InfoEvent: RxControllerEvent {
-    case name(String)
-    case number(String)
+extension RxControllerEventType {
+    static let name = RxControllerEventType(type: String.self)
+    static let number = RxControllerEventType(type: String.self)
+}
+
+extension RxControllerEvent {
+    static func name(_ name: String) -> RxControllerEvent {
+        return RxControllerEvent(type: .name, value: name)
+    }
+    
+    static func number(_ number: String) -> RxControllerEvent {
+        return RxControllerEvent(type: .number, value: number)
+    }
 }
 
 class InfoViewModel: RxViewModel {
     
     private let faker = Faker(locale: "nb-NO")
     
-    override init() {
-        super.init()
-    }
-    
     var name: Observable<String?> {
-        return events(by: InfoEvent.self)
-            .filter {
-                if case .name(_) = $0 {
-                    return true
-                }
-                return false
-            }.map {
-                guard case let .name(name) = $0 else {
-                    return nil
-                }
-                return name
-        }
+        return events.value(of: .name)
     }
     
     var number: Observable<String?> {
-        return events(by: InfoEvent.self)
-            .filter {
-                if case .number(_) = $0 {
-                    return true
-                }
-                return false
-            }.map {
-                guard case let .number(number) = $0 else {
-                    return nil
-                }
-                return number
-            }
+        return events.value(of: .number)
     }
     
     func updateAll() {
-        events.accept(InfoEvent.name(faker.name.name()))
-        events.accept(InfoEvent.number(faker.phoneNumber.cellPhone()))
+        events.accept(.name(faker.name.name()))
+        events.accept(.number(faker.phoneNumber.cellPhone()))
     }
     
 }

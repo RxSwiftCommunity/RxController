@@ -16,39 +16,15 @@ class NameViewModel: RxChildViewModel {
     private let faker = Faker(locale: "nb-NO")
 
     func updateName() {
-        accept(event: InfoEvent.name(faker.name.name()))
+        accept(event: .name(faker.name.name()))
     }
     
     var name: Observable<String?> {
-        return parentEvents
-            .filter { $0 is InfoEvent }.map { $0 as! InfoEvent }
-            .filter {
-                if case .name(_) = $0 {
-                    return true
-                }
-                return false
-            }.map {
-                guard case let .name(name) = $0 else {
-                    return nil
-                }
-                return name
-        }
+        return parentEvents.value(of: .name)
     }
     
     var number: Observable<String?> {
-        return parentEvents
-            .filter { $0 is InfoEvent }.map { $0 as! InfoEvent }
-            .filter {
-                if case .number(_) = $0 {
-                    return true
-                }
-                return false
-            }.map {
-                guard case let .number(number) = $0 else {
-                    return nil
-                }
-                return number
-        }
+        return parentEvents.value(of: .number)
     }
     
 }

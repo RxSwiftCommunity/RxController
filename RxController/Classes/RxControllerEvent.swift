@@ -25,53 +25,46 @@
 
 import RxSwift
 
-public struct RxControllerEventType {
-    
-    var identifier: String
-    var type: Any.Type
- 
-    public init(type: Any.Type) {
-        self.identifier = UUID().uuidString
-        self.type = type
-    }
-    
-    public func event(_ value: Any?) -> RxControllerEvent {
-        return RxControllerEvent(identifier: identifier, value: value)
-    }
-    
-}
-
 public struct RxControllerEvent {
     
-    var identifier: String
+    public struct Identifier {
+        var id: String
+        
+        static let none = Identifier(id: "none")
+        
+        public func event(_ value: Any?) -> RxControllerEvent {
+            return RxControllerEvent(identifier: self, value: value)
+        }
+    }
+    
+    var identifier: Identifier
     var value: Any?
     
-    init(identifier: String, value: Any?) {
+    init(identifier: Identifier, value: Any?) {
         self.identifier = identifier
         self.value = value
     }
 
-    init<Value>(type: RxControllerEventType, value: Value) {
-        self.identifier = type.identifier
-        self.value = value
-    }
+    static let none = RxControllerEvent(identifier: .none, value: nil)
     
-    static let none = RxControllerEvent(identifier: "none", value: "none")
+    public static func identifier() -> Identifier {
+        return Identifier(id: UUID().uuidString)
+    }
     
 }
 
 extension ObservableType where E == RxControllerEvent {
 
-    public func value<Value>(of type: RxControllerEventType) -> Observable<Value?> {
+    public func value<Value>(of identifier: RxControllerEvent.Identifier) -> Observable<Value?> {
         return filter {
-            $0.identifier == type.identifier
+            $0.identifier.id == identifier.id
         }.map {
             $0.value as? Value
         }
     }
     
-    public func valueUnwrap<Value>(of type: RxControllerEventType) -> Observable<Value> {
-        return value(of: type).filter { $0 != nil }.map { $0! }
+    public func valueUnwrap<Value>(of identifier: RxControllerEvent.Identifier) -> Observable<Value> {
+        return value(of: identifier).filter { $0 != nil }.map { $0! }
     }
     
 }

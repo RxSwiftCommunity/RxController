@@ -12,8 +12,8 @@ import RxController
 import Fakery
 
 struct InfoEvent {
-    static let name = RxControllerEventType(type: String.self)
-    static let number = RxControllerEventType(type: String.self)
+    static let name = RxControllerEvent.identifier()
+    static let number = RxControllerEvent.identifier()
 }
 
 class InfoViewModel: RxViewModel {
@@ -29,8 +29,7 @@ class InfoViewModel: RxViewModel {
     }
     
     func updateAll() {
-        events.accept(InfoEvent.name.event(nil))
-//        events.accept(InfoEvent.name.event(faker.name.name()))
+        events.accept(InfoEvent.name.event(faker.name.name()))
         events.accept(InfoEvent.number.event(faker.phoneNumber.cellPhone()))
     }
     

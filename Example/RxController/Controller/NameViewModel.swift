@@ -15,7 +15,7 @@ class NameViewModel: RxChildViewModel {
     private let faker = Faker(locale: "nb-NO")
 
     func updateName() {
-        accept(event: InfoEvent.name.event(faker.name.name()))
+        parentEvents.accept(InfoEvent.name.event(faker.name.name()))
     }
     
     var name: Observable<String?> {

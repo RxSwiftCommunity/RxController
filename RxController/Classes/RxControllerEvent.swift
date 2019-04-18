@@ -55,15 +55,15 @@ public struct RxControllerEvent {
 
 extension ObservableType where E == RxControllerEvent {
 
-    public func value<Value>(of identifier: RxControllerEvent.Identifier) -> Observable<Value?> {
+    public func value<T>(of identifier: RxControllerEvent.Identifier) -> Observable<T?> {
         return filter {
             $0.identifier.id == identifier.id
         }.map {
-            $0.value as? Value
+            $0.value as? T
         }
     }
     
-    public func valueUnwrap<Value>(of identifier: RxControllerEvent.Identifier) -> Observable<Value> {
+    public func unwrappedValue<T>(of identifier: RxControllerEvent.Identifier) -> Observable<T> {
         return value(of: identifier).filter { $0 != nil }.map { $0! }
     }
     

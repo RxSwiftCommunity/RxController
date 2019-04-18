@@ -30,16 +30,12 @@ open class RxChildViewModel: RxViewModel {
     
     weak var _parentEvents: PublishRelay<RxControllerEvent>?
     
-    public func accept(event: RxControllerEvent) {
-        _parentEvents?.accept(event)
-    }
-    
-    public var parentEvents: Observable<RxControllerEvent> {
+    public var parentEvents: PublishRelay<RxControllerEvent> {
         guard let events = _parentEvents else {
             Log.debug("No prerent events found in \(type(of: self))!")
-            return Observable.just(.none)
+            return PublishRelay()
         }
-        return events.asObservable()
+        return events
     }
     
 }

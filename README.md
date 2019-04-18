@@ -73,8 +73,8 @@ We define a event struct in the parent view model.
 
 ```Swift
 struct InfoEvent {
-    static let name = RxControllerEventType(type: String.self)
-    static let number = RxControllerEventType(type: String.self)
+    static let name = RxControllerEvent.identifier()
+    static let number = RxControllerEvent.identifier()
 }
 ```
 
@@ -87,7 +87,7 @@ events.accept(InfoEvent.name.event("Alice"))
 Send a event from the child view model.
 
 ```Swift
-accept(event: accept(event: InfoEvent.name.event("Alice")
+parentEvents.accept(event: InfoEvent.name.event("Alice")
 ```
 
 Receive a event in the parent view model.

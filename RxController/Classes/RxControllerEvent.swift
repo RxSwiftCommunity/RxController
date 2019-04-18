@@ -25,52 +25,33 @@
 
 import RxSwift
 
-public protocol RxControllerEventValue {}
-
-extension Int: RxControllerEventValue {}
-extension Int8: RxControllerEventValue {}
-extension Int16: RxControllerEventValue {}
-extension Int32: RxControllerEventValue {}
-extension Int64: RxControllerEventValue {}
-extension UInt: RxControllerEventValue {}
-extension UInt8: RxControllerEventValue {}
-extension UInt16: RxControllerEventValue {}
-extension UInt32: RxControllerEventValue {}
-extension UInt64: RxControllerEventValue {}
-extension Float: RxControllerEventValue {}
-extension Double: RxControllerEventValue {}
-extension String: RxControllerEventValue {}
-extension Bool: RxControllerEventValue {}
-extension CGFloat: RxControllerEventValue {}
-extension CGSize: RxControllerEventValue {}
-extension CGPoint: RxControllerEventValue {}
-extension CGRect: RxControllerEventValue {}
-
 public struct RxControllerEventType {
+    
     var identifier: String
-    var type: RxControllerEventValue.Type
+    var type: Any.Type
  
-    public init(type: RxControllerEventValue.Type) {
+    public init(type: Any.Type) {
         self.identifier = UUID().uuidString
         self.type = type
     }
     
-    public func event(_ value: RxControllerEventValue) -> RxControllerEvent {
+    public func event(_ value: Any?) -> RxControllerEvent {
         return RxControllerEvent(identifier: identifier, value: value)
     }
+    
 }
 
 public struct RxControllerEvent {
     
     var identifier: String
-    var value: RxControllerEventValue
+    var value: Any?
     
-    init(identifier: String, value: RxControllerEventValue) {
+    init(identifier: String, value: Any?) {
         self.identifier = identifier
         self.value = value
     }
 
-    init<Value: RxControllerEventValue>(type: RxControllerEventType, value: Value) {
+    init<Value>(type: RxControllerEventType, value: Value) {
         self.identifier = type.identifier
         self.value = value
     }
@@ -81,7 +62,7 @@ public struct RxControllerEvent {
 
 extension ObservableType where E == RxControllerEvent {
 
-    public func value<Value: RxControllerEventValue>(of type: RxControllerEventType) -> Observable<Value?> {
+    public func value<Value>(of type: RxControllerEventType) -> Observable<Value?> {
         return filter {
             $0.identifier == type.identifier
         }.map {
@@ -89,14 +70,8 @@ extension ObservableType where E == RxControllerEvent {
         }
     }
     
-    public func value<Value: RxControllerEventValue>(of type: RxControllerEventType) -> Observable<Value> {
-        return filter {
-            $0.identifier == type.identifier
-        }.filter {
-            $0.value is Value
-        }.map {
-            $0.value as! Value
-        }
+    public func valueUnwrap<Value>(of type: RxControllerEventType) -> Observable<Value> {
+        return value(of: type).filter { $0 != nil }.map { $0! }
     }
     
 }

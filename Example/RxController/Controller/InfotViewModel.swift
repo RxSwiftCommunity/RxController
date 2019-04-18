@@ -29,7 +29,8 @@ class InfoViewModel: RxViewModel {
     }
     
     func updateAll() {
-        events.accept(InfoEvent.name.event(faker.name.name()))
+        events.accept(InfoEvent.name.event(nil))
+//        events.accept(InfoEvent.name.event(faker.name.name()))
         events.accept(InfoEvent.number.event(faker.phoneNumber.cellPhone()))
     }
     

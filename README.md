@@ -5,14 +5,20 @@
 [![License](https://img.shields.io/cocoapods/l/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
 [![Platform](https://img.shields.io/cocoapods/p/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
 
-RxController is a library developing with MVVM-C based on **RxFlow** and **RxSwift**.
+RxController is a library for the development with MVVM-C based on **RxFlow** and **RxSwift**.
 If you are not familiar with them, please learn these frameworks at first:
 
 - RxSwift (https://github.com/ReactiveX/RxSwift)
 - RxCocoa (https://github.com/ReactiveX/RxSwift)
 - RxFlow (https://github.com/RxSwiftCommunity/RxFlow)
 
-RxController provides the basic view controller and view model classes.
+RxController provides the the following basic view controller and view model classes.
+
+- RxViewController
+- RxViewModel
+- RxChildViewController
+- RxChildViewModel
+
 These classes make it easy to transfer data among the flows, the parent view models and the child view models.
 
 ## Documentaion
@@ -26,7 +32,7 @@ pod 'RxController'
 
 ### Example
 
-The example app helps you to understanding how to use RxController.
+The example app helps you to understand how to use RxController.
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ### Generic class of View Controller
@@ -66,7 +72,7 @@ func navigate(to step: Step) -> FlowContributors {
 
 ### Data Transportion among parent and child view models
 
-In a standard MVVM-C architecture using RxFlow, view models exchange data via the flow classes using the `steps.accept()` method.
+In a standard MVVM-C architecture using RxFlow, view models exchange data via the a flow class using the `steps.accept()` method.
 With `RxChildViewModel` and `RxChildViewController`, we can exchange data among parent and child view models without the flow class.
 
 We define a event struct in the parent view model.

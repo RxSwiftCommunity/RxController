@@ -75,13 +75,13 @@ func navigate(to step: Step) -> FlowContributors {
 In a standard MVVM-C architecture using RxFlow, view models exchange data via the a flow class using the `steps.accept()` method.
 With `RxChildViewModel` and `RxChildViewController`, we can exchange data among parent and child view models without the flow class.
 
-Use the following method to add a child view controller to the root view or a customzied view of its parent controller.
+Use the following method to add a child view controller to the root view or a customized view of its parent controller.
 
 ```Swift
 // Add a child view controller to the root view of its parent controller.
 func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, completion: ((UIView) -> Void)? = nil)
 
-// add a child view controller to a customzied view of its parent controller.
+// add a child view controller to a customized view of its parent controller.
 func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil)
 ```
 

@@ -55,6 +55,10 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
     }
     
     public func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
+        addChild(childController, to: view, completion: completion)
+    }
+    
+    public func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil) {
         // Set the parent events property of the child view model.
         childController.viewModel._parentEvents = viewModel.events
         
@@ -62,7 +66,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
         addChild(childController)
         view.addSubview(childController.view)
         childController.didMove(toParent: self)
-
+        
         completion?(childController.view)
     }
   

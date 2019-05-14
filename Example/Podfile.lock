@@ -5,7 +5,7 @@ PODS:
     - RxSwift (~> 4.5)
   - RxCocoa (4.5.0):
     - RxSwift (>= 4.4.2, ~> 4.4)
-  - RxController (0.1):
+  - RxController (0.2.1):
     - RxCocoa (~> 4.5)
     - RxFlow (~> 2.1)
     - RxSwift (~> 4.5)
@@ -38,7 +38,7 @@ SPEC CHECKSUMS:
   Fakery: 885e894a3e7c392e1da96c6e46a1abe5a0b28686
   RxBinding: 6be1d63cb1e24927fe153fd8f0c2d73519bc59ce
   RxCocoa: cbf70265dc65a981d4ac982e513c10cf23df24a0
-  RxController: 80c2159b5f97fcc0720b092a010be9f299a60fdc
+  RxController: 930d6a174520d4d317e1ad738c42e2123c4a6cbe
   RxFlow: 78df76493bd7fc6a0181014cc2be3f29a2cd54fb
   RxSwift: f172070dfd1a93d70a9ab97a5a01166206e1c575
   SnapKit: fe8a619752f3f27075cc9a90244d75c6c3f27e2a

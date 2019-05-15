@@ -107,14 +107,13 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      @param view: a customzied view.
     */
     public func addFullSizeChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, to view: UIView) {
-        addChild(childController, to: view) { [unowned self] in
+        addChild(childController, to: view) { [unowned view] in
             $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-            $0.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-            $0.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-            $0.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+            $0.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+            $0.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+            $0.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            $0.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         }
     }
   
 }
-

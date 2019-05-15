@@ -46,6 +46,12 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
         Log.debug("[DEINIT View Controller] \(type(of: self))")
     }
 
+    /**
+     Remove all child view controllers from this parent view controller,
+     an except list can be specified.
+     
+     @param excepts: an except list
+    */
     public func removeChildViewControllers(excepts: [UIViewController?] = []) {
         children.filter { !excepts.contains($0) }.forEach {
             $0.willMove(toParent: self)
@@ -54,10 +60,23 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
         }
     }
     
+    /**
+     Add a child view controller to the root view of this parent view controller.
+     
+     @param childController: a child view controller.
+     @param completion: a cloure which will be executed after adding the child view controller.
+     */
     public func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
         addChild(childController, to: view, completion: completion)
     }
     
+    /**
+     Add a child view controller to a customized view of this parent view controller.
+     
+     @param childController: a child view controller.
+     @param view: a customzied view.
+     @param completion: a cloure which will be executed after adding the child view controller.
+    */
     public func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil) {
         // Set the parent events property of the child view model.
         childController.viewModel._parentEvents = viewModel.events
@@ -68,6 +87,33 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
         childController.didMove(toParent: self)
         
         completion?(childController.view)
+    }
+    
+    /**
+     Add a child view controller to the root view of this parent view controller,
+     and make the size and center same as the root view.
+     
+     @param childController: a child view controller.
+    */
+    public func addFullSizeChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>) {
+        addFullSizeChild(childController, to: view)
+    }
+    
+    /**
+     Add a child view controller to a customized view of this parent view controller,
+     and make the size and center same as the customized view.
+     
+     @param childController: a child view controller.
+     @param view: a customzied view.
+    */
+    public func addFullSizeChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, to view: UIView) {
+        addChild(childController, to: view) { [unowned self] in
+            $0.translatesAutoresizingMaskIntoConstraints = false
+            $0.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+            $0.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+            $0.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+            $0.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        }
     }
   
 }

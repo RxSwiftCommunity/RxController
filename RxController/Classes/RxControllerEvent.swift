@@ -53,7 +53,7 @@ public struct RxControllerEvent {
     
 }
 
-extension ObservableType where E == RxControllerEvent {
+extension ObservableType where Element == RxControllerEvent {
 
     public func value<T>(of identifier: RxControllerEvent.Identifier) -> Observable<T?> {
         return filter {

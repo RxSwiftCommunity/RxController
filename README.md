@@ -122,6 +122,16 @@ var name: Observable<String?> {
 }
 ```
 
+### Send a step to Flow from child view model
+
+In a general way, The method `steps.accpet()` of RxFlow cannot be revoked from a child view model, because we do not return the instances of the child view controller and child view model in the `navigate(to)` method of a flow.
+
+To solve this problem, RxController provides a method `acceptStepsEvent` in the child view model, using the data transportation introduced above.
+
+```Swift
+acceptStepsEvent(DemoStep.stepname)
+```
+
 ## Author
 
 lm2343635, lm2343635@126.com

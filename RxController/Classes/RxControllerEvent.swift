@@ -46,6 +46,7 @@ public struct RxControllerEvent {
     }
 
     static let none = RxControllerEvent(identifier: .none, value: nil)
+    static let steps = RxControllerEvent.identifier()
     
     public static func identifier() -> Identifier {
         return Identifier(id: UUID().uuidString)

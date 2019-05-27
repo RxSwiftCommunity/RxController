@@ -23,6 +23,12 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import RxFlow
+
 open class RxChildViewController<ViewModel: RxChildViewModel>: RxViewController<ViewModel> {
+    
+    public func acceptStepsEvent(_ step: Step) {
+        viewModel.acceptStepsEvent(step)
+    }
     
 }

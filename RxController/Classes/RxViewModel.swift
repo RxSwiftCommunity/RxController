@@ -32,9 +32,28 @@ open class RxViewModel: NSObject, Stepper {
     public let steps = PublishRelay<Step>()
     public let events = PublishRelay<RxControllerEvent>()
     public let disposeBag = DisposeBag()
+
+    public override init() {
+        super.init()
+        
+        let stepEvents: Observable<Step> = events.unwrappedValue(of: RxControllerEvent.steps)
+        stepEvents.subscribe(onNext: { [unowned self] in
+            self.steps.accept($0)
+        }).disposed(by: disposeBag)
+    }
     
     deinit {
         Log.debug("[DEINIT View Model] \(type(of: self))")
+    }
+    
+    public func addChildModel(_ viewModel: RxChildViewModel) {
+        viewModel._parentEvents = events
+    }
+    
+    public func addChildModels(_ viewModels: RxChildViewModel...) {
+        viewModels.forEach {
+            $0._parentEvents = events
+        }
     }
     
 }

@@ -25,6 +25,7 @@
 
 import RxSwift
 import RxCocoa
+import RxFlow
 
 open class RxChildViewModel: RxViewModel {
     
@@ -38,5 +39,8 @@ open class RxChildViewModel: RxViewModel {
         return events
     }
     
+    public func acceptStepsEvent(_ step: Step) {
+        parentEvents.accept(RxControllerEvent.steps.event(step))
+    }
+    
 }
-

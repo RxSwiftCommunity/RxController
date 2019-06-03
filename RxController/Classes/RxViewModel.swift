@@ -46,14 +46,29 @@ open class RxViewModel: NSObject, Stepper {
         Log.debug("[DEINIT View Model] \(type(of: self))")
     }
     
-    public func addChildModel(_ viewModel: RxChildViewModel) {
+    public func addChildModel(_ viewModel: RxViewModel) {
         viewModel._parentEvents = events
     }
     
-    public func addChildModels(_ viewModels: RxChildViewModel...) {
+    public func addChildModels(_ viewModels: RxViewModel...) {
         viewModels.forEach {
             $0._parentEvents = events
         }
+    }
+    
+    
+    weak var _parentEvents: PublishRelay<RxControllerEvent>?
+    
+    public var parentEvents: PublishRelay<RxControllerEvent> {
+        guard let events = _parentEvents else {
+            Log.debug("No prerent events found in \(type(of: self))!")
+            return PublishRelay()
+        }
+        return events
+    }
+    
+    public func acceptStepsEvent(_ step: Step) {
+        parentEvents.accept(RxControllerEvent.steps.event(step))
     }
     
 }

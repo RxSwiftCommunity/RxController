@@ -10,7 +10,7 @@ import RxSwift
 import RxController
 import Fakery
 
-class NameViewModel: RxChildViewModel {
+class NameViewModel: RxViewModel {
     
     private let faker = Faker(locale: "nb-NO")
 

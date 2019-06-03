@@ -9,7 +9,7 @@
 import UIKit
 import RxController
 
-class NameViewController: RxChildViewController<NameViewModel> {
+class NameViewController: RxViewController<NameViewModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()

@@ -47,7 +47,7 @@ class InfoViewController: RxViewController<InfoViewModel> {
         addChild(nameViewController) {
             $0.snp.makeConstraints {
                 $0.left.right.equalToSuperview()
-                $0.height.equalTo(100)
+                $0.height.equalTo(360)
                 $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
             }
         }
@@ -62,11 +62,6 @@ class InfoViewController: RxViewController<InfoViewModel> {
         
         viewModel.name ~> nameLabel.rx.text ~ disposeBag
         viewModel.number ~> numberLabel.rx.text ~ disposeBag
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.updateAll()
     }
     
     private func createConstraints() {

@@ -13,12 +13,16 @@ class NameViewController: RxViewController<NameViewModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "NameChildViewController"
+        label.text = "NameMidChildViewController"
         label.textColor = .blue
         return label
     }()
     
-    private lazy var nameLabel = UILabel()
+    private lazy var nameLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        return label
+    }()
     
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
@@ -38,6 +42,10 @@ class NameViewController: RxViewController<NameViewModel> {
         return button
     }()
     
+    private lazy var firstNameViewController = FirstNameViewController(viewModel: viewModel.firstNameViewModel)
+    
+    private lazy var lastNameViewController = LastNameViewController(viewModel: viewModel.lastNameViewModel)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -47,9 +55,31 @@ class NameViewController: RxViewController<NameViewModel> {
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
         createConstraints()
+
+        addChild(firstNameViewController) {
+            $0.snp.makeConstraints {
+                $0.left.right.equalToSuperview()
+                $0.height.equalTo(100)
+                $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
+            }
+        }
+        
+        addChild(lastNameViewController) {
+            $0.snp.makeConstraints {
+                $0.left.right.equalToSuperview()
+                $0.height.equalTo(100)
+                $0.top.equalTo(self.firstNameViewController.view.snp.bottom).offset(30)
+            }
+        }
         
         viewModel.name ~> nameLabel.rx.text ~ disposeBag
         viewModel.number ~> numberLabel.rx.text ~ disposeBag
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.updateName()
     }
     
     private func createConstraints() {

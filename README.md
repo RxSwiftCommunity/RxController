@@ -16,8 +16,6 @@ RxController provides the the following basic view controller and view model cla
 
 - RxViewController
 - RxViewModel
-- RxChildViewController
-- RxChildViewModel
 
 These classes make it easy to transfer data among the flows, the parent view models and the child view models.
 
@@ -37,8 +35,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ### Generic class of View Controller
 
-RxController provides generic classes `RxViewController` and `RxChildViewController`.
-With the genric classes, RxController avoids using an `Optional` or an `Implicit Unwrapping Option` type for the view model property in the view controller class.
+RxController provides a generic classes `RxViewController`.
+It avoids using an `Optional` or an `Implicit Unwrapping Option` type for the view model property in the view controller class.
 
 In the demo app, we define the view model class by extending the RxViewModel class, and the view controller class by extending the RxViewController generic class.
 
@@ -73,19 +71,19 @@ func navigate(to step: Step) -> FlowContributors {
 ### Data Transportion among parent and child view models
 
 In a standard MVVM-C architecture using RxFlow, view models exchange data via the a flow class using the `steps.accept()` method.
-With `RxChildViewModel` and `RxChildViewController`, we can exchange data among parent and child view models without the flow class.
+With `RxChildViewModel`, we can exchange data among parent and child view models without the flow class.
 
 Use the following method to add a child view controller to the root view or a customized view of its parent controller.
 
 ```Swift
 // Add a child view controller to the root view of its parent controller.
-func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, completion: ((UIView) -> Void)? = nil)
+func addChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil)
 
 // add a child view controller to a customized view of its parent controller.
-func addChild<ViewModel: RxChildViewModel>(_ childController: RxChildViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil)
+func addChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil)
 ```
 
-We define a event struct in the parent view model.
+To transfer data among view models, we define some events with a struct in the parent view model.
 
 ```Swift
 struct InfoEvent {
@@ -94,19 +92,24 @@ struct InfoEvent {
 }
 ```
 
-Send a event from the parent view model.
+![Platform](https://raw.githubusercontent.com/lm2343635/RxController/master/images/viewmodel.jpg)
+
+As shown in the graph, the events can only be transfered among a parent view model and its first generation child view models.
+For example, the `InfoEvent` we defined above, is enabled among `InfoViewModel`, `NameViewModel` and `NumberViewModel`.
+
+Send a event from the parent view model (`InfoViewModel `).
 
 ```Swift
 events.accept(InfoEvent.name.event("Alice"))
 ```
 
-Send a event from the child view model.
+Send a event from the child view model (`NameViewModel` and `NumberViewModel`).
 
 ```Swift
 parentEvents.accept(event: InfoEvent.name.event("Alice")
 ```
 
-Receive a event in the parent view model.
+Receive a event in the parent view model (`InfoViewModel `).
 
 ```Swift
 var name: Observable<String?> {
@@ -114,7 +117,7 @@ var name: Observable<String?> {
 }
 ```
 
-Receive a event in the child view model.
+Receive a event in the child view model (`NameViewModel` and `NumberViewModel`).
 
 ```Swift
 var name: Observable<String?> {
@@ -122,7 +125,7 @@ var name: Observable<String?> {
 }
 ```
 
-### Send a step to Flow from child view model
+### Send a step to Flow from a child view model
 
 In a general way, The method `steps.accpet()` of RxFlow cannot be revoked from a child view model, because we do not return the instances of the child view controller and child view model in the `navigate(to)` method of a flow.
 

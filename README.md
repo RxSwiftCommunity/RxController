@@ -135,6 +135,31 @@ To solve this problem, RxController provides a method `acceptStepsEvent` in the 
 acceptStepsEvent(DemoStep.stepname)
 ```
 
+### Lifecycle for view model
+
+RxController supports lifecycle for view model.
+A method in the view model class is corresponding to a method in the view controller class.
+
+| View Model | View Controller |
+| ----- | :----: |
+| func controllerDidLoad() | func viewDidLoad()  |
+| func controllerDidAppear()  | func viewDidAppear(_ animated: Bool) |
+| func controllerDidDisappear()  | func viewDidDisappear(_ animated: Bool) |
+| func controllerWillAppear()  | func viewWillAppear(_ animated: Bool) |
+| func controllerWillDisappear()  | func viewWillDisappear(_ animated: Bool) |
+
+For example, when the `viewDidLoad` method in the view controller is invoked, the `controllerDidLoad` method in its view model will also be invoked.
+
+Subscribing the `RxControllerEvent` in the `init` method of the view model is not effective.
+It necessary to subscribe the `RxControllerEvent` in the lifecycle methods like:
+
+```Swift
+override func controllerDidLoad() {
+    parentEvents.unwrappedValue(of: Event.sample, type: EventData.self)
+    	.bind(to: data).disposed(by: disposeBag)
+}
+```
+
 ## Author
 
 lm2343635, lm2343635@126.com

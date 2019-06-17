@@ -32,7 +32,7 @@ open class RxViewModel: NSObject, Stepper {
     public let steps = PublishRelay<Step>()
     public let events = PublishRelay<RxControllerEvent>()
     public let disposeBag = DisposeBag()
-
+    
     public override init() {
         super.init()
         
@@ -46,6 +46,16 @@ open class RxViewModel: NSObject, Stepper {
         Log.debug("[DEINIT View Model] \(type(of: self))")
     }
     
+    open func controllerDidLoad() {}
+    
+    open func controllerDidAppear() {}
+    
+    open func controllerDidDisappear() {}
+    
+    open func controllerWillAppear() {}
+    
+    open func controllerWillDisappear() {}
+    
     public func addChildModel(_ viewModel: RxViewModel) {
         viewModel._parentEvents = events
     }
@@ -55,7 +65,6 @@ open class RxViewModel: NSObject, Stepper {
             $0._parentEvents = events
         }
     }
-    
     
     weak var _parentEvents: PublishRelay<RxControllerEvent>?
     
@@ -72,3 +81,4 @@ open class RxViewModel: NSObject, Stepper {
     }
     
 }
+

@@ -79,9 +79,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      */
     public func removeRxChilds(excepts: [RxViewController?] = []) {
         children.filter {
-            !excepts.compactMap {
-                $0 as? UIViewController
-            }.contains($0)
+            !excepts.compactMap { $0 }.contains($0)
         }.forEach {
             $0.willMove(toParent: self)
             $0.view.removeFromSuperview()

@@ -70,23 +70,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
         super.viewWillAppear(animated)
         viewModel.controllerWillDisappear()
     }
-    
-    /**
-     Remove all child view controllers from this parent view controller,
-     an except list can be specified.
-     
-     @param excepts: an except list
-     */
-    public func removeRxChilds(excepts: [RxViewController?] = []) {
-        children.filter {
-            !excepts.compactMap { $0 }.contains($0)
-        }.forEach {
-            $0.willMove(toParent: self)
-            $0.view.removeFromSuperview()
-            $0.removeFromParent()
-        }
-    }
-    
+
     /**
      Add a child view controller to the root view of this parent view controller.
      

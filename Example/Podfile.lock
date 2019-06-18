@@ -6,7 +6,7 @@ PODS:
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxController (0.3):
+  - RxController (0.5):
     - RxCocoa (~> 5)
     - RxFlow (~> 2)
     - RxSwift (~> 5)
@@ -42,7 +42,7 @@ SPEC CHECKSUMS:
   Fakery: 476f6d947de432f84703acc830a1e7166330299b
   RxBinding: 58be2cf1311165489a66eacb4a3e33932d598a53
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxController: 3bc5f3950348597eeb0a77f34008067b656eeb8c
+  RxController: 8974c8fdf3da1e334bea5d74b98287792428553d
   RxFlow: ee6f1fdbacfa4ca8926122e466dfba32e3edf73f
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
@@ -50,4 +50,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 2f6e11b870557e69628937de873ffa2335467951
 
-COCOAPODS: 1.7.0
+COCOAPODS: 1.7.2

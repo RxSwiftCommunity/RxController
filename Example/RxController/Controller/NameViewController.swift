@@ -56,7 +56,7 @@ class NameViewController: RxViewController<NameViewModel> {
         view.addSubview(updateButton)
         createConstraints()
 
-        addChild(firstNameViewController) {
+        addRxChild(firstNameViewController) {
             $0.snp.makeConstraints {
                 $0.left.right.equalToSuperview()
                 $0.height.equalTo(100)
@@ -64,7 +64,7 @@ class NameViewController: RxViewController<NameViewModel> {
             }
         }
         
-        addChild(lastNameViewController) {
+        addRxChild(lastNameViewController) {
             $0.snp.makeConstraints {
                 $0.left.right.equalToSuperview()
                 $0.height.equalTo(100)

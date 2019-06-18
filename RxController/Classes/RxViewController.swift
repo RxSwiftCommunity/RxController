@@ -77,8 +77,12 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      
      @param excepts: an except list
      */
-    public func removeChildViewControllers(excepts: [UIViewController?] = []) {
-        children.filter { !excepts.contains($0) }.forEach {
+    public func removeRxChilds(excepts: [RxViewController?] = []) {
+        children.filter {
+            !excepts.compactMap {
+                $0 as? UIViewController
+            }.contains($0)
+        }.forEach {
             $0.willMove(toParent: self)
             $0.view.removeFromSuperview()
             $0.removeFromParent()
@@ -91,8 +95,8 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      @param childController: a child view controller.
      @param completion: a cloure which will be executed after adding the child view controller.
      */
-    public func addChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
-        addChild(childController, to: view, completion: completion)
+    public func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
+        addRxChild(childController, to: view, completion: completion)
     }
     
     /**
@@ -102,7 +106,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      @param view: a customzied view.
      @param completion: a cloure which will be executed after adding the child view controller.
      */
-    public func addChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil) {
+    public func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil) {
         // Set the parent events property of the child view model.
         childController.viewModel._parentEvents = viewModel.events
         
@@ -120,8 +124,8 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      
      @param childController: a child view controller.
      */
-    public func addFullSizeChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>) {
-        addFullSizeChild(childController, to: view)
+    public func addFullSizeRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>) {
+        addFullSizeRxChild(childController, to: view)
     }
     
     /**
@@ -131,8 +135,8 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
      @param childController: a child view controller.
      @param view: a customzied view.
      */
-    public func addFullSizeChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView) {
-        addChild(childController, to: view) { [unowned view] in
+    public func addFullSizeRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView) {
+        addRxChild(childController, to: view) { [unowned view] in
             $0.translatesAutoresizingMaskIntoConstraints = false
             $0.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
             $0.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true

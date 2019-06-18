@@ -44,7 +44,7 @@ class InfoViewController: RxViewController<InfoViewModel> {
         view.addSubview(updateButton)
         createConstraints()
         
-        addChild(nameViewController) {
+        addRxChild(nameViewController) {
             $0.snp.makeConstraints {
                 $0.left.right.equalToSuperview()
                 $0.height.equalTo(360)
@@ -52,7 +52,7 @@ class InfoViewController: RxViewController<InfoViewModel> {
             }
         }
         
-        addChild(numberViewController) {
+        addRxChild(numberViewController) {
             $0.snp.makeConstraints {
                 $0.left.right.equalToSuperview()
                 $0.height.equalTo(100)

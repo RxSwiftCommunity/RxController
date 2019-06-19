@@ -44,6 +44,7 @@ class NameViewController: RxViewController<NameViewModel> {
     
     private lazy var firstNameViewController = FirstNameViewController(viewModel: viewModel.firstNameViewModel)
     
+    private lazy var lastNameContainerView = UIView()
     private lazy var lastNameViewController = LastNameViewController(viewModel: viewModel.lastNameViewModel)
     
     override func viewDidLoad() {
@@ -54,23 +55,12 @@ class NameViewController: RxViewController<NameViewModel> {
         view.addSubview(nameLabel)
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
-        createConstraints()
+        view.addSubview(lastNameContainerView)
 
-        addRxChild(firstNameViewController) {
-            $0.snp.makeConstraints {
-                $0.left.right.equalToSuperview()
-                $0.height.equalTo(100)
-                $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
-            }
-        }
+        addChild(firstNameViewController)
+        addChild(lastNameViewController, to: lastNameContainerView)
         
-        addRxChild(lastNameViewController) {
-            $0.snp.makeConstraints {
-                $0.left.right.equalToSuperview()
-                $0.height.equalTo(100)
-                $0.top.equalTo(self.firstNameViewController.view.snp.bottom).offset(30)
-            }
-        }
+        createConstraints()
         
         viewModel.name ~> nameLabel.rx.text ~ disposeBag
         viewModel.number ~> numberLabel.rx.text ~ disposeBag
@@ -105,6 +95,17 @@ class NameViewController: RxViewController<NameViewModel> {
             $0.width.equalTo(150)
         }
         
+        firstNameViewController.view.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(100)
+            $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
+        }
+        
+        lastNameContainerView.snp.makeConstraints {
+            $0.left.right.equalToSuperview()
+            $0.height.equalTo(100)
+            $0.top.equalTo(self.firstNameViewController.view.snp.bottom).offset(30)
+        }
     }
     
 }

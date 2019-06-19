@@ -19,7 +19,16 @@ RxController provides the the following basic view controller and view model cla
 
 These classes make it easy to transfer data among the flows, the parent view models and the child view models.
 
-## Documentaion
+## Recommended guideline
+
+We recommended to develop a MMVM-C based on **RxController**, **RxFlow** and **RxSwift** with this guideline.
+It better to read the documentation of RxController, RxFlow and RxSwift at first, if you are not familiar with them.
+
+- Chapter 1: [Introduction](https://github.com/lm2343635/RxController/blob/master/document/chapter1-introduction.md)
+- Chapter 2: [Using RxFlow](https://github.com/lm2343635/RxController/blob/master/document/chapter2-rxflow.md)
+- Chapter 3: [View controller and view model](https://github.com/lm2343635/RxController/blob/master/document/chapter3-viewcontroller-viewmodel.md)
+
+## Documentation
 
 RxController is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -76,11 +85,21 @@ With `RxChildViewModel`, we can exchange data among parent and child view models
 Use the following method to add a child view controller to the root view or a customized view of its parent controller.
 
 ```Swift
-// Add a child view controller to the root view of its parent controller.
-func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil)
+/**
+ Add a child view controller to the root view of the parent view controller.
 
-// add a child view controller to a customized view of its parent controller.
-func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil)
+ @param childController: a child view controller.
+ */
+override open func addChild(_ childController: UIViewController)
+
+/**
+ Add a child view controller to the a container view of the parent view controller.
+ The edges of the child view controller is same as the container view by default.
+ 
+ @param childController: a child view controller.
+ @param containerView: a container view of childController.
+ */
+open func addChild(_ childController: UIViewController, to containerView: UIView)
 ```
 
 To transfer data among view models, we define some events with a struct in the parent view model.

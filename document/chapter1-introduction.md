@@ -1,4 +1,4 @@
-# Chatper 1: Indroduction
+# Chapter 1: Introduction
 
 This guideline introduces how to develop a MVVM-C app based the RxController library.
 We will call MVVM directly in this guideline, it represents MVVM-C design pattern.

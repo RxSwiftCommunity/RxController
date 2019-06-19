@@ -27,11 +27,23 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-open class RxViewController<ViewModel: RxViewModel>: UIViewController {
+protocol RxViewControllerProtocol {
+    var view: UIView! { get }
+    var rxViewModel: RxViewModel { get }
     
+    func didMove(toParent parent: UIViewController?)
+    func addChild(_ childVC: UIViewController)
+    func addChild(_ childController: UIViewController, to containerView: UIView)
+}
+
+open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewControllerProtocol {
     public let disposeBag = DisposeBag()
     public let mainScheduler = MainScheduler.instance
     public let viewModel: ViewModel
+    
+    var rxViewModel: RxViewModel {
+        return viewModel
+    }
     
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
@@ -73,58 +85,44 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController {
 
     /**
      Add a child view controller to the root view of this parent view controller.
-     
+
      @param childController: a child view controller.
-     @param completion: a cloure which will be executed after adding the child view controller.
      */
-    public func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil) {
-        addRxChild(childController, to: view, completion: completion)
-    }
-    
-    /**
-     Add a child view controller to a customized view of this parent view controller.
-     
-     @param childController: a child view controller.
-     @param view: a customzied view.
-     @param completion: a cloure which will be executed after adding the child view controller.
-     */
-    public func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil) {
-        // Set the parent events property of the child view model.
-        childController.viewModel._parentEvents = viewModel.events
+    override open func addChild(_ childController: UIViewController) {
+        super.addChild(childController)
         
-        // Add child view controller to the parent view controller.
-        addChild(childController)
+        guard let childController = childController as? RxViewControllerProtocol else { return }
+        viewModel.addChildModel(childController.rxViewModel)
+        
+        // Set the parent events property of the child view model.
+        childController.rxViewModel._parentEvents = viewModel.events
+        
         view.addSubview(childController.view)
         childController.didMove(toParent: self)
-        
-        completion?(childController.view)
     }
-    
+
     /**
-     Add a child view controller to the root view of this parent view controller,
-     and make the size and center same as the root view.
-     
-     @param childController: a child view controller.
+     Add a child view controller to the root view of this parent view controller.
+
+     @param containerView: a container view of childController.
      */
-    public func addFullSizeRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>) {
-        addFullSizeRxChild(childController, to: view)
-    }
-    
-    /**
-     Add a child view controller to a customized view of this parent view controller,
-     and make the size and center same as the customized view.
-     
-     @param childController: a child view controller.
-     @param view: a customzied view.
-     */
-    public func addFullSizeRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView) {
-        addRxChild(childController, to: view) { [unowned view] in
-            $0.translatesAutoresizingMaskIntoConstraints = false
-            $0.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-            $0.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-            $0.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            $0.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        }
+    open func addChild(_ childController: UIViewController, to containerView: UIView) {
+        super.addChild(childController)
+        guard let childController = childController as? RxViewControllerProtocol else { return }
+        viewModel.addChildModel(childController.rxViewModel)
+
+        // Set the parent events property of the child view model.
+        childController.rxViewModel._parentEvents = viewModel.events
+
+        // Add child view controller to the parent view controller.
+        containerView.addSubview(childController.view)
+        childController.didMove(toParent: self)
+
+        childController.view.translatesAutoresizingMaskIntoConstraints = false
+        childController.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        childController.view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
+        childController.view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
+        childController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
     }
     
 }

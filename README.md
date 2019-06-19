@@ -77,10 +77,10 @@ Use the following method to add a child view controller to the root view or a cu
 
 ```Swift
 // Add a child view controller to the root view of its parent controller.
-func addChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil)
+func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, completion: ((UIView) -> Void)? = nil)
 
 // add a child view controller to a customized view of its parent controller.
-func addChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil)
+func addRxChild<ViewModel: RxViewModel>(_ childController: RxViewController<ViewModel>, to view: UIView, completion: ((UIView) -> Void)? = nil)
 ```
 
 To transfer data among view models, we define some events with a struct in the parent view model.

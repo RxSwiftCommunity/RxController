@@ -144,6 +144,16 @@ var name: Observable<String?> {
 }
 ```
 
+Pay attention to that **subscribing the `RxControllerEvent` in the `init` method of the view model is not effective**.
+It necessary to subscribe the `RxControllerEvent` in the `prepareForParentEvents` methods like:
+
+```Swift
+override func prepareForParentEvents() {
+    parentEvents.unwrappedValue(of: Event.sample, type: EventData.self)
+    	.bind(to: data).disposed(by: disposeBag)
+}
+```
+
 ### Send a step to the flow from a child view model
 
 In a general way, the method `steps.accpet()` of RxFlow cannot be revoked from a child view model, because we didn't return the instances of the child view controller and child view model in the `navigate(to)` method of a flow.
@@ -152,31 +162,6 @@ To solve this problem, RxController provides a method `acceptStepsEvent` in the 
 
 ```Swift
 acceptStepsEvent(DemoStep.stepname)
-```
-
-### Lifecycle for view model
-
-RxController supports lifecycle for view model.
-A method in the view model class is corresponding to a method in the view controller class.
-
-| View Model | View Controller |
-| ----- | ---- |
-| func controllerDidLoad() | func viewDidLoad()  |
-| func controllerDidAppear()  | func viewDidAppear(_ animated: Bool) |
-| func controllerDidDisappear()  | func viewDidDisappear(_ animated: Bool) |
-| func controllerWillAppear()  | func viewWillAppear(_ animated: Bool) |
-| func controllerWillDisappear()  | func viewWillDisappear(_ animated: Bool) |
-
-For example, when the `viewDidLoad` method in the view controller is invoked, the `controllerDidLoad` method in its view model will also be invoked.
-
-Subscribing the `RxControllerEvent` in the `init` method of the view model is not effective.
-It necessary to subscribe the `RxControllerEvent` in the lifecycle methods like:
-
-```Swift
-override func controllerDidLoad() {
-    parentEvents.unwrappedValue(of: Event.sample, type: EventData.self)
-    	.bind(to: data).disposed(by: disposeBag)
-}
 ```
 
 ## Author

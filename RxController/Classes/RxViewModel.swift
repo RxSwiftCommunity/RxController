@@ -46,15 +46,7 @@ open class RxViewModel: NSObject, Stepper {
         Log.debug("[DEINIT View Model] \(type(of: self))")
     }
     
-    open func controllerDidLoad() {}
-    
-    open func controllerDidAppear() {}
-    
-    open func controllerDidDisappear() {}
-    
-    open func controllerWillAppear() {}
-    
-    open func controllerWillDisappear() {}
+    open func prepareForParentEvents() {}
     
     public func addChildModel(_ viewModel: RxViewModel) {
         viewModel._parentEvents = events
@@ -66,11 +58,15 @@ open class RxViewModel: NSObject, Stepper {
         }
     }
     
-    weak var _parentEvents: PublishRelay<RxControllerEvent>?
+    weak var _parentEvents: PublishRelay<RxControllerEvent>? {
+        didSet {
+            prepareForParentEvents()
+        }
+    }
     
     public var parentEvents: PublishRelay<RxControllerEvent> {
         guard let events = _parentEvents else {
-            Log.debug("No prerent events found in \(type(of: self))!")
+            Log.debug("parentEvents have NOT been prepared in \(type(of: self))!\n use prepareForParentEvents if you subscribed parentEvents.")
             return PublishRelay()
         }
         return events

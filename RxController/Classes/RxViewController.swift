@@ -29,10 +29,6 @@ import RxCocoa
 
 protocol RxViewControllerProtocol {
     var rxViewModel: RxViewModel { get }
-    
-    func didMove(toParent parent: UIViewController?)
-    func addChild(_ childVC: UIViewController)
-    func addChild(_ childController: UIViewController, to containerView: UIView)
 }
 
 open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewControllerProtocol {
@@ -57,31 +53,6 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         Log.debug("[DEINIT View Controller] \(type(of: self))")
     }
     
-    open override func viewDidLoad() {
-        super.viewDidLoad()
-        viewModel.controllerDidLoad()
-    }
-    
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        viewModel.controllerDidAppear()
-    }
-    
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        viewModel.controllerDidDisappear()
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.controllerWillAppear()
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.controllerWillDisappear()
-    }
-
     /**
      Add a child view controller to the root view of the parent view controller.
 

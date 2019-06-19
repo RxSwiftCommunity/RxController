@@ -28,7 +28,6 @@ import RxSwift
 import RxCocoa
 
 protocol RxViewControllerProtocol {
-    var view: UIView! { get }
     var rxViewModel: RxViewModel { get }
     
     func didMove(toParent parent: UIViewController?)
@@ -91,14 +90,14 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     override open func addChild(_ childController: UIViewController) {
         super.addChild(childController)
         
+        view.addSubview(childController.view)
+        childController.didMove(toParent: self)
+        
         guard let childController = childController as? RxViewControllerProtocol else { return }
         viewModel.addChildModel(childController.rxViewModel)
         
         // Set the parent events property of the child view model.
         childController.rxViewModel._parentEvents = viewModel.events
-        
-        view.addSubview(childController.view)
-        childController.didMove(toParent: self)
     }
 
     /**
@@ -108,21 +107,21 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
      */
     open func addChild(_ childController: UIViewController, to containerView: UIView) {
         super.addChild(childController)
-        guard let childController = childController as? RxViewControllerProtocol else { return }
-        viewModel.addChildModel(childController.rxViewModel)
-
-        // Set the parent events property of the child view model.
-        childController.rxViewModel._parentEvents = viewModel.events
-
         // Add child view controller to the parent view controller.
         containerView.addSubview(childController.view)
         childController.didMove(toParent: self)
-
+        
         childController.view.translatesAutoresizingMaskIntoConstraints = false
         childController.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
         childController.view.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
         childController.view.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         childController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
+        
+        guard let childController = childController as? RxViewControllerProtocol else { return }
+        viewModel.addChildModel(childController.rxViewModel)
+
+        // Set the parent events property of the child view model.
+        childController.rxViewModel._parentEvents = viewModel.events
     }
     
 }

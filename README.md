@@ -26,7 +26,10 @@ It better to read the documentation of RxController, RxFlow and RxSwift at first
 
 - Chapter 1: [Introduction](https://github.com/lm2343635/RxController/blob/master/document/chapter1-introduction.md)
 - Chapter 2: [Using RxFlow](https://github.com/lm2343635/RxController/blob/master/document/chapter2-rxflow.md)
-- Chapter 3: [View controller and view model](https://github.com/lm2343635/RxController/blob/master/document/chapter3-viewcontroller-viewmodel.md)
+- Chapter 3: [View controller](https://github.com/lm2343635/RxController/blob/master/document/chapter3-viewcontroller.md)
+- Chapter 4: [View model](https://github.com/lm2343635/RxController/blob/master/document/chapter4-viewmodel.md)
+- Chapter 5: [View](https://github.com/lm2343635/RxController/blob/master/document/chapter5-view.md)
+- Chapter 6: [Table and collection view cell](https://github.com/lm2343635/RxController/blob/master/document/chapter6-cell.md)
 
 ## Documentation
 

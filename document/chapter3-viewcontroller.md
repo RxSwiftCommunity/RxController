@@ -2,7 +2,7 @@
 
 This chapter introduces the rule of view controller and view model classes.
 
-### 3.1 Using RxViewController
+## 3.1 Using RxViewController
 
 RxController provides a basic view controller `RxViewController` (generic classes) and a basic view model `RxViewModel`.
 
@@ -23,7 +23,7 @@ class BaseViewModel: RxViewModel {
 
 **All the view model classes should extend the BaseViewModel**
 
-### 3.2 Structure of view controller
+## 3.2 Structure of view controller
 
 The code in the view controller should follow the order:
 
@@ -213,48 +213,20 @@ private enum Const {
 }
 ```
 
-### 3.2 Structure of view model
+## 3.3 Using child view controller or customized view
 
-The structure of view models is flexible than view controllers.
-The code in the view model should follow the order:
+A view controller needs multiple child view controller or customized view to reduce the complexity.
+**Cusztomized view is recommended for showing data only, or handling a simple action like tap.**
+We don't receommend to use RxSwift directly in a customized view.
+**To handle complex actions, a child view controller is receommened.**
+A child view controller also extends the BaseViewController, so it can take advantage of view model and RxSwift.
 
-### Define the private properties
+![Platform](https://raw.githubusercontent.com/lm2343635/RxController/master/images/child_view_controllers.jpg)
 
-```swift
-private let user = BehaviorRelay<User>(value: User())
-```
-### Init method
+**Using a container view is recommended for a child view controller.**
+For example, to add the `childViewController1` into the parent view controller, a container view `containerView1` should be prepared at first.
+The constraints is applied to the containerView1.
+When we invoke the `addChild(childViewController1, to: containerView1)`, the root view of the child view controller will be added to `containerView1`.
+The edges of the root view is same as `containerView1`.
 
-```swift
-override init() {
-    super.init()
-    // Do something here.
-}
-```
-
-### Override methods and properties.
-
-```swift
-override func prepareForParentEvents() {
-    // Do something here.
-}
-```
-### Computed peropertis.
-
-The computed observable properties is prepared for data binding in the `viewDidLoad` method of is view controller class.
-
-```swift
-var name: Observable<String?> {
-    return user.map { user.name }
-}
-```
-
-**The name of computed observable propertie is the prefix of the subview's name.**
-
-```swift
-viewModel.name ~> nameLabel.rx.text
-```
-
-### Methods.
-
-Private methods and internal method should be written at last.
+A child view controller (`childViewController2`) may have its own child view controllers (`childViewController3`).

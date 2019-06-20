@@ -8,6 +8,8 @@ In RxFlow, a step enum is a way to express a state that can lead to a navigation
 A flow class which holds the references of some view controllers and flows, defines a navigation area in your application.
 **Each flow is corresponding to a step, the names of them are same.**
 
+## 2.1 Start app with RxFlow
+
 An `AppFlow`, which is corresponding to `AppStep` is recommended as a start flow in our guideline.
 
 ```swift
@@ -69,3 +71,72 @@ private func coordinate(to: (UIWindow) -> (Flow, Step)) {
     window.makeKeyAndVisible()
 }
 ```
+
+## 2.2　Screen transition
+
+RxFlow controls screen transition among view controllers.
+A step enum defines a navigation area, each step defines a transition between two view controllers.
+
+For example, a `SigninFlow` contains a `SignViewController` ans `SignupViewController`.
+It containts the following 3 steps:
+- `start`: When this flow is loaded, the `SignViewController` will be shown.
+- `signup`: When the `Sign Up` button in the `SignViewController` is clicked, the `SignupViewController` will be presented with a modal.
+- `signupIsComplete`: If user submit the form in the `SignupViewController`, the `SignupViewController` will be dismissed.
+
+```swift
+enum SigninStep {
+    case start
+    case signup
+    case signupIsComplete
+}
+```
+
+As same as `AppFlow`, we return `signinViewController` for `root`, and implement `navigate(to step:)` method.
+**In a step, returning with `.viewController(vc)` is required for navigating to a new view controller.**
+Otherwise, the `steps` relay cannot be used in the view model of this new view controller.
+In this example, we return with `.viewController(vc)` in the `.start` step and `.signinStep`.
+
+```swift
+class SigninFlow: Flow {
+    
+    var root: Presentable {
+        return signinViewController
+    }
+    
+    private lazy var signinViewController = SigninViewController()
+    
+    func navigate(to step: Step) -> FlowContributors {
+        guard let sininStep = step as? SigninStep else {
+            return .none
+        }
+        switch sininStep {
+        case .start:
+            return .viewController(signinViewController)
+        case .signup:
+            let signupViewController = SignupViewController(viewModel: .init())
+            signinViewController.present(signupViewController, animated: true)
+            return .viewController(signupViewController)
+        case .signupIsComplete:
+            guard let signupViewController = signinViewController.presentedViewController as? SignupViewController else {
+                return .none             
+            }
+            signupViewController.dismiss(animated: true)
+            return .none   
+        }
+    }
+    
+}
+```
+
+To back to the `SigninViewController` from `SignupViewController`, we invoke `steps.accept(SigninStep.signupIsComplete)` in the view model of `SignupViewController`.
+
+```swift
+func signup() {
+    // Sign up related code here...
+    
+    // Back to signin
+    steps.accept(SigninStep.signupIsComplete)
+}
+```
+
+**All screen transitions should be managed in the flows.**

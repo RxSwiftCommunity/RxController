@@ -51,3 +51,5 @@ viewModel.name ~> nameLabel.rx.text
 ### Methods.
 
 Private methods and internal method should be written at last.
+
+## 4.2 Data transportation among view models

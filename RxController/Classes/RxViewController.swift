@@ -32,6 +32,7 @@ protocol RxViewControllerProtocol {
 }
 
 open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewControllerProtocol {
+    
     public let disposeBag = DisposeBag()
     public let mainScheduler = MainScheduler.instance
     public let viewModel: ViewModel

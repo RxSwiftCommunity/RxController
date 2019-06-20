@@ -30,7 +30,7 @@ import RxFlow
 open class RxViewModel: NSObject, Stepper {
     
     public let steps = PublishRelay<Step>()
-    public let events = PublishRelay<RxControllerEvent>()
+    public let events = BehaviorRelay<RxControllerEvent>(value: RxControllerEvent.none)
     public let disposeBag = DisposeBag()
     
     public override init() {
@@ -58,16 +58,16 @@ open class RxViewModel: NSObject, Stepper {
         }
     }
     
-    weak var _parentEvents: PublishRelay<RxControllerEvent>? {
+    weak var _parentEvents: BehaviorRelay<RxControllerEvent>? {
         didSet {
             prepareForParentEvents()
         }
     }
     
-    public var parentEvents: PublishRelay<RxControllerEvent> {
+    public var parentEvents: BehaviorRelay<RxControllerEvent> {
         guard let events = _parentEvents else {
             Log.debug("parentEvents have NOT been prepared in \(type(of: self))!\n use prepareForParentEvents if you subscribed parentEvents.")
-            return PublishRelay()
+            return BehaviorRelay(value: RxControllerEvent.none)
         }
         return events
     }

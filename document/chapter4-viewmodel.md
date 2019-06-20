@@ -1,5 +1,7 @@
 # Chapter 4: View model
 
+This chapter introduces the rule of view model.
+
 ## 4.1 Structure of view model
 
 The structure of view models is flexible than view controllers.
@@ -8,13 +10,12 @@ The code in the view model should follow the order:
 ### Define the private properties
 
 Private properties contain both general type (`Int`, `String`, `Bool`, `User`), and RxSwift type (`BehaviourRelay`, `PublishSubject`) .
-**The general type is on the top of the RxSwift type.**
+**The general type should be on the top of the RxSwift type.**
 
 ```swift
 private let isVisable = true
 private let userRealy = BehaviorRelay<User>(value: User())
 ```
-
 
 ### Init method
 

@@ -1,6 +1,6 @@
 # Chapter 3: View controller and view model
 
-This chapter introduces the rule of view controller and view model classes.
+This chapter introduces the rule of view controller.
 
 ## 3.1 Using RxViewController
 
@@ -169,8 +169,6 @@ Add other lifecycle methods here if needed.
 
 A contraints method contains the SnapKit constraint creators of all the views in this view controller.
 
-**The constants used in the closure should be define in a private enum `Const` before the view controller**
-
 ```swift
 private func createConstraints() {
     
@@ -188,30 +186,9 @@ private func createConstraints() {
 }
 ```
 
-**The sub enum in the `Const` enum is corresponding to the subview, and it name is the prefix of the subview's name.**
+### Other methods.
 
-```swift
-demoView -> enum Demo
-demoLabel -> enum Demo
-```
-
-The demo code of `Const` enum:
-
-```swift
-private enum Const {
-    
-    enum Title {
-        static let marginTop = 11
-        static let marginBottom = 17
-    }
-    
-    enum Close {
-        static let size = 24
-        static let marginRight = 11
-    }
-    
-}
-```
+The private methods should be on the top of the internal methods.
 
 ## 3.3 Using child view controller or customized view
 
@@ -230,3 +207,69 @@ When we invoke the `addChild(childViewController1, to: containerView1)`, the roo
 The edges of the root view is same as `containerView1`.
 
 A child view controller (`childViewController2`) may have its own child view controllers (`childViewController3`).
+
+## 3.4 Create constraints with SnapKit
+
+**As a general rule, `makeConstraints` methods is recommened to be written in the `createConstraints` method.**
+Sometimes, we need to add and remove views dynamically.
+In this situation, `makeConstraints` methods may be written in other private methods.
+
+**The constants used in the closure should be define in a private enum `Const` before the view controller.**
+The demo code of `Const` enum:
+
+```swift
+private enum Const {
+    enum Title {
+        static let marginTop = 11
+        static let marginBottom = 17
+    }
+    
+    enum Close {
+        static let size = 24
+        static let marginRight = 11
+    }
+}
+```
+
+**The type of the property is recommened to be omitted if possible**
+
+**The sub enum in the `Const` enum is corresponding to the subview, and it name is the prefix of the subview's name.**
+
+```
+demoView -> enum Demo
+demoLabel -> enum Demo
+```
+
+**The order of the subenums should be same as the definition of the corresponding views.**
+If there is a container view which contains multiple views, the following code is recommend.
+
+```swift
+private enum Const {
+    enum Container {
+        static let marginTop = 11
+        
+        enum Name {
+             marginTop = 11
+        }
+        
+        enum Icon {
+             marginTop = 11
+        }
+    }
+
+}
+```
+
+**Making contraints in the clousre should follow the the orders.**
+
+- size. 
+    - width
+    - height
+- center
+    - centerX
+    - centerY
+- margin
+    - left(or leading) 
+    - top
+    - right(or trailing)
+    - bottom

@@ -1,9 +1,15 @@
 # Chapter 5: View
 
+This chapter introduces the rule of view including system views of UIKit and customized views.
+
+** The MVC design pattern + Reactive extension is recommended to develop a customized view. **
+We don't recommend to use RxSwift and MVVM directly in a customized view, because managing the `disposeBag` in the view may cause some issues about memory leak.
+
 ## 4.1 Structure of a customized view model
 
 We have introduced the difference between the view controller and the customized view model.
 We can simply understand the customized view model as a simple view controller without view model.
+
 The code in the customized view model should follow the order:
 
 ### Define views
@@ -11,8 +17,42 @@ The code in the customized view model should follow the order:
 The rule of the view definition is same as view controller.
 
 ### Define other private properties
+
+Private properties stores the state of views.
+
+```swift
+private var isButtonEnable = false
+```
+
 ### Init method
+
+Without lifecycle like view controller, we can add subviews to the view and create constraints directly in the `init` method.
+
+```swift
+class InfoView: UIView {
+
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .red
+        label.textAlignment = .center
+        return label
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        addSubview(titleLabel)
+        createConstraints()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+```
+
 ### Override methods and properties.
+
 ### Create constraints method.
 
 The rule of the `createcConstraints` method is same as view controller.

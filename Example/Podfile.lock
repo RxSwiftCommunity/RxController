@@ -1,14 +1,29 @@
 PODS:
+  - Differentiator (4.0.1)
   - Fakery (4.0.0)
+  - Reusable (4.1.0):
+    - Reusable/Storyboard (= 4.1.0)
+    - Reusable/View (= 4.1.0)
+  - Reusable/Storyboard (4.1.0)
+  - Reusable/View (4.1.0)
   - RxBinding (0.3.1):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxController (0.6.1):
+  - RxController (0.7.1):
     - RxCocoa (~> 5)
     - RxFlow (~> 2)
+    - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - RxDataSourcesSingleSection (0.1.1):
+    - Reusable (~> 4)
+    - RxCocoa (~> 5)
+    - RxDataSources (~> 4)
     - RxSwift (~> 5)
   - RxFlow (2.3.0):
     - RxCocoa (>= 5.0.0)
@@ -22,13 +37,18 @@ DEPENDENCIES:
   - Fakery
   - RxBinding
   - RxController (from `../`)
+  - RxDataSourcesSingleSection
   - SnapKit
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Differentiator
     - Fakery
+    - Reusable
     - RxBinding
     - RxCocoa
+    - RxDataSources
+    - RxDataSourcesSingleSection
     - RxFlow
     - RxRelay
     - RxSwift
@@ -39,15 +59,19 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   Fakery: 476f6d947de432f84703acc830a1e7166330299b
+  Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
   RxBinding: 58be2cf1311165489a66eacb4a3e33932d598a53
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxController: a0403861815325dabb2d1df627e08935667a7d5d
+  RxController: 307e8b0442d370b621d310c23b7211768a49adae
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
+  RxDataSourcesSingleSection: 42ee6900e6c069ce2d0bb9a1cd81308dce772d28
   RxFlow: ee6f1fdbacfa4ca8926122e466dfba32e3edf73f
   RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
   RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SnapKit: fd22d10eb9aff484d79a8724eab922c1ddf89bcf
 
-PODFILE CHECKSUM: 2f6e11b870557e69628937de873ffa2335467951
+PODFILE CHECKSUM: 71d0f85c23e546fe2a83be7e433383a1abd1a857
 
 COCOAPODS: 1.7.2

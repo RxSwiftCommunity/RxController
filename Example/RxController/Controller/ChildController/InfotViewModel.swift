@@ -33,4 +33,8 @@ class InfoViewModel: RxViewModel {
         events.accept(InfoEvent.number.event(faker.phoneNumber.cellPhone()))
     }
     
+    func close() {
+        steps.accept(AppStep.childIsComplete)
+    }
+    
 }

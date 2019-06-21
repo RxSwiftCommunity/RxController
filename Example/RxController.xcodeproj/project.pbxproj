@@ -13,6 +13,9 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
+		7716933D22BCB26A00140179 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716933C22BCB26A00140179 /* MenuViewController.swift */; };
+		7716933F22BCB27600140179 /* MenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716933E22BCB27600140179 /* MenuViewModel.swift */; };
+		7716934122BCB2EA00140179 /* SelectionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7716934022BCB2EA00140179 /* SelectionTableViewCell.swift */; };
 		771FB71922A4C45900E4F6B6 /* FirstNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FB71822A4C45900E4F6B6 /* FirstNameViewController.swift */; };
 		771FB71B22A4C46A00E4F6B6 /* FirstNameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FB71A22A4C46A00E4F6B6 /* FirstNameViewModel.swift */; };
 		771FB71D22A4C47800E4F6B6 /* LastNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 771FB71C22A4C47800E4F6B6 /* LastNameViewController.swift */; };
@@ -52,6 +55,9 @@
 		607FACE51AFB9204008FA782 /* RxController_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxController_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
+		7716933C22BCB26A00140179 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
+		7716933E22BCB27600140179 /* MenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewModel.swift; sourceTree = "<group>"; };
+		7716934022BCB2EA00140179 /* SelectionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionTableViewCell.swift; sourceTree = "<group>"; };
 		771FB71822A4C45900E4F6B6 /* FirstNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstNameViewController.swift; sourceTree = "<group>"; };
 		771FB71A22A4C46A00E4F6B6 /* FirstNameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstNameViewModel.swift; sourceTree = "<group>"; };
 		771FB71C22A4C47800E4F6B6 /* LastNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LastNameViewController.swift; sourceTree = "<group>"; };
@@ -177,7 +183,7 @@
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
-		77EE85232266DC8B00F06394 /* Controller */ = {
+		7716934222BCB3AB00140179 /* ChildController */ = {
 			isa = PBXGroup;
 			children = (
 				771FB71822A4C45900E4F6B6 /* FirstNameViewController.swift */,
@@ -190,6 +196,17 @@
 				77EE851C22656EC400F06394 /* NameViewModel.swift */,
 				77EE851E22656EEB00F06394 /* NumberViewController.swift */,
 				77EE852022656EF600F06394 /* NumberViewModel.swift */,
+			);
+			path = ChildController;
+			sourceTree = "<group>";
+		};
+		77EE85232266DC8B00F06394 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				7716934222BCB3AB00140179 /* ChildController */,
+				7716933C22BCB26A00140179 /* MenuViewController.swift */,
+				7716933E22BCB27600140179 /* MenuViewModel.swift */,
+				7716934022BCB2EA00140179 /* SelectionTableViewCell.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -373,10 +390,14 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-RxController_Example/Pods-RxController_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
 				"${BUILT_PRODUCTS_DIR}/Fakery/Fakery.framework",
+				"${BUILT_PRODUCTS_DIR}/Reusable/Reusable.framework",
 				"${BUILT_PRODUCTS_DIR}/RxBinding/RxBinding.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxController/RxController.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
+				"${BUILT_PRODUCTS_DIR}/RxDataSourcesSingleSection/RxDataSourcesSingleSection.framework",
 				"${BUILT_PRODUCTS_DIR}/RxFlow/RxFlow.framework",
 				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
@@ -384,10 +405,14 @@
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Fakery.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reusable.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxBinding.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxController.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSourcesSingleSection.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxFlow.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
@@ -406,12 +431,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				771FB71B22A4C46A00E4F6B6 /* FirstNameViewModel.swift in Sources */,
+				7716933F22BCB27600140179 /* MenuViewModel.swift in Sources */,
 				771FB71D22A4C47800E4F6B6 /* LastNameViewController.swift in Sources */,
+				7716934122BCB2EA00140179 /* SelectionTableViewCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* InfoViewController.swift in Sources */,
 				77EE85172265684A00F06394 /* AppFlow.swift in Sources */,
 				77EE851922656BBE00F06394 /* InfotViewModel.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				77EE851B22656EBA00F06394 /* NameViewController.swift in Sources */,
+				7716933D22BCB26A00140179 /* MenuViewController.swift in Sources */,
 				771FB71922A4C45900E4F6B6 /* FirstNameViewController.swift in Sources */,
 				77EE852122656EF600F06394 /* NumberViewModel.swift in Sources */,
 				77EE851D22656EC400F06394 /* NameViewModel.swift in Sources */,
@@ -498,7 +526,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -547,7 +575,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -561,7 +589,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RxController/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -576,7 +604,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RxController/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";

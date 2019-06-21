@@ -22,7 +22,7 @@ These classes make it easy to transfer data among the flows, the parent view mod
 ## Recommended guideline
 
 We recommended to develop a MMVM-C based on **RxController**, **RxFlow** and **RxSwift** with this guideline.
-It better to read the documentation of RxController, RxFlow and RxSwift at first, if you are not familiar with them.
+It better to read the documentation of [RxController](https://github.com/lm2343635/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift) at first, if you are not familiar with them.
 
 - Chapter 1: [Introduction](https://github.com/lm2343635/RxController/blob/master/document/chapter1-introduction.md)
 - Chapter 2: [Using RxFlow](https://github.com/lm2343635/RxController/blob/master/document/chapter2-rxflow.md)

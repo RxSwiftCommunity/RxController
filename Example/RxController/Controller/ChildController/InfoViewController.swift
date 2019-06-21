@@ -32,9 +32,20 @@ class InfoViewController: RxViewController<InfoViewModel> {
         return button
     }()
     
-    private lazy var nameViewController = NameViewController(viewModel: .init())
-    
     private lazy var numberContainerView = UIView()
+    
+    private lazy var closeButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("Close", for: .normal)
+        button.backgroundColor = .blue
+        button.rx.tap.bind { [unowned self] in
+            self.viewModel.close()
+        }.disposed(by: disposeBag)
+        return button
+    }()
+    
+    private lazy var nameViewController = NameViewController(viewModel: .init())
+
     private lazy var numberViewController = NumberViewController(viewModel: .init())
 
     override func viewDidLoad() {
@@ -45,6 +56,7 @@ class InfoViewController: RxViewController<InfoViewModel> {
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
         view.addSubview(numberContainerView)
+        view.addSubview(closeButton)
         
         addChild(nameViewController)
         addChild(numberViewController, to: numberContainerView)
@@ -82,6 +94,11 @@ class InfoViewController: RxViewController<InfoViewModel> {
             $0.left.right.equalToSuperview()
             $0.height.equalTo(100)
             $0.top.equalTo(self.nameViewController.view.snp.bottom).offset(30)
+        }
+        
+        closeButton.snp.makeConstraints {
+            $0.centerX.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
         }
     }
     

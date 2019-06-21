@@ -11,6 +11,8 @@ import RxFlow
 
 enum AppStep: Step {
     case start
+    case child
+    case childIsComplete
 }
 
 class AppFlow: Flow {
@@ -34,9 +36,25 @@ class AppFlow: Flow {
         }
         switch appStep {
         case .start:
+            let menuViewController = MenuViewController(viewModel: .init())
+            navigationController.pushViewController(menuViewController, animated: false)
+            return .viewController(menuViewController)
+        case .child:
+            guard let menuViewController = navigationController.topViewController as? MenuViewController else {
+                return .none
+            }
             let infoViewController = InfoViewController(viewModel: InfoViewModel())
-            navigationController.pushViewController(infoViewController, animated: false)
+            menuViewController.present(infoViewController, animated: true)
             return .viewController(infoViewController)
+        case .childIsComplete:
+            guard
+                let menuViewController = navigationController.topViewController as? MenuViewController,
+                let infoViewController = menuViewController.presentedViewController as? InfoViewController
+            else {
+                return .none
+            }
+            infoViewController.dismiss(animated: true)
+            return .none
         }
     }
     

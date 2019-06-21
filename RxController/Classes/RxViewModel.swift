@@ -30,11 +30,21 @@ import RxFlow
 open class RxViewModel: NSObject, Stepper {
     
     public let steps = PublishRelay<Step>()
-    public let events = BehaviorRelay<RxControllerEvent>(value: RxControllerEvent.none)
+    public let events = PublishRelay<RxControllerEvent>()
     public let disposeBag = DisposeBag()
+    private var cachedEvents = [RxControllerEvent]()
     
     public override init() {
         super.init()
+        
+        events.subscribe(onNext: { [unowned self] in
+            let cachedEventIds = self.cachedEvents.map { $0.identifier.id }
+            if let index = cachedEventIds.firstIndex(of: $0.identifier.id) {
+                self.cachedEvents[index] = $0
+            } else {
+                self.cachedEvents.append($0)
+            }
+        }).disposed(by: disposeBag)
         
         let stepEvents: Observable<Step> = events.unwrappedValue(of: RxControllerEvent.steps)
         stepEvents.subscribe(onNext: { [unowned self] in
@@ -56,24 +66,32 @@ open class RxViewModel: NSObject, Stepper {
     
     public func addChild(_ viewModel: RxViewModel) {
         viewModel._parentEvents = events
+        republishEvents()
     }
     
     public func addChildren(_ viewModels: RxViewModel...) {
         viewModels.forEach {
             $0._parentEvents = events
         }
+        republishEvents()
     }
     
-    weak var _parentEvents: BehaviorRelay<RxControllerEvent>? {
+    private func republishEvents() {
+        cachedEvents.forEach {
+            events.accept($0)
+        }
+    }
+    
+    weak var _parentEvents: PublishRelay<RxControllerEvent>? {
         didSet {
             prepareForParentEvents()
         }
     }
     
-    public var parentEvents: BehaviorRelay<RxControllerEvent> {
+    public var parentEvents: PublishRelay<RxControllerEvent> {
         guard let events = _parentEvents else {
             Log.debug("parentEvents have NOT been prepared in \(type(of: self))!\n use prepareForParentEvents if you subscribed parentEvents.")
-            return BehaviorRelay(value: RxControllerEvent.none)
+            return PublishRelay()
         }
         return events
     }

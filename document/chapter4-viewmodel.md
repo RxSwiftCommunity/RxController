@@ -17,6 +17,15 @@ private let isVisable = true
 private let userRealy = BehaviorRelay<User>(value: User())
 ```
 
+**The name of RxSwift properties should containts a short suffix like `Relay` or `Subject`**
+
+```swift
+private let userRealy = BehaviorRelay<User>(value: User())
+private let iconRealy = PublishRelay<UIImage?>()
+private let userSubject = BehaviorSubject<User>()
+private let iconSubject = PublishSubject<UIImage>(value: User())
+```
+
 ### Init method
 
 ```swift

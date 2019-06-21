@@ -40,6 +40,12 @@ open class RxViewModel: NSObject, Stepper {
         stepEvents.subscribe(onNext: { [unowned self] in
             self.steps.accept($0)
         }).disposed(by: disposeBag)
+        
+        steps.subscribe(onNext: { [unowned self] in
+            if let parentEvents = self._parentEvents {
+                parentEvents.accept(RxControllerEvent.steps.event($0))
+            }
+        }).disposed(by: disposeBag)
     }
     
     deinit {
@@ -48,11 +54,11 @@ open class RxViewModel: NSObject, Stepper {
     
     open func prepareForParentEvents() {}
     
-    public func addChildModel(_ viewModel: RxViewModel) {
+    public func addChild(_ viewModel: RxViewModel) {
         viewModel._parentEvents = events
     }
     
-    public func addChildModels(_ viewModels: RxViewModel...) {
+    public func addChildren(_ viewModels: RxViewModel...) {
         viewModels.forEach {
             $0._parentEvents = events
         }
@@ -70,10 +76,6 @@ open class RxViewModel: NSObject, Stepper {
             return BehaviorRelay(value: RxControllerEvent.none)
         }
         return events
-    }
-    
-    public func acceptStepsEvent(_ step: Step) {
-        parentEvents.accept(RxControllerEvent.steps.event(step))
     }
     
 }

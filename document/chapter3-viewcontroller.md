@@ -178,9 +178,9 @@ private func createConstraints() {
     }
     
     closeButton.snp.makeConstraints {
+        $0.size.equalTo(Const.Close.size)
         $0.centerY.equalTo(titleLabel.snp.centerY)
         $0.right.equalToSuperview().offset(-Const.Close.marginRight)
-        $0.size.equalTo(Const.Close.size)
     }
 
 }
@@ -260,7 +260,7 @@ private enum Const {
 }
 ```
 
-**Making contraints in the clousre should follow the the orders.**
+**Making contraints in the clousre should follow the order.**
 
 - size. 
     - width
@@ -273,3 +273,14 @@ private enum Const {
     - top
     - right(or trailing)
     - bottom
+    
+Sometime, we may set multiple constraints in a single line.
+In this line, the multiple constraints should follow this order.
+For multiple lines, the first constraints should follow this order.
+
+```swift
+iconImageView.snp.makeConstraints {
+    $0.size.equalTo(Const.Name.size)
+    $0.top.right.equalToSuperview()
+}
+```

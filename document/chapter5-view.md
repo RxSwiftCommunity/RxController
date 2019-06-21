@@ -62,11 +62,34 @@ var avatar: UIImage? {
 
 **The set method should be on the top of get method.**
 
-### Store properties
+### Store properties with method
 
 The private store properties should be on the top of the internal store properties.
+The store properties is used for saving state of views or the data model.
+
+```swift
+var user: User? {
+    didSet {
+        guard let user = user else {
+            return
+        }
+        nameLabel.text = user.name
+        avatarImageView.image = user.avatar
+    }
+}
+```
 
 ## 4.2 Set properties in the closure
 
 We initialize subviews in a view controller or a customized view with closure if some properties need to be set.
 **Setting properties in the closure should follow the orders.**
+
+- UIView or its subclasses
+    - backgroundColor
+- UILabel or its subclasses
+    - text
+    - textAlignment
+    - textColor
+    - font
+- UIImageView or its subclasses
+- UITableView or its subclasses

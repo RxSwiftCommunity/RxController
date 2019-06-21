@@ -14,6 +14,9 @@ The rule of the view definition is same as view controller.
 ### Init method
 ### Override methods and properties.
 ### Create constraints method.
+
+The rule of the `createcConstraints` method is same as view controller.
+
 ### Other methods.
 
 The private methods should be on the top of the internal methods.
@@ -79,17 +82,33 @@ var user: User? {
 }
 ```
 
-## 4.2 Set properties in the closure
+## 4.2 Code in the closure to initialize a view
 
 We initialize subviews in a view controller or a customized view with closure if some properties need to be set.
-**Setting properties in the closure should follow the orders.**
+**The code in the closure should follow the orders.**
 
-- UIView or its subclasses
-    - backgroundColor
-- UILabel or its subclasses
-    - text
-    - textAlignment
-    - textColor
-    - font
-- UIImageView or its subclasses
-- UITableView or its subclasses
+- Part 1: Set properties
+    - Set properties of this view.
+    - Set properties of its subviews, although setting properties of subviews is not recommended.
+    - Set properties of its sublayers
+- Part 2: Methods of this view.
+- Part 3: Add subviews or sublayers
+    - Add subviews.
+    - Add sublayers.
+- Part 4: RxSwift related code.
+    - Subscribe.
+    
+```swift
+private lazy var closeButton: UIButton = {
+    let button = UIButton()
+    button.backgroundColor = .clear
+    button.setImage(R.image.close(), for: .normal)
+    button.addsubView(blurView)
+    button.rx.tap.bind { [unowned self] in
+        self.viewModel.close()
+    }.disposed(by: disposeBag)
+    return button
+}()
+```
+
+## 4.3 Reactive extension for view

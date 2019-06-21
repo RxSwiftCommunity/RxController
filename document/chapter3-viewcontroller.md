@@ -284,3 +284,5 @@ iconImageView.snp.makeConstraints {
     $0.top.right.equalToSuperview()
 }
 ```
+
+## 3.5 Reactive extension for view controller

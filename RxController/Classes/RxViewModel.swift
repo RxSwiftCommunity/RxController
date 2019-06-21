@@ -54,11 +54,11 @@ open class RxViewModel: NSObject, Stepper {
     
     open func prepareForParentEvents() {}
     
-    public func addChildModel(_ viewModel: RxViewModel) {
+    public func addChild(_ viewModel: RxViewModel) {
         viewModel._parentEvents = events
     }
     
-    public func addChildModels(_ viewModels: RxViewModel...) {
+    public func addChildren(_ viewModels: RxViewModel...) {
         viewModels.forEach {
             $0._parentEvents = events
         }

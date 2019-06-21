@@ -23,7 +23,7 @@ class NameViewModel: RxViewModel {
     override init() {
         super.init()
         
-        addChildModels(firstNameViewModel, lastNameViewModel)
+        addChildren(firstNameViewModel, lastNameViewModel)
     }
     
     private let faker = Faker(locale: "nb-NO")

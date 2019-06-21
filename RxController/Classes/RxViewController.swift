@@ -66,10 +66,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         childController.didMove(toParent: self)
         
         guard let childController = childController as? RxViewControllerProtocol else { return }
-        viewModel.addChildModel(childController.rxViewModel)
-        
-        // Set the parent events property of the child view model.
-        childController.rxViewModel._parentEvents = viewModel.events
+        viewModel.addChild(childController.rxViewModel)
     }
 
     /**
@@ -93,10 +90,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         childController.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor).isActive = true
         
         guard let childController = childController as? RxViewControllerProtocol else { return }
-        viewModel.addChildModel(childController.rxViewModel)
-
-        // Set the parent events property of the child view model.
-        childController.rxViewModel._parentEvents = viewModel.events
+        viewModel.addChild(childController.rxViewModel)
     }
     
 }

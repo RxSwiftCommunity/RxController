@@ -31,6 +31,10 @@ extension FlowContributors {
         return .one(flowContributor: .viewController(viewController))
     }
     
+    public static func viewController(_ viewController: UIViewController, with viewModel: Stepper) -> FlowContributors {
+        return .one(flowContributor: .viewController(viewController, with: viewModel))
+    }
+    
     public static func flow(_ flow: Flow, with step: Step) -> FlowContributors {
         return .one(flowContributor: .flow(flow, with: step))
     }

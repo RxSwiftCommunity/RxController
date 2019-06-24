@@ -13,11 +13,12 @@ import RxSwift
 
 private extension Selection {
     static let childController = Selection(title: "Child View Controller Test")
+    static let childNavigationController = Selection(title: "Child View Controller on Navigation Test")
 }
 
 class MenuViewModel: RxViewModel {
     
-    private let selectionsRelay = BehaviorRelay<[Selection]>(value: [.childController])
+    private let selectionsRelay = BehaviorRelay<[Selection]>(value: [.childController, .childNavigationController])
     
     var selectionSection: Observable<SingleSection<Selection>> {
         return selectionsRelay.map {
@@ -32,6 +33,8 @@ class MenuViewModel: RxViewModel {
         switch selectionsRelay.value[index] {
         case .childController:
             steps.accept(AppStep.child)
+        case .childNavigationController:
+            steps.accept(AppStep.childOnNavigation)
         default:
             break
         }

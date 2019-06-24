@@ -54,9 +54,9 @@ class AppFlow: Flow {
                 return .none
             }
             let infoViewController = InfoViewController(viewModel: InfoViewModel())
-            let navigation = UINavigationController(rootViewController: infoViewController)
-            menuViewController.present(navigation, animated: true)
-            return .viewController(navigation, with: infoViewController.viewModel)
+            let navigationController = UINavigationController(rootViewController: infoViewController)
+            menuViewController.present(navigationController, animated: true)
+            return .navigationController(navigationController)
 
         case .childIsComplete:
             guard let menuViewController = navigationController.topViewController as? MenuViewController else {

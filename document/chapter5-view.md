@@ -16,6 +16,18 @@ The code in the customized view model should follow the order:
 
 The rule of the view definition is same as view controller.
 
+```swift
+private lazy var nameLabel: UILabel = {
+    let label = UILabel()
+    label.textColor = UIColor(hex: 0x222222)
+    label.font = UIFont.systemFont(ofSize: 14)
+    return label
+}()
+```
+
+Internal subviews is not recommended in the customzied view.
+Internal methods and propertied is recommended as the wrapper of the methods and properties of the private subviews.
+
 ### Define other private properties
 
 Private properties stores the state of views.
@@ -53,6 +65,25 @@ class InfoView: UIView {
 
 ### Override methods and properties.
 
+Override other methods and properties here.
+Override methods is on the top of override properties.
+
+```swift
+override func configure(model: Model) {
+    nameLabel.text = model.name
+}
+    
+override var isHighlighted: Bool {
+    didSet {
+        if isHighlighted {
+            backgroundView?.backgroundColor = UIColor(hex: 0xdddddd)
+        } else {
+            backgroundView?.backgroundColor = .white
+        }
+    }
+}
+```
+
 ### Create constraints method.
 
 The rule of the `createcConstraints` method is same as view controller.
@@ -60,6 +91,16 @@ The rule of the `createcConstraints` method is same as view controller.
 ### Other methods.
 
 The private methods should be on the top of the internal methods.
+
+```swift
+private func a() {
+
+}
+
+func b() {
+
+}
+```
 
 ### Computed properties.
 
@@ -104,6 +145,9 @@ var avatar: UIImage? {
 ```
 
 **The set method should be on the top of get method.**
+
+We have introduced that internal subviews is not recommended in the customzied view.
+The internal computed properties with both set and get methods is recommended to be used as a wrapper of the properties of subviews.
 
 ### Store properties with method
 
@@ -152,3 +196,50 @@ private lazy var closeButton: UIButton = {
 ```
 
 ## 4.3 Reactive extension for view
+
+Invoking the internal methods and properties in the view controller directly is not recommended in our guideline.
+Because developing with MVVM based on RxSwift, all data should be transferred with the `Observable` object of RxSwift.
+For example, there is a property `name` in a customized view `NameView`.
+
+```swift
+class NameView: UIView {
+
+    // ...
+    
+    var name: String? {
+        set {
+            nameLabel.text = newValue
+        }
+        get {
+            return nameLabel.text
+        }
+    }
+}
+``` 
+
+We define an `Observable` object `name` in the view model class.
+
+```swift
+var name: Observable<String?> {
+    return user.map { $0.name }
+}
+```
+
+We hope to bind `name` to the `nameView` directly rather than subscribing `name` and setting it in the `onNext` closure.
+
+```swift
+viewModel.name ~> nameView.rx.name
+```
+
+**Reactive extension is recommended to bind data for a customized view.**
+For this purpose, it better to create a binder in the reactive extension .
+
+```swift
+extension Reactive where Base: NameView {
+
+    var name: Binder<String?> { view, name in 
+        view.name = name
+    }
+    
+}
+```

@@ -140,3 +140,23 @@ func signup() {
 ```
 
 **All screen transitions should be managed in the flows.**
+
+## 2.3 Present navigation controller in a step
+
+If a navigation controller is presented in a step, you should pay attention to the memory leak issue.
+A navigation controller has a root view controller named `rootViewController` which is a subclass of RxController.
+**DO NOT** return `.viewController(rootViewController)` directly in this step.
+Because he navigation controller is not managed by the RxFlow, a memory leak issue will be caused when this flow is ended.
+
+**Return `.navigationController(navigationController)` in the step, if a navigation controller with a root view controller, which is a subclass of RxController, is presented.**
+
+```swift
+case .childOnNavigation:
+    guard let menuViewController = navigationController.topViewController as? MenuViewController else {
+        return .none
+    }
+    let infoViewController = InfoViewController(viewModel: InfoViewModel())
+    let navigationController = UINavigationController(rootViewController: infoViewController)
+    menuViewController.present(navigationController, animated: true)
+    return .navigationController(navigationController)
+```

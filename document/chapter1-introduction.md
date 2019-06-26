@@ -11,6 +11,15 @@ However, they do not provide a standard coding rule.
 The code style, especially the code of data transportation and controller presentation, will become very flexible.
 This guideline proposes a standard code style using RxController for teamwork development.
 
+This guideline follows the 3 principles:
+
+- **Standardization** : All of the code should follow a standard code style.
+- **Readability** : The pull request should be easy to read and understand.
+- **Modularization** : Module development is recommended, and the API of the module should be simple and easy to read.
+
+The readability is based on the enough understanding of [RxController](https://github.com/lm2343635/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift).
+For module development, the simple API is required, while the code in the module is not required to follow the principles.
+
 ### 1.2 Libraries
 
 This MVVM design pattern of this guideline depends on the following libraries:
@@ -40,3 +49,9 @@ To simplify the code for the single section data source, we use the RxDataSource
 
 - RxBinding (https://github.com/RxSwiftCommunity/RxBinding)
 RxBinding provides `~>`, `<~>` and `~` operators for data binding using RxSwift, to replace the `bind(to:)` and `disposed(by:)` method in RxSwift.
+
+**The operators of RxBinding is recommended to be used in data binding for the view model only.**
+
+```swift
+viewModel.name ~> nameLabel.rx.text
+```

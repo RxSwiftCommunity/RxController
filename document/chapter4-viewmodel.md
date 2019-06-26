@@ -26,6 +26,14 @@ private let userSubject = BehaviorSubject<User>()
 private let iconSubject = PublishSubject<UIImage>(value: User())
 ```
 
+### Define the child view model if needed
+
+Define child view models here if needed with `private lazy var`.
+
+```swift
+private lazy var childViewModel = ChildViewModel()
+```
+
 ### Init method
 
 ```swift

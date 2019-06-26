@@ -50,15 +50,43 @@ override func prepareForParentEvents() {
     // Do something here.
 }
 ```
-### Computed peropertis.
+### Private computed peroperties.
 
-The computed observable properties is prepared for data binding in the `viewDidLoad` method of is view controller class.
+The type (`Int`, `String`, `Bool`, `User`) should be on the top of RxSwift type.
 
 ```swift
-var name: Observable<String?> {
-    return user.map { user.name }
+private var sex: Bool {
+    return userRelay.value.sex
+}
+
+private var name: Observable<String?> {
+    return userRelay.map { $0.name }
 }
 ```
+
+### Private methods.
+
+```swift
+private func setup() {
+
+}
+```
+
+### Internal computed properties.
+
+The type (`Int`, `String`, `Bool`, `User`) should be on the top of RxSwift type.
+
+```swift
+var sex: Bool {
+    return userRelay.value.sex
+}
+
+var name: Observable<String?> {
+    return userRelay.map { $0.name }
+}
+```
+
+The computed observable properties is prepared for data binding in the `viewDidLoad` method of is view controller class.
 
 **The name of computed observable propertie is the prefix of the subview's name.**
 
@@ -66,8 +94,21 @@ var name: Observable<String?> {
 viewModel.name ~> nameLabel.rx.text
 ```
 
-### Methods.
+### Internal methods.
 
-Private methods and internal method should be written at last.
+In a general way, the internal methods of view model are prepared for its view controller class.
+Invoking the internal method in the flow or other view model is not recommended.
+Exchanging data among view models with `steps` and `events` is recommended, this will be introduced in the chapter 4.2.
+
+```swift
+func pick(at index: Int) {
+    // ...
+}
+
+func close() {
+    steps.accept(UserStep.complete)
+}
+
+```
 
 ## 4.2 Data transportation among view models

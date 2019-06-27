@@ -1,9 +1,15 @@
-# RxController
+<p align="center">
+<img src="https://raw.githubusercontent.com/lm2343635/RxController/master/images/logo.jpg" alt="RxController" title="RxController" width="600"/>
+</p>
 
-[![Build Status](https://app.bitrise.io/app/60e541fa833b19d2/status.svg?token=FWKV3OHJ-W0F2AtZP4M1bw&branch=master)](https://app.bitrise.io/app/60e541fa833b19d2)
-[![Version](https://img.shields.io/cocoapods/v/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
-[![License](https://img.shields.io/cocoapods/l/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
-[![Platform](https://img.shields.io/cocoapods/p/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
+<p align="center">
+<a href="https://app.bitrise.io/app/60e541fa833b19d2"><img src="https://app.bitrise.io/app/60e541fa833b19d2/status.svg?token=FWKV3OHJ-W0F2AtZP4M1bw&branch=master"></a>
+<a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/v/RxController.svg?style=flat"></a>
+<a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/l/RxController.svg?style=flat"></a>
+<a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/p/RxController.svg?style=flat"></a>
+</p>
+
+## Introduction.
 
 RxController is a library for the development with MVVM-C based on **RxFlow** and **RxSwift**.
 If you are not familiar with them, please learn these frameworks at first:

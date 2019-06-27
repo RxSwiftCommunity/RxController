@@ -17,7 +17,7 @@ This guideline follows the 3 principles:
 - **Readability** : The pull request should be easy to read and understand.
 - **Modularization** : Module development is recommended, and the API of the module should be simple and easy to read.
 
-The readability is based on the enough understanding of [RxController](https://github.com/lm2343635/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift).
+The readability is based on the enough understanding of [RxController](https://github.com/xflagstudio/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift).
 For module development, the simple API is required, while the code in the module is not required to follow the principles.
 
 ### 1.2 Libraries
@@ -40,7 +40,7 @@ Using storyboard requires to load view controller from storyboard, that is not c
 For this reason, we recommend to use SnapKit to create UI manually rather than using Storyboard.
 
 - RxDataSources (https://github.com/RxSwiftCommunity/RxDataSources)
-- RxDataSourcesSingleSection (https://github.com/lm2343635/RxDataSourcesSingleSection)
+- RxDataSourcesSingleSection (https://github.com/xflagstudio/RxDataSourcesSingleSection)
 RxDataSources provides advanced table and collection view data sources.
 It makes the development of animated table and collection collection easy, because it contains algorithm for calculating differences.
 However, it requires to build a data source with multiple sections for table and collection view.

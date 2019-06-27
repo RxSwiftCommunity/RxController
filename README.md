@@ -1,6 +1,6 @@
 # RxController
 
-[![CI Status](https://img.shields.io/travis/lm2343635/RxController.svg?style=flat)](https://travis-ci.org/lm2343635/RxController)
+[![Build Status](https://app.bitrise.io/app/60e541fa833b19d2/status.svg?token=FWKV3OHJ-W0F2AtZP4M1bw&branch=master)](https://app.bitrise.io/app/60e541fa833b19d2)
 [![Version](https://img.shields.io/cocoapods/v/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
 [![License](https://img.shields.io/cocoapods/l/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)
 [![Platform](https://img.shields.io/cocoapods/p/RxController.svg?style=flat)](https://cocoapods.org/pods/RxController)

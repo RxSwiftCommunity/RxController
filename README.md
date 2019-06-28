@@ -9,7 +9,7 @@
 <a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/p/RxController.svg?style=flat"></a>
 </p>
 
-## Introduction.
+## Introduction
 
 RxController is a library for the development with MVVM-C based on **RxFlow** and **RxSwift**.
 If you are not familiar with them, please learn these frameworks at first:

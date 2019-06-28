@@ -3,7 +3,10 @@
 This chapter introduces the rule of view including system views of UIKit and customized views.
 
 ** The MVC design pattern + Reactive extension is recommended to develop a customized view. **
-We don't recommend to use RxSwift and MVVM directly in a customized view, because managing the `disposeBag` in the view may cause some issues about memory leak.
+We don't recommend to use RxSwift and MVVM directly in a customized view, because managing the `disposeBag` in the view may cause some memory leak issues.
+
+If the customized view is simple and only used in a single view controller, it is recommended to be written as a `private class` at the last of the view controller.
+Otherwise, creating a file for the customized view and implement with a `internal class` is recommended.
 
 ## 4.1 Structure of a customized view model
 

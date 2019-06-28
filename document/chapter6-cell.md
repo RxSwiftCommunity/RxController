@@ -20,7 +20,7 @@ Each cell has its own view model, we call it view object of the cell to distingu
 **The name of the view object is recommended to be same as the prefix of the cell, and `struct` is recommended to define a view object.**
 
 ```swift
-class PersonTableViewCell:  {
+class PersonTableViewCell: UITableViewCell {
 
 }
 

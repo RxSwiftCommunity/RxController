@@ -167,10 +167,10 @@ override func prepareForParentEvents() {
 
 In a general way, the method `steps.accpet()` of RxFlow cannot be revoked from a child view model, because we didn't return the instances of the child view controller and child view model in the `navigate(to)` method of a flow.
 
-To solve this problem, RxController provides a method `acceptStepsEvent` in the child view model, to send a step to the flow from a child view model.
+With RxController, it is able to send a step to the flow from a child view model directly.
 
 ```Swift
-acceptStepsEvent(DemoStep.stepname)
+steps.accept(DemoStep.stepname)
 ```
 
 ## Author

@@ -112,3 +112,72 @@ func close() {
 ```
 
 ## 4.2 Data transportation among view models
+
+We have 3 ways to transport data among view models.
+
+#### Using `steps` of RxFlow
+
+#### Using `events` of RxController
+
+#### Using single instance manager class
+
+**`steps` and `events` is recommended to used for data transportation among view models.**
+
+## 4.3 Error Handling
+
+Using the `bind(to:)` method cannot handle the error.
+Without error handling in the view model, app will crash if an error comes.
+
+**Observable objects for data binding in the view controller class cannot contain error event.**
+
+```swift
+private var userRelay = BehaviourRelay<User?>(value: nil)
+
+override init() {
+    super.init()
+    
+    UserManager.share.getMySelf()
+        .bind(to: userRelay)
+        .disposed(by: disposeBag)
+}
+
+var name: Observable<String?> {
+    return userRelay.map {
+        $0.name
+    }
+}
+
+```
+
+In this situation, if an error comes, the Observable cannot bind to the `userRelay` due to the error.
+Of course, the name cannot be bind the the `nameLabel` in the view controller.
+
+To solve this problem, we have 3 ways:
+
+#### Subscribe the observable
+
+`onError` is ignored automatically after subscribing the observable.
+
+```swift
+UserManager.share.getMySelf().subscribe(onNext: { [unowned self] in
+    self.userRelay.accept($0)
+}).disposed(by: disposeBag)
+```
+
+Of course, if the error should be handled in the view model, `onError` closure is needed.
+
+#### Transform the observable to a driver
+
+```swift
+UserManager.share.getMySelf()
+    .asDriver(onErrorJustReturn: nil)
+    .drive(userRelay)
+    .disposed(by: disposeBag)
+```
+
+Driver does not contains error event.
+Ignore the error and provide a default value if a error event comes.
+
+#### Handling error in your manager classes
+
+The errors should be handled before using the method.

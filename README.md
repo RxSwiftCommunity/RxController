@@ -86,7 +86,7 @@ func navigate(to step: Step) -> FlowContributors {
 }
 ```
 
-### Data Transportion among parent and child view models
+### Exchange ata among parent and child view models
 
 In a standard MVVM-C architecture using RxFlow, view models exchange data via the a flow class using the `steps.accept()` method.
 With `RxChildViewModel`, we can exchange data among parent and child view models without the flow class.
@@ -134,7 +134,7 @@ events.accept(InfoEvent.name.event("Alice"))
 Send a event from the child view model (`NameViewModel` and `NumberViewModel`).
 
 ```Swift
-parentEvents.accept(event: InfoEvent.name.event("Alice")
+parentEvents.accept(event: InfoEvent.name.event("Alice"))
 ```
 
 Receive a event in the parent view model (`InfoViewModel `).

@@ -8,7 +8,7 @@ The content in this guideline is just suggestions for developing a MVVM-C app.
 
 RxSwift and RxFlow help developers to develop an app with MVVM.
 However, they do not provide a standard coding rule.
-The code style, especially the code of data transportation and controller presentation, will become very flexible.
+The code style, especially the code of exchanging data among view models and controller presentation, will become very flexible.
 This guideline proposes a standard code style using RxController for teamwork development.
 
 This guideline follows the 3 principles:
@@ -31,7 +31,7 @@ This MVVM design pattern of this guideline depends on the following libraries:
 
 RxSwift and RxCocoa are basic FRP libraries.
 RxFlow is a coordinator library.
-This library, RxController, provides some wrapper methods for RxFlow, the basic view controller and view model classes, and event based data transportation among view models.
+This library, RxController, provides some wrapper methods for RxFlow, the basic view controller and view model classes, and event based data exchanging among view models.
 
 The following libraries helps us to develop with MVVM easily.
 

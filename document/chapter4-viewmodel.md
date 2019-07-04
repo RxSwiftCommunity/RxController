@@ -7,7 +7,7 @@ This chapter introduces the rule of view model.
 The structure of view models is flexible than view controllers.
 The code in the view model should follow the order:
 
-### Define the private properties
+### Define the private store properties
 
 Private properties contain both general type (`Int`, `String`, `Bool`, `User`), and RxSwift type (`BehaviourRelay`, `PublishSubject`) .
 **The general type should be on the top of the RxSwift type.**
@@ -111,17 +111,102 @@ func close() {
 
 ```
 
-## 4.2 Data transportation among view models
+## 4.2 Exchange data among view models
 
-We have 3 ways to transport data among view models.
+We have 3 ways to exchange data among view models.
 
 #### Using `steps` of RxFlow
 
+A flow contains multiple view controllers.
+**The view models of these view controllers should exchange data using `steps` of RxFlow.**
+
+The type of the exchanging data is defined in the Step enum in the top of the Flow file.
+
+```swift
+enum UserStep {
+    case start
+    case user(User)
+}
+```
+
+The step `user(User)` contains a parameter.
+In the `UserListViewModel`, when the method `steps.accept(UserStep(user))` is invoked, the step will be executed.
+We can get the parameter `user` and initialize `UserViewModel` with the `user` parameter.
+
+```swift
+case .user(let user):
+    let userViewController = UserViewController(viewModel: .init(user: user))
+    navigationController?.push(userViewController, animated: true)
+    return .viewController(userViewController)
+```
+
+Of course, the init method with a user parameter should be prepared in `UserViewModel`.
+
+```swift
+class UserViewModel: BaseViewModel {
+
+    init(user: User) {
+        super.init()
+        
+        // Customized code.    
+    }
+    
+}
+```
+
+Compared to using an internal method,
+**the init method is recommended to pass the parameters to a new view model,**
+because the init method can ensure passing the necessary parameters from grammatical level.
+
 #### Using `events` of RxController
+
+Exchanging data with `steps` among a view model and its child view models requires that the flow holds the references of the view models.
+Many additional steps must be added with frequent data exchanging among child view models and the parent view model.
+For these reasons, **`events` is recommended to change data among a view model and its child view models.**
+
+**All events is recommended to be defined in the top of the parent view model.**
+
+```swift
+struct InfoEvent {
+    static let name = RxControllerEvent.identifier()
+    static let number = RxControllerEvent.identifier()
+}
+```
+
+We have introduced the usage of `events` in the README of RxController. 
+There are the ways to send and receive event in the parent view model and the child view models:
+
+- Send a event from the parent view model (`InfoViewModel `).
+
+```Swift
+events.accept(InfoEvent.name.event("Alice"))
+```
+
+- Send a event from the child view model (`NameViewModel` and `NumberViewModel`).
+
+```Swift
+parentEvents.accept(event: InfoEvent.name.event("Alice"))
+```
+
+- Receive a event in the parent view model (`InfoViewModel `).
+
+```Swift
+var name: Observable<String?> {
+    return events.value(of: InfoEvent.name)
+}
+```
+
+- Receive a event in the child view model (`NameViewModel` and `NumberViewModel`).
+
+```Swift
+var name: Observable<String?> {
+    return parentEvents.value(of: InfoEvent.name)
+}
+```
 
 #### Using single instance manager class
 
-**`steps` and `events` is recommended to used for data transportation among view models.**
+**`steps` and `events` is recommended to used to exchange data among view models.**
 
 ## 4.3 Error Handling
 

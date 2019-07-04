@@ -128,6 +128,9 @@ class SigninFlow: Flow {
 }
 ```
 
+Using a step for multiple screen transitions is difficult to manage.
+For this reason, **One-To-One relationship bwtween a step and a screen transition is recommended.**
+
 To back to the `SigninViewController` from `SignupViewController`, we invoke `steps.accept(SigninStep.signupIsComplete)` in the view model of `SignupViewController`.
 
 ```swift

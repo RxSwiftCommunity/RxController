@@ -164,7 +164,7 @@ Exchanging data with `steps` among a view model and its child view models requir
 Many additional steps must be added with frequent data exchanging among child view models and the parent view model.
 For these reasons, **`events` is recommended to change data among a view model and its child view models.**
 
-**All events is recommended to be defined in the top of the parent view model.**
+**All events is recommended to be defined in the top of the common view model.**
 
 ```swift
 struct InfoEvent {
@@ -172,6 +172,28 @@ struct InfoEvent {
     static let number = RxControllerEvent.identifier()
 }
 ```
+
+A **common** view model depends on the structure of view controllers and the business logic.
+It can be a parent view model or a child view model.
+
+![Child view models](https://raw.githubusercontent.com/lm2343635/RxController/master/images/child_view_models.jpg)
+
+In this graph, there are 6 view models, and the arrows represent the relationship among them.
+There a 3 child view controller systems:
+
+| Systems | Parent view Model | Child view models |
+| ---- | ----- | ---- |
+| A | VM 1 | VM 3 |
+| B | VM 2 | VM 3, WM 4 |
+| C | VM 4 | VM 5, WM 6 |
+
+In the second and third systems (B and C), child view models have common parent view models.
+Parent view models is common view models.
+The events is recommended to be defined in the parent view model in such situations.
+
+However, the parent view controller in the first and the second systems (A and B) has a some child view model.
+Thus, the parent view models (VM 1 and VM2) may send some same objects to the child view model (VM 3).
+In this situation, the child view model (VM 3) is regarded as the common view models, and the events should be defined in the child view model.
 
 We have introduced the usage of `events` in the README of RxController. 
 There are the ways to send and receive event in the parent view model and the child view models:

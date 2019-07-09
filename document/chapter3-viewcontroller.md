@@ -332,3 +332,43 @@ iconImageView.snp.makeConstraints {
 ```
 
 ## 3.5 Reactive extension for view controller
+
+Sometimes, a few lines of code should be executed after updating an observable object in the view model.
+Pay attention that running on the main thread is required if updating UI is needed.  
+For this, observing on the main scheduler is required before subscribing the observable object in the view controller.
+
+```swift
+viewModel.user.observeOn(MainScheduler.instance).subscribe(onNext: { [unowned self] in 
+    // ...
+}).disposed(by: disposeBag)
+```
+
+However, such a way makes the `viewDidLoad` method complicated.
+Although, a private method can solve this problem,
+**reactive extension is recommended to bind a complex observable object.**
+
+Prepare the internal method in a private extension of this view controller at first.
+
+```swift
+private extension UserViewController {
+
+    func updateUser(_ user: User) {
+        // Update user here...
+    }
+    
+}
+```
+
+Then, write a reactive extension for this view controller to bind the observable object.
+
+```swift
+extension Reactive where Base: UserViewController {
+
+    var user: Binder<User> {
+        return Binder(base) { viewController, user in 
+            viewController.updateUser(user)
+        }
+    }
+    
+}
+```

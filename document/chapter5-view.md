@@ -234,7 +234,8 @@ We hope to bind `name` to the `nameView` directly rather than subscribing `name`
 viewModel.name ~> nameView.rx.name
 ```
 
-**Reactive extension is recommended to bind data for a customized view.**
+Here, like the reactive extension in the view controller,
+**reactive extension is recommended to bind data for a customized view.**
 For this purpose, it better to create a binder in the reactive extension .
 
 ```swift
@@ -246,3 +247,7 @@ extension Reactive where Base: NameView {
     
 }
 ```
+
+Compared to the data binding in the view controller, 
+the customized view provides both internal/public properties or methods and reactive extension binder to update UI,
+while the view controller provides the reactive extension binder only.

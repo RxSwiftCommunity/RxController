@@ -206,6 +206,19 @@ var name: Observable<String?> {
 
 #### Using single instance manager class
 
+If a same single instance needs to be shared among multiple view models, using a corresponding instance manager class is better than using `steps` and `events`.
+
+```swift
+class UserManager {
+    static let shared = UserManager()
+    
+    private init() {}
+    
+    let user = UserRepository.shared.observeMySelf()
+}
+```
+
+For most of the data exchanging,
 **`steps` and `events` is recommended to used to exchange data among view models.**
 
 ## 4.3 Error Handling
@@ -239,9 +252,9 @@ Of course, the name cannot be bind the the `nameLabel` in the view controller.
 
 To solve this problem, we have 3 ways:
 
-#### Subscribe the observable
+#### Subscribe the observable object
 
-`onError` is ignored automatically after subscribing the observable.
+`onError` is ignored automatically after subscribing the observable object.
 
 ```swift
 UserManager.share.getMySelf().subscribe(onNext: { [unowned self] in
@@ -251,7 +264,7 @@ UserManager.share.getMySelf().subscribe(onNext: { [unowned self] in
 
 Of course, if the error should be handled in the view model, `onError` closure is needed.
 
-#### Transform the observable to a driver
+#### Transform the observable object to a driver object
 
 ```swift
 UserManager.share.getMySelf()

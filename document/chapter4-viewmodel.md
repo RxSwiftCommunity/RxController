@@ -34,7 +34,7 @@ Define child view models here if needed with `private lazy var`.
 private lazy var childViewModel = ChildViewModel()
 ```
 
-### Deinit Init method
+### Init/Deinit method
 
 Append `init` and `deinit` methods here if needed.
 **`init` method in recommended to be on the top of `deinit` method.**

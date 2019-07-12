@@ -36,18 +36,19 @@ private lazy var childViewModel = ChildViewModel()
 
 ### Deinit Init method
 
-Append `deinit` and `init` methods here if needed.
-**`deinit` method in recommended to be on the top of `init` method.**
+Append `init` and `deinit` methods here if needed.
+**`init` method in recommended to be on the top of `deinit` method.**
 
 ```swift
-deinit {
-    // Do something here.
-}
-
 override init() {
     super.init()
     // Do something here.
 }
+
+deinit {
+    // Do something here.
+}
+
 ```
 
 ### Override methods and properties.

@@ -10,7 +10,7 @@ The code in the view model should follow the order:
 ### Define the private store properties
 
 Private properties contain both general type (`Int`, `String`, `Bool`, `User`), and RxSwift type (`BehaviourRelay`, `PublishSubject`) .
-**The general type should be on the top of the RxSwift type.**
+**The general type should be above the RxSwift type.**
 
 ```swift
 private let isVisable = true
@@ -37,7 +37,7 @@ private lazy var childViewModel = ChildViewModel()
 ### Init/Deinit method
 
 Append `init` and `deinit` methods here if needed.
-**`init` method in recommended to be on the top of `deinit` method.**
+**`init` method in recommended to be above `deinit` method.**
 
 ```swift
 override init() {
@@ -60,7 +60,7 @@ override func prepareForParentEvents() {
 ```
 ### Private computed peroperties.
 
-The type (`Int`, `String`, `Bool`, `User`) should be on the top of RxSwift type.
+The type (`Int`, `String`, `Bool`, `User`) should be above RxSwift type.
 
 ```swift
 private var sex: Bool {
@@ -82,7 +82,7 @@ private func setup() {
 
 ### Internal computed properties.
 
-The type (`Int`, `String`, `Bool`, `User`) should be on the top of RxSwift type.
+The type (`Int`, `String`, `Bool`, `User`) should be above RxSwift type.
 
 ```swift
 var sex: Bool {

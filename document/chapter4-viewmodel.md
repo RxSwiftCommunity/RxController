@@ -34,9 +34,16 @@ Define child view models here if needed with `private lazy var`.
 private lazy var childViewModel = ChildViewModel()
 ```
 
-### Init method
+### Deinit Init method
+
+Append `deinit` and `init` methods here if needed.
+**`deinit` method in recommended to be on the top of `init` method.**
 
 ```swift
+deinit {
+    // Do something here.
+}
+
 override init() {
     super.init()
     // Do something here.

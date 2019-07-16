@@ -1,7 +1,7 @@
 # Chapter 6: Table and collection view cell
 
 This chapter introduces the rule of table and collection view cell.
-As same as the customized view, ** The MVC design pattern + Reactive extension is recommended to develop a cell. **
+As same as the customized view, **The MVC design pattern + Reactive extension is recommended to develop a cell.**
 
 ## 6.1 Structure of cell
 

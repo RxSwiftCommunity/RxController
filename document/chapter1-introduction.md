@@ -55,3 +55,55 @@ RxBinding provides `~>`, `<~>` and `~` operators for data binding using RxSwift,
 ```swift
 viewModel.name ~> nameLabel.rx.text
 ```
+
+### 1.3 Code Style
+
+#### Indent
+
+#### Omit if possible
+
+- Omit `self` keyword if possible
+
+```swift
+viewModel.title ~> titleLabel.rx.text
+```
+
+- Omit `class`, `struct` and `enum` keyword if possible.
+
+```swift
+label.lineBreakMode = .byWordWrapping
+```
+
+- Omit decimal point if possible
+
+```swift
+label.font = .boldSystemFont(ofSize: 48)
+```
+
+- Omit the closure name of a method, if the only one closure parameter of this method is used.
+
+```swift
+UIView.animate(withDuration: 1) { 
+    // Do something ...
+}
+```
+
+**If multiple closure parameters are used, all of the closure names should be written.**
+
+```swift
+UIView.animate(withDuration: 1, animations: { 
+    // Do something ...
+}, completion: {
+    // Do something ...
+})
+```
+
+- Omit the parameter name of a closure, if the closure contains only one parameter.
+
+```swift
+tableView.rx.itemSelected.bind { [unowned self] in
+    self.viewModel.pick(at: $0.row)
+}.disposed(by: disposeBag)
+```
+
+Omit multiple parameter names of a clousre is not recommended.

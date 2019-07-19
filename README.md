@@ -36,6 +36,7 @@ It better to read the documentation of [RxController](https://github.com/xflagst
 - Chapter 4: [View model](https://github.com/xflagstudio/RxController/blob/master/document/chapter4-viewmodel.md)
 - Chapter 5: [View](https://github.com/xflagstudio/RxController/blob/master/document/chapter5-view.md)
 - Chapter 6: [Table and collection view cell](https://github.com/xflagstudio/RxController/blob/master/document/chapter6-cell.md)
+- Chapter 7: [Manager classes](https://github.com/xflagstudio/RxController/blob/master/document/chapter7-manager.md)
 
 ## Documentation
 

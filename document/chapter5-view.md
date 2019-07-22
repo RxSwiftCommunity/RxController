@@ -69,7 +69,7 @@ class InfoView: UIView {
 ### Override methods and properties.
 
 Override other methods and properties here.
-Override methods is on the top of override properties.
+Override methods is above override properties.
 
 ```swift
 override func configure(model: Model) {
@@ -93,7 +93,7 @@ The rule of the `createcConstraints` method is same as view controller.
 
 ### Other methods.
 
-The private methods should be on the top of the internal methods.
+The private methods should be above the internal methods.
 
 ```swift
 private func a() {
@@ -107,8 +107,8 @@ func b() {
 
 ### Computed properties.
 
-The private computed properties should be on the top of the internal computed properties.
-The computed properties with only get method should be on the top of the properties with both set and get methods.
+The private computed properties should be above the internal computed properties.
+The computed properties with only get method should be above the properties with both set and get methods.
 **Definition of computed properties should follow the orders:**
 
 - Private computed properties
@@ -147,14 +147,14 @@ var avatar: UIImage? {
 
 ```
 
-**The set method should be on the top of get method.**
+**The set method should be above get method.**
 
 We have introduced that internal subviews is not recommended in the customzied view.
 The internal computed properties with both set and get methods is recommended to be used as a wrapper of the properties of subviews.
 
 ### Store properties with method
 
-The private store properties should be on the top of the internal store properties.
+The private store properties should be above the internal store properties.
 The store properties is used for saving state of views or the data model.
 
 ```swift

@@ -234,7 +234,7 @@ private func createConstraints() {
 
 ### Other methods.
 
-The private methods should be on the top of the internal methods.
+The private methods should be above the internal methods.
 
 ## 3.3 Using child view controller or customized view
 

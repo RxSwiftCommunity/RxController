@@ -74,7 +74,7 @@ user.filter { $0.id != userId }.map {
 }
 ```
 
-If the last line is ended without an uncompleted closure, the new line should be started with indent.
+If the last line is ended without an uncompleted closure, a property or a method, the new line should be started with indent.
 
 ```swift
 user.filter { $0.id != userId }

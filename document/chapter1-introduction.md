@@ -60,6 +60,27 @@ viewModel.name ~> nameLabel.rx.text
 
 #### Indent
 
+- Continuous methods invoking
+
+Sometimes, methods are invoked continuously like `users.filter().map().reduce()`.
+If thees methods and thier closures are too long, line feed is needed.
+When a new line is started, we should pay attention to the indent.
+
+If the last line is ended with an uncompleted clousre like `user.map {`, the new line should not be started with indent.
+
+```swift
+user.filter { $0.id != userId }.map {
+    UserItem(user: user)
+}
+```
+
+If the last line is ended without an uncompleted closure, the new line should be started with indent.
+
+```swift
+user.filter { $0.id != userId }
+    .map { UserItem(user: user) }
+```
+
 #### Omit if possible
 
 - Omit `self` keyword if possible

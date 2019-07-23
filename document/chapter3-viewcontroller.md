@@ -131,6 +131,7 @@ The following steps should be contained in the `viewDidLoad` method.
 - Create constraints.
 - Add child view controllers.
 - Bind data.
+- Others.
 
 ```swift
 override func viewDidLoad() {
@@ -155,11 +156,17 @@ override func viewDidLoad() {
         viewModel.title ~> titleLabel.rx.text,
         viewModel.cartSection ~> tableView.rx.items(dataSource: dataSource)
     ]
+    
+    // Others.
+    // Do something here.
 }
 ```
 
 We use the operator `~>` and `<~>` of RxBinding to bind data.
-**The order of the bind code should be same as the order of the definition of the views.**
+**The order of the bind code is recommended be same as the order of the definition of the views.**
+
+If a view controller does not extend the RxViewController or its subclass, there is no data binding code in the `viewDidLoad` method.
+If some lines of code for setting data of the subviews are needed, they are recommended to be written in the same position as data binding.
 
 ### Other lifecycle methods.
 

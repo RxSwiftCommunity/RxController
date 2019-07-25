@@ -67,6 +67,7 @@ If thees methods and thier closures are too long, line feed is needed.
 When a new line is started, we should pay attention to the indent.
 
 If the last line is ended with an uncompleted clousre like `user.map {`, the new line should not be started with indent.
+In addition, the indent of the line with the end brace `{` of this closure should be same with the line with the start brace `{`.
 
 ```swift
 user.filter { $0.id != userId }.map {
@@ -80,6 +81,24 @@ If the last line is ended without an uncompleted closure, a property or a method
 user.filter { $0.id != userId }
     .map { UserItem(user: user) }
 ```
+
+#### Line feed
+
+A line which contains more than 127 characters cannot be shown completely in the Github code viewer.
+Depends on you browser, the number of the visible characters may be different.
+
+When a line contains more than 127 characters, we can divided it into multiple line.
+A new line is recommended when a method is invoked or a closure content is started.
+
+```swift
+var name: Observable<String?> {
+    return user.map { $0.name }.distinctUntilChanged().take(1).map {
+        return R.string.localizable.user_profile_full_name($0)
+    }
+}
+```
+
+However, for the continuous semantic structure like `user_profile_full_name($0)`, a new line is not recommended although its line contains more than 127 characters.
 
 #### Omit if possible
 

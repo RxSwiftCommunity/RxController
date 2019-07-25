@@ -23,7 +23,7 @@ private let userRealy = BehaviorRelay<User>(value: User())
 private let userRealy = BehaviorRelay<User>(value: User())
 private let iconRealy = PublishRelay<UIImage?>()
 private let userSubject = BehaviorSubject<User>()
-private let iconSubject = PublishSubject<UIImage>(value: User())
+private let iconSubject = PublishSubject<UIImage>()
 ```
 
 ### Define the child view model if needed

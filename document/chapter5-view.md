@@ -69,13 +69,9 @@ class InfoView: UIView {
 ### Override methods and properties.
 
 Override other methods and properties here.
-Override methods is above override properties.
+Override properties is above override methods.
 
 ```swift
-override func configure(model: Model) {
-    nameLabel.text = model.name
-}
-    
 override var isHighlighted: Bool {
     didSet {
         if isHighlighted {
@@ -84,6 +80,10 @@ override var isHighlighted: Bool {
             backgroundView?.backgroundColor = .white
         }
     }
+}
+
+override func configure(model: Model) {
+     nameLabel.text = model.name
 }
 ```
 

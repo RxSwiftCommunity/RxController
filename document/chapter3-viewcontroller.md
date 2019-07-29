@@ -121,6 +121,18 @@ required init?(coder aDecoder: NSCoder) {
 
 Just invoke `fatalError` method in `required init?(coder aDecoder: NSCoder)` because we do not support storyboard.
 
+### Override properties.
+
+```swift
+override var shouldAutorotate: Bool {
+    return false
+}
+
+override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+    return .portrait
+}
+```
+
 ### viewDidLoad method
 
 The following steps should be contained in the `viewDidLoad` method.
@@ -314,6 +326,7 @@ private enum Const {
 ```
 
 **Making contraints in the clousre should follow the order.**
+We define 3 groups `size`, `center` and `margin` here.
 
 - size. 
     - width
@@ -327,7 +340,7 @@ private enum Const {
     - right(or trailing)
     - bottom
     
-Sometime, we may set multiple constraints in a single line.
+Sometime, we may set multiple constraints of a same group in a single line.
 In this line, the multiple constraints should follow this order.
 For multiple lines, the first constraints should follow this order.
 
@@ -337,6 +350,15 @@ iconImageView.snp.makeConstraints {
     $0.top.right.equalToSuperview()
 }
 ```
+
+**However, for multiple constraints of different groups, a single line is not recommended**
+
+``swift
+nameLable.snp.makeConstraints {
+    $0.width.equalToSuperview()
+    $0.centerY.equalToSuperview()
+}
+``
 
 ## 3.5 Reactive extension for view controller
 

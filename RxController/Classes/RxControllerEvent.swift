@@ -23,6 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+import RxCocoa
 import RxSwift
 
 public struct RxControllerEvent {
@@ -66,6 +67,22 @@ extension ObservableType where Element == RxControllerEvent {
     
     public func unwrappedValue<T>(of identifier: RxControllerEvent.Identifier, type: T.Type = T.self) -> Observable<T> {
         return value(of: identifier).filter { $0 != nil }.map { $0! }
+    }
+
+    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: PublishRelay<T?>) -> Disposable {
+        return value(of: identifier).bind(to: relay)
+    }
+
+    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: PublishRelay<T>) -> Disposable {
+        return unwrappedValue(of: identifier).bind(to: relay)
+    }
+
+    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: BehaviorRelay<T?>) -> Disposable {
+        return value(of: identifier).bind(to: relay)
+    }
+
+    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: BehaviorRelay<T>) -> Disposable {
+        return unwrappedValue(of: identifier).bind(to: relay)
     }
     
 }

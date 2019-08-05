@@ -155,12 +155,17 @@ var name: Observable<String?> {
 ```
 
 Pay attention to that **subscribing the `RxControllerEvent` in the `init` method of the view model is not effective**.
-It necessary to subscribe the `RxControllerEvent` in the `prepareForParentEvents` methods like:
+It necessary to subscribe or bind the `RxControllerEvent` in the `prepareForParentEvents` methods.
 
 ```Swift
 override func prepareForParentEvents() {
-    parentEvents.unwrappedValue(of: Event.sample, type: EventData.self)
-    	.bind(to: data).disposed(by: disposeBag)
+    // Subscribe an event.
+    parentEvents.unwrappedValue(of: Event.sample, type: EventData.self).subscribe(onNext: { 
+        // ...
+    }.disposed(by: disposeBag))
+
+    // Bind an event to a relay directly.
+    parentEvents.bind(of: Event.sample, to: data).disposed(by: disposeBag)
 }
 ```
 

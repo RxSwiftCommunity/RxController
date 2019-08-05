@@ -77,6 +77,18 @@ extension PersonTableViewCell: Configurable {
 ## 6.3 Table view cell height
 
 Calculating cell height is a troublesome problem for the table view cell.
+If the cell height is dynamical, using autolayout using SnapKit in the cell and automatic row height in the table view is recommended.
+
+```swift
+private lazy var tableView: UITableView = {
+    let tableView = UITableView()
+    tableView.rowHeight = UITableView.automaticDimension
+    tableView.register(cellType: DemoTableViewCell.self)
+    return tableView
+}()
+```
+
+In the cell class, the autolayout rule is different with which in the view controller or the customized view.
 
 ## 6.4 Tap action
 
@@ -114,7 +126,7 @@ func pick(at index: Int) {
 Sometimes, a single cell may contains multiple tap action for multiple customized buttons.
 In the view controller, the reactive extension is recommended in the definition closure of the customized buttons.
 However, for the reusable cells, managing the `disposeBag` and avoiding the multiple tap action binding are troublesome.
-As we said in the top of this chapter, we use the pure MVC design pattern for reusable cells.
+As we said in the top of this chapter, **the pure MVC design pattern is recommended for handling events of reusable cells.**
 Here, we define the customized button and add tap action with `addTarget` method directly.
 
 ```swift
@@ -126,3 +138,31 @@ private lazy var favoriteButton: UIButton = {
     return button
 }()
 ```
+
+When the button is tapped, the objc method will be invoked.
+
+```swift
+@objc
+private func favoriteTapped() {
+    didFavoriteTapped?()
+} 
+```
+In this private method, an optional closure is invoked.
+This clousre is defined as an internal optional property.
+
+```swift
+var didFavoriteTapped: (() -> Void)?
+```
+
+The tapped closure should be setted in the dataSource of the tableView.
+
+```swift
+private lazy var dataSource = FavoriteTableViewCell.tableViewSingleSectionDataSource(configureCell: { [unowned self] cell, indexPath, _ in
+    cell.didFavoriteTapped = { 
+        self.viewModel.pick(at: indexPath.row)
+    }
+})
+```
+
+At last, a method in the view model will be invoked.
+This method is responsible for handling the specific business logic.

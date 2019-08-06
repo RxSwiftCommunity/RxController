@@ -98,3 +98,18 @@ open class RxViewModel: NSObject, Stepper {
     
 }
 
+extension RxViewModel {
+
+    public func bindEvent<O: ObservableType>(from observable: O, with identifier: RxControllerEvent.Identifier) {
+        observable.subscribe(onNext: { [unowned self] in
+            self.events.accept(identifier.event($0))
+        }).disposed(by: disposeBag)
+    }
+
+    public func bindParentEvent<O: ObservableType>(from observable: O, with identifier: RxControllerEvent.Identifier) {
+        observable.subscribe(onNext: { [unowned self] in
+            self.parentEvents.accept(identifier.event($0))
+        }).disposed(by: disposeBag)
+    }
+
+}

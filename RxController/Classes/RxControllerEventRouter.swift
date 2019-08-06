@@ -26,7 +26,7 @@
 import RxCocoa
 import RxSwift
 
-protocol RxControllerEventRouter: class {
+public protocol RxControllerEventRouter: class {
     var events: PublishRelay<RxControllerEvent> { get }
     var parentEvents: PublishRelay<RxControllerEvent> { get }
     var disposeBag: DisposeBag { get }
@@ -37,27 +37,37 @@ struct RxControllerEventForworder {
     let inputIdentifier: RxControllerEvent.Identifier
     let output: PublishRelay<RxControllerEvent>
     let outputIdentifier: RxControllerEvent.Identifier
-    
-    func forword<T, O: ObservableConvertibleType>(filter: ((T?) -> O)? = nil) -> Disposable {
-        let value = input.value(of: inputIdentifier, type: T.self)
-        if let filter = filter {
-            return value.flatMapLatest(filter).subscribe(onNext: {
-                self.output.accept(self.outputIdentifier.event($0))
-            })
-        } else {
-            return value.subscribe(onNext: {
-                self.output.accept(self.outputIdentifier.event($0))
-            })
-        }
+
+    func forword() -> Disposable {
+        return input.value(of: inputIdentifier).subscribe(onNext: {
+            self.output.accept(self.outputIdentifier.event($0))
+        })
+    }
+
+    func forword<T, O: ObservableConvertibleType>(filter: @escaping ((T?) -> O)) -> Disposable {
+        return input.value(of: inputIdentifier, type: T.self).flatMapLatest(filter).subscribe(onNext: {
+            self.output.accept(self.outputIdentifier.event($0))
+        })
     }
 }
 
 extension RxControllerEventRouter {
 
+    public func forward(
+        parentEvent parentEventIdentifier: RxControllerEvent.Identifier,
+        toEvent eventIdentifier: RxControllerEvent.Identifier
+    ) {
+        let forworder = RxControllerEventForworder(
+            input: parentEvents, inputIdentifier: parentEventIdentifier,
+            output: events, outputIdentifier: eventIdentifier
+        )
+        return forworder.forword().disposed(by: disposeBag)
+    }
+
     public func forward<T, O: ObservableConvertibleType>(
         parentEvent parentEventIdentifier: RxControllerEvent.Identifier,
         toEvent eventIdentifier: RxControllerEvent.Identifier,
-        filter: ((T?) -> O)? = nil
+        filter: @escaping (T?) -> O
     ) {
         let forworder = RxControllerEventForworder(
             input: parentEvents, inputIdentifier: parentEventIdentifier,
@@ -65,11 +75,22 @@ extension RxControllerEventRouter {
         )
         forworder.forword(filter: filter).disposed(by: disposeBag)
     }
-    
+
+    public func forward(
+        event eventIdentifier: RxControllerEvent.Identifier,
+        toParentEvent parentEventIdentifier: RxControllerEvent.Identifier
+    ) {
+        let forworder = RxControllerEventForworder(
+            input: events, inputIdentifier: eventIdentifier,
+            output: parentEvents, outputIdentifier: parentEventIdentifier
+        )
+        forworder.forword().disposed(by: disposeBag)
+    }
+
     public func forward<T, O: ObservableConvertibleType>(
         event eventIdentifier: RxControllerEvent.Identifier,
         toParentEvent parentEventIdentifier: RxControllerEvent.Identifier,
-        filter: ((T?) -> O)? = nil
+        filter: @escaping (T?) -> O
     ) {
         let forworder = RxControllerEventForworder(
             input: events, inputIdentifier: eventIdentifier,

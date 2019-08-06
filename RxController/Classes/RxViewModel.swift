@@ -113,3 +113,5 @@ extension RxViewModel {
     }
 
 }
+
+extension RxViewModel: RxControllerEventRouter {}

@@ -69,20 +69,4 @@ extension ObservableType where Element == RxControllerEvent {
         return value(of: identifier).filter { $0 != nil }.map { $0! }
     }
 
-    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: PublishRelay<T?>) -> Disposable {
-        return value(of: identifier).bind(to: relay)
-    }
-
-    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: PublishRelay<T>) -> Disposable {
-        return unwrappedValue(of: identifier).bind(to: relay)
-    }
-
-    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: BehaviorRelay<T?>) -> Disposable {
-        return value(of: identifier).bind(to: relay)
-    }
-
-    public func bindValue<T>(of identifier: RxControllerEvent.Identifier, to relay: BehaviorRelay<T>) -> Disposable {
-        return unwrappedValue(of: identifier).bind(to: relay)
-    }
-    
 }

@@ -1,5 +1,5 @@
 //
-//  RxControllerEvent.swift
+//  RxControllerEventRouter.swift
 //  RxController
 //
 //  Created by Meng Li on 08/06/2019.

@@ -87,7 +87,7 @@ func navigate(to step: Step) -> FlowContributors {
 }
 ```
 
-### Exchange ata among parent and child view models
+### Exchange data among parent and child view models
 
 In a standard MVVM-C architecture using RxFlow, view models exchange data via the a flow class using the `steps.accept()` method.
 With `RxChildViewModel`, we can exchange data among parent and child view models without the flow class.
@@ -160,13 +160,36 @@ It necessary to subscribe or bind the `RxControllerEvent` in the `prepareForPare
 ```Swift
 override func prepareForParentEvents() {
     // Subscribe an event.
-    parentEvents.unwrappedValue(of: Event.sample, type: EventData.self).subscribe(onNext: { 
+    parentEvents.unwrappedValue(of: ParentEvent.sample, type: EventData.self).subscribe(onNext: { 
         // ...
     }.disposed(by: disposeBag))
 
-    // Bind an event to a relay directly.
-    parentEvents.bind(of: Event.sample, to: data).disposed(by: disposeBag)
+    // Bind an event or a parent event to a relay directly.
+    bindParentEvents(to: data, with: ParentEvent.sample)
+
+    // Bind an observable type to an event or a parent event directly.
+    bindToEvent(from: data, with: Event.sample)
+
 }
+```
+
+### Event router in the view model
+
+In the graph above, if an event needs to be transfered from `InfoViewModel` to `FirstNameViewModel`, the mid view model `NameViewModel` should be used as a router to forward data.
+To simply the data forwarding in the router view model, the `forward` methods are provided in the `RxViewModel`.
+
+```swift
+// Forward a parent event to an event
+func forward(parentEvent: ,toEvent:)
+
+// Forward a parent event to an event with a `flatMapLatest` closure
+func forward(parentEvent: ,toEvent: ,flatMapLatest:)
+
+// Forward an event to a parent event
+func forward(toEvent: ,parentEvent:)
+
+// Forward an event to a parent event with a `flatMapLatest` closure
+func forward(toEvent: , parentEvent: ,flatMapLatest:)
 ```
 
 ### Send a step to the flow from a child view model

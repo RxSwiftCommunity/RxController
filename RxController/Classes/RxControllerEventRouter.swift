@@ -44,8 +44,8 @@ struct RxControllerEventForworder {
         })
     }
 
-    func forword<T, O: ObservableConvertibleType>(filter: @escaping ((T?) -> O)) -> Disposable {
-        return input.value(of: inputIdentifier, type: T.self).flatMapLatest(filter).subscribe(onNext: {
+    func forword<T, O: ObservableConvertibleType>(flatMapLatest: @escaping ((T?) -> O)) -> Disposable {
+        return input.value(of: inputIdentifier, type: T.self).flatMapLatest(flatMapLatest).subscribe(onNext: {
             self.output.accept(self.outputIdentifier.event($0))
         })
     }
@@ -67,13 +67,13 @@ extension RxControllerEventRouter {
     public func forward<T, O: ObservableConvertibleType>(
         parentEvent parentEventIdentifier: RxControllerEvent.Identifier,
         toEvent eventIdentifier: RxControllerEvent.Identifier,
-        filter: @escaping (T?) -> O
+        flatMapLatest: @escaping (T?) -> O
     ) {
         let forworder = RxControllerEventForworder(
             input: parentEvents, inputIdentifier: parentEventIdentifier,
             output: events, outputIdentifier: eventIdentifier
         )
-        forworder.forword(filter: filter).disposed(by: disposeBag)
+        forworder.forword(flatMapLatest: flatMapLatest).disposed(by: disposeBag)
     }
 
     public func forward(
@@ -90,13 +90,13 @@ extension RxControllerEventRouter {
     public func forward<T, O: ObservableConvertibleType>(
         event eventIdentifier: RxControllerEvent.Identifier,
         toParentEvent parentEventIdentifier: RxControllerEvent.Identifier,
-        filter: @escaping (T?) -> O
+        flatMapLatest: @escaping (T?) -> O
     ) {
         let forworder = RxControllerEventForworder(
             input: events, inputIdentifier: eventIdentifier,
             output: parentEvents, outputIdentifier: parentEventIdentifier
         )
-        forworder.forword(filter: filter).disposed(by: disposeBag)
+        forworder.forword(flatMapLatest: flatMapLatest).disposed(by: disposeBag)
     }
 
 }

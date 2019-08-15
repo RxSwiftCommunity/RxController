@@ -102,6 +102,11 @@ However, for the continuous semantic structure like `user_profile_full_name($0)`
 
 #### Omit if possible
 
+- Omit `import Foundation` and `import UIKit`
+
+In the Swift project, `import Foundation` and `import UIKit` is not necessary.
+To simplify the code, they are not recommended to be imported.
+
 - Omit `self` keyword if possible
 
 ```swift

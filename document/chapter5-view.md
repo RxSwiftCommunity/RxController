@@ -93,7 +93,7 @@ The rule of the `createcConstraints` method is same as view controller.
 
 ### Other methods.
 
-The private methods should be above the internal methods.
+The private methods, internal methods and public method should follow:
 
 ```swift
 private func a() {
@@ -101,6 +101,10 @@ private func a() {
 }
 
 func b() {
+
+}
+
+public func c() {
 
 }
 ```
@@ -116,8 +120,10 @@ The computed properties with only get method should be above the properties with
     - Private computed properties with both set and get methods
 - Internal computed properties
     - Internal computed properties with only get method
-    - Internal computed properties with both set and get methods
-
+- Public computed properties
+    - Public computed properties with only get method
+    - Public computed properties with both set and get methods
+    
 ```swift
 private var name: String? {
     return nameLabel.text
@@ -145,6 +151,18 @@ var avatar: UIImage? {
     }
 }
 
+public var subtitle: String? {
+    return subtitleLabel.text
+}
+
+public var font: UIFont? {
+    set {
+        titleLabel.font = newValue    
+    }
+    get {
+        return title.font
+    }
+}
 ```
 
 **The set method should be above get method.**
@@ -154,8 +172,13 @@ The internal computed properties with both set and get methods is recommended to
 
 ### Store properties with method
 
-The private store properties should be above the internal store properties.
-The store properties is used for saving state of views or the data model.
+The store properties should following:
+
+- Private store properties.
+- Internal store properties.
+- Public store properties.
+
+The store properties is used for saving the state of views or data models.
 
 ```swift
 var user: User? {

@@ -120,6 +120,7 @@ The computed properties with only get method should be above the properties with
     - Private computed properties with both set and get methods
 - Internal computed properties
     - Internal computed properties with only get method
+    - Internal computed properties with both set and get methods
 - Public computed properties
     - Public computed properties with only get method
     - Public computed properties with both set and get methods

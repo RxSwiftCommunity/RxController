@@ -50,7 +50,7 @@ private lazy var nameLabel = UILabel()
 **The order of the views should be same as the design.** 
 The left views and top views should be in the top of the right views and the bottom views.
 
-When we need a parent view a container view, **the container view should be defined after its subviews.**
+**When a parent view is used as a container view, it should be defined after its subviews.**
 
 ```swift
 private lazy var nameLabel = UILabel()
@@ -78,7 +78,7 @@ private lazy var containerView: UILabel = {
 }()
 ```
 
-**The view definition closurecontains the properties and methods of this view only.**
+**The view definition closure contains the properties and methods of this view only.**
 
 ### Define child view controllers
 

@@ -44,7 +44,7 @@ RxDataSourcesSingleSection also define a `Configurable` protocol which extends t
 Here, we introduce the rule of the cell based on RxDataSourcesSingleSection and its `Configurable` protocol.
 
 Each cell has its own view model, we call it view object of the cell to distinguish it from the view model concept in MVVM.
-**The name of the view object is recommended to be same as the prefix of the cell, and `struct` is recommended to define a view object.**
+**The name of the view object is recommended to be same as the prefix of the cell. To prevent the memory leak issues, `struct` is recommended to define a view object rather than `class`.**
 
 ```swift
 class PersonTableViewCell: UITableViewCell {

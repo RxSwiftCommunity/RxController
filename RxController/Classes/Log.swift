@@ -23,6 +23,10 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
+#if DEBUG
+import Foundation
+#endif
+
 struct Log {
     
     static func debug(_ message: String, tag: String = "", tags:[String] = []) {

@@ -12,7 +12,7 @@ PODS:
   - RxCocoa (5.0.0):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxController (0.8.1):
+  - RxController (0.8.2):
     - RxCocoa (~> 5)
     - RxFlow (~> 2)
     - RxSwift (~> 5)
@@ -41,7 +41,7 @@ DEPENDENCIES:
   - SnapKit
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Differentiator
     - Fakery
     - Reusable
@@ -64,7 +64,7 @@ SPEC CHECKSUMS:
   Reusable: 82be188f29d96dc5eff0db7b2393bcc08d2cdd5b
   RxBinding: 58be2cf1311165489a66eacb4a3e33932d598a53
   RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
-  RxController: f199634a1c63cb8a40daee49421b7da93f55b068
+  RxController: 09893cf31467329e5ae08b6705f6f18988cf546f
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxDataSourcesSingleSection: 42ee6900e6c069ce2d0bb9a1cd81308dce772d28
   RxFlow: ee6f1fdbacfa4ca8926122e466dfba32e3edf73f
@@ -74,4 +74,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 71d0f85c23e546fe2a83be7e433383a1abd1a857
 
-COCOAPODS: 1.7.5
+COCOAPODS: 1.8.3

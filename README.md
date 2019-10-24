@@ -4,9 +4,9 @@
 
 <p align="center">
 <a href="https://app.bitrise.io/app/60e541fa833b19d2"><img src="https://app.bitrise.io/app/60e541fa833b19d2/status.svg?token=FWKV3OHJ-W0F2AtZP4M1bw&branch=master"></a>
-<a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/v/RxController.svg?style=flat"></a>
-<a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/l/RxController.svg?style=flat"></a>
-<a href="https://https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/p/RxController.svg?style=flat"></a>
+<a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/v/RxController.svg?style=flat"></a>
+<a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/l/RxController.svg?style=flat"></a>
+<a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/p/RxController.svg?style=flat"></a>
 </p>
 
 ## Introduction

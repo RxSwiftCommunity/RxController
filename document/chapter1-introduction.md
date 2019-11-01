@@ -104,11 +104,13 @@ However, for the continuous semantic structure like `user_profile_full_name($0)`
 
 - Omit `return` if possible.
 
+```swift
 var name: Binder<String?> {
     Binder(base) { view, name in 
         view.name = name
     }
 }
+```
 
 - Omit `import Foundation` and `import UIKit`
 

@@ -92,7 +92,7 @@ A new line is recommended when a method is invoked or a closure content is start
 
 ```swift
 var name: Observable<String?> {
-    return user.map { $0.name }.distinctUntilChanged().take(1).map {
+    user.map { $0.name }.distinctUntilChanged().take(1).map {
         return R.string.localizable.user_profile_full_name($0)
     }
 }
@@ -101,6 +101,16 @@ var name: Observable<String?> {
 However, for the continuous semantic structure like `user_profile_full_name($0)`, a new line is not recommended although its line contains more than 127 characters.
 
 #### Omit if possible
+
+- Omit `return` if possible.
+
+```swift
+var name: Binder<String?> {
+    Binder(base) { view, name in 
+        view.name = name
+    }
+}
+```
 
 - Omit `import Foundation` and `import UIKit`
 

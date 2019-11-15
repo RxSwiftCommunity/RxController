@@ -171,15 +171,15 @@ public var font: UIFont? {
 We have introduced that internal subviews is not recommended in the customzied view.
 The internal computed properties with both set and get methods is recommended to be used as a wrapper of the properties of subviews.
 
-### Store properties with method
+### Stored properties with `didSet` method
 
-The store properties should following:
+The stored properties should following:
 
-- Private store properties.
-- Internal store properties.
-- Public store properties.
+- Private stored properties.
+- Internal stored properties.
+- Public stored properties.
 
-The store properties is used for saving the state of views or data models.
+The stored properties is used for saving the state of views or data models.
 
 ```swift
 var user: User? {

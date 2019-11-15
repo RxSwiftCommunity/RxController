@@ -258,9 +258,26 @@ The private methods should be above the internal methods.
 ## 3.3 Using child view controller or customized view
 
 A view controller needs multiple child view controller or customized view to reduce the complexity.
+Generally, we consider to implements a group of subviews with relationships in a child view controller or a customized view.
+
+### How to select
+
 **Cusztomized view is recommended for showing data only, or handling a simple action like tap.**
 We don't receommend to use RxSwift directly in a customized view.
 **To handle complex actions, a child view controller is receommened.**
+
+To make it easy to understand this problem, we can refer to the following grpah.
+
+![subviews_and_child_controller](https://raw.githubusercontent.com/lm2343635/RxController/master/images/subviews_and_child_controller.jpg)
+
+In this graph, both the count of subviews and the user interactions in the group are considered.
+In the situation with less subviews and less user interactions, compared to add the subviews into the parent view controller directly,
+using a child view controller or a customized view is not recommended.
+In the situation with less subviews and more user interactions, developers can choose the parent plan or child plan by themselves.
+The parent plan is recommended with the high relevancy degree between the user interactions and the parent view controller.
+
+### Child view controller
+
 A child view controller also extends the BaseViewController, so it can take advantage of view model and RxSwift.
 
 ![Platform](https://raw.githubusercontent.com/lm2343635/RxController/master/images/child_view_controllers.jpg)

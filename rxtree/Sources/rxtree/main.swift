@@ -24,7 +24,29 @@ func loadFiles(url: URL) -> [URL] {
 
 let main = command {
     loadSwiftFiles(root: "/Users/meng/Documents/Xcode/tipstar-ios/").forEach {
-        print($0.absoluteString)
+        do {
+//            print($0.absoluteString)
+            let data = try String(contentsOf: $0, encoding: .utf8)
+            data.components(separatedBy: .newlines).filter {
+                $0.contains("BaseViewController")
+            }.map {
+                $0.components(separatedBy: "class ")
+            }.filter {
+                $0.count == 2
+            }.map {
+                $0[1]
+            }.map {
+                $0.components(separatedBy: ":")
+            }.filter {
+                $0.count == 2
+            }.map {
+                $0[0]
+            }.forEach {
+                print($0)
+            }
+        } catch {
+            print(error)
+        }
     }
 }
 

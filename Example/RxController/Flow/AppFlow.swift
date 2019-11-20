@@ -40,7 +40,6 @@ class AppFlow: Flow {
             let menuViewController = MenuViewController(viewModel: .init())
             navigationController.pushViewController(menuViewController, animated: false)
             return .viewController(menuViewController)
-            
         case .child:
             guard let menuViewController = navigationController.topViewController as? MenuViewController else {
                 return .none
@@ -48,7 +47,6 @@ class AppFlow: Flow {
             let infoViewController = InfoViewController(viewModel: InfoViewModel())
             menuViewController.present(infoViewController, animated: true)
             return .viewController(infoViewController)
-            
         case .childOnNavigation:
             guard let menuViewController = navigationController.topViewController as? MenuViewController else {
                 return .none
@@ -56,8 +54,7 @@ class AppFlow: Flow {
             let infoViewController = InfoViewController(viewModel: InfoViewModel())
             let navigationController = UINavigationController(rootViewController: infoViewController)
             menuViewController.present(navigationController, animated: true)
-            return .navigationController(navigationController)
-
+            return .viewController(infoViewController)
         case .childIsComplete:
             guard let menuViewController = navigationController.topViewController as? MenuViewController else {
                 return .none

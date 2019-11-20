@@ -32,7 +32,7 @@ extension Flow: CustomStringConvertible {
             $0.description
         }.reduce("", +)
         let viewControllerDescription = viewControllers.map {
-            $0.description + "\n"
+            $0.description
         }.reduce("", +)
         var indent = ""
         if level > 0 {
@@ -47,7 +47,12 @@ extension Flow: CustomStringConvertible {
 extension ViewController: CustomStringConvertible {
 
     var description: String {
-        name
+        var indent = ""
+        if level > 0 {
+            indent += (0..<level - 1).map { _ in "│   "}.reduce("", +)
+            indent += "├── "
+        }
+        return indent + name + "\n"
     }
 
 }

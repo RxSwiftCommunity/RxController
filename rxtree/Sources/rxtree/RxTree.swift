@@ -57,17 +57,17 @@ class RxTree {
         }.reduce([], +)
 
         // Find the variable names of sub view controllers
-//        let subViewControllers = steps.map {
-//            $0.match(with: "(.viewController\\(\(Pattern.iegalIdentifier)\\))|(.viewController\\(\(Pattern.iegalIdentifier), with: [\\s\\S]*?\\))")
-//        }.reduce([], +).compactMap {
-//            $0.last(separatedBy: ".viewController(")?.first(separatedBy: ",")?.first(separatedBy: ")")
-//        }.compactMap { name in
-//            lines.first {
-//                $0.contains(name + " =")
-//            }?.last(separatedBy: " = ")?.first(separatedBy: "(")
-//        }.map {
-//            ViewController(level: 0, name: $0, viewControllers: [])
-//        }
+        let subViewControllers = steps.map {
+            $0.match(with: "(.viewController\\(\(Pattern.iegalIdentifier)\\))|(.viewController\\(\(Pattern.iegalIdentifier), with: [\\s\\S]*?\\))")
+        }.reduce([], +).compactMap {
+            $0.last(separatedBy: ".viewController(")?.first(separatedBy: ",")?.first(separatedBy: ")")
+        }.compactMap { name in
+            lines.first {
+                $0.contains(name + " =")
+            }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+        }.map {
+            ViewController(level: lastLevel + 1, name: $0, viewControllers: [])
+        }
 
         // Find the variable names of sub flows
         let subFlows = steps.map {
@@ -78,12 +78,19 @@ class RxTree {
             lines.first {
                 $0.contains(name + " =")
             }?.last(separatedBy: " = ")?.first(separatedBy: "(")
-        }.map {
-            Flow(level: lastLevel + 1, name: $0, flows: listFlow(root: $0, lastLevel: lastLevel + 1)?.flows ?? [], viewControllers: [])
+        }.compactMap { name -> Flow? in
+            guard let subFlow = listFlow(root: name, lastLevel: lastLevel + 1) else {
+                return nil
+            }
+            return Flow(
+                level: lastLevel + 1,
+                name: name,
+                flows: subFlow.flows,
+                viewControllers: subFlow.viewControllers
+            )
         }
 
-        return Flow(level: lastLevel, name: root, flows: subFlows, viewControllers: [])
+        return Flow(level: lastLevel, name: root, flows: subFlows, viewControllers: subViewControllers)
     }
-
 
 }

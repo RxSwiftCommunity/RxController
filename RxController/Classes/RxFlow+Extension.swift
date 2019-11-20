@@ -32,13 +32,6 @@ extension FlowContributors {
         return .one(flowContributor: .viewController(viewController))
     }
     
-    public static func navigationController(_ navigationController: UINavigationController) -> FlowContributors {
-        guard let rootViewController = navigationController.viewControllers.first as? RxViewControllerProtocol else {
-            return .none
-        }
-        return .viewController(navigationController, with: rootViewController.rxViewModel)
-    }
-    
     public static func viewController(_ viewController: UIViewController, with viewModel: Stepper) -> FlowContributors {
         return .one(flowContributor: .viewController(viewController, with: viewModel))
     }

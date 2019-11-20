@@ -25,3 +25,30 @@ extension String {
     }
 
 }
+
+extension String {
+
+    func loadSwiftFiles() -> [URL] {
+        guard let rootURL = URL(string: self) else {
+            return []
+        }
+        return loadFiles(url: rootURL).filter {
+            $0.absoluteString.hasSuffix(".swift")
+        }
+    }
+
+    private func loadFiles(url: URL) -> [URL] {
+        do {
+            let fileURLs = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
+            return fileURLs.filter {
+                !$0.absoluteString.hasSuffix(".git/") && !$0.absoluteString.hasSuffix("Pods/")
+            }.map {
+                $0.absoluteString.last == "/" ? loadFiles(url: $0) : [$0]
+            }.reduce([], +)
+        } catch {
+            print("Error while enumerating files \(url.path): \(error.localizedDescription)")
+        }
+        return []
+    }
+    
+}

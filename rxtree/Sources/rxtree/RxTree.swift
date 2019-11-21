@@ -16,8 +16,28 @@ class RxTree {
     private let flows: [Keyword]
     private let viewControllers: [Keyword]
 
-    init(directory: String) {
-        let swiftFiles = directory.loadSwiftFiles()
+    init?(directory: String = FileManager.default.currentDirectoryPath) {
+        var currentDirectory = directory + "/"
+        var projects: [String] = []
+        repeat {
+            if let last = currentDirectory.last(separatedBy: "/") {
+                currentDirectory = String(currentDirectory.dropLast(last.count + 1))
+            } else {
+                currentDirectory = ""
+            }
+            projects = currentDirectory.loadFiles(isRecursion: false).compactMap {
+                $0.absoluteString
+            }.map {
+                $0.last == "/" ? String($0.dropLast()) : $0
+            }.compactMap {
+                $0.last(separatedBy: "/")?.matchFirst(with: "(\(Pattern.iegalIdentifier).xcodeproj)|(\(Pattern.iegalIdentifier).xcworkspace)")
+            }
+
+        } while (projects.isEmpty && !currentDirectory.isEmpty)
+        guard !currentDirectory.isEmpty else {
+            return nil
+        }
+        let swiftFiles = currentDirectory.loadSwiftFiles()
 
         // Load all flows
         flows = swiftFiles.map { url in

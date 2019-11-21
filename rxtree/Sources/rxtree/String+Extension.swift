@@ -37,18 +37,25 @@ extension String {
         }
     }
 
-    private func loadFiles(url: URL) -> [URL] {
+    func loadFiles(isRecursion: Bool) -> [URL] {
+        guard let rootURL = URL(string: self) else {
+            return []
+        }
+        return loadFiles(url: rootURL, isRecursion: isRecursion)
+    }
+
+    private func loadFiles(url: URL, isRecursion: Bool = true) -> [URL] {
         do {
             let fileURLs = try FileManager.default.contentsOfDirectory(at: url, includingPropertiesForKeys: nil)
             return fileURLs.filter {
                 !$0.absoluteString.hasSuffix(".git/") && !$0.absoluteString.hasSuffix("Pods/")
             }.map {
-                $0.absoluteString.last == "/" ? loadFiles(url: $0) : [$0]
+                $0.absoluteString.last == "/" && isRecursion ? loadFiles(url: $0) : [$0]
             }.reduce([], +)
         } catch {
             print("Error while enumerating files \(url.path): \(error.localizedDescription)")
         }
         return []
     }
-    
+
 }

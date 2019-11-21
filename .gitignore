@@ -42,6 +42,3 @@ Carthage/Build
 .build
 Package.resolved
 .swiftpm
-
-# rxtree
-rxtree

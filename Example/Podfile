@@ -11,4 +11,8 @@ target 'RxController_Example' do
   target 'RxController_Tests' do
     inherit! :search_paths    
   end
+
+  post_install do |installer|
+    system('cd ../rxtree && swift build && cp .build/debug/rxtree `pwd`/../Example')
+  end
 end

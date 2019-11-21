@@ -31,8 +31,9 @@ These classes make it easy to transfer data among the flows, the parent view mod
   s.ios.deployment_target = '9.0'
   s.swift_versions = '5.0'
   s.source_files = 'RxController/Classes/**/*'
-  
+
   s.dependency 'RxSwift', '~> 5'
   s.dependency 'RxCocoa', '~> 5'
   s.dependency 'RxFlow', '~> 2'
+
 end

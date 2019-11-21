@@ -1,15 +1,10 @@
 import Commander
 import Foundation
 
-struct Pattern {
-    static let iegalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
-}
-
-let main = command {
-    let root = "MainFlow"
+let main = command { (root: String) in
     let rxtree = RxTree(directory: "/Users/meng/Documents/Xcode/tipstar-ios/")
-    let flow = rxtree.listFlow(root: root)
-    print(flow.description)
+    if let node = rxtree.list(root: root) {
+        print(node.description)
+    }
 }
-
 main.run()

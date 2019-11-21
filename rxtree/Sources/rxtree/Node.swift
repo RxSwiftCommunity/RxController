@@ -10,6 +10,7 @@ import Foundation
 protocol Node {
     var level: Int { get }
     var name: String { get }
+    var description: String { get }
 }
 
 struct Flow: Node {
@@ -17,15 +18,6 @@ struct Flow: Node {
     let name: String
     let flows: [Flow]
     let viewControllers: [ViewController]
-}
-
-struct ViewController: Node {
-    let level: Int
-    let name: String
-    let viewControllers: [ViewController]
-}
-
-extension Flow: CustomStringConvertible {
 
     var description: String {
         let flowsDescription = flows.map {
@@ -44,7 +36,10 @@ extension Flow: CustomStringConvertible {
 
 }
 
-extension ViewController: CustomStringConvertible {
+struct ViewController: Node {
+    let level: Int
+    let name: String
+    let viewControllers: [ViewController]
 
     var description: String {
         var indent = ""

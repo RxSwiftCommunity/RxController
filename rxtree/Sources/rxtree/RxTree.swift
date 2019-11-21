@@ -7,6 +7,10 @@
 
 import Foundation
 
+struct Pattern {
+    static let iegalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
+}
+
 class RxTree {
 
     private let flows: [Keyword]
@@ -38,7 +42,17 @@ class RxTree {
         }.reduce([], +)
     }
 
-    func listFlow(root: String, lastLevel: Int = 0) -> Flow? {
+    func list(root: String) -> Node? {
+        if flows.names.contains(root) {
+            return listFlow(root: root, lastLevel: 0)
+        }
+        if viewControllers.names.contains(root) {
+            return listViewController(root: root, lastLevel: 0)
+        }
+        return nil
+    }
+
+    private func listFlow(root: String, lastLevel: Int) -> Flow? {
         guard let rootFlow = flows.first(name: root) else {
             return nil
         }
@@ -91,6 +105,10 @@ class RxTree {
         }
 
         return Flow(level: lastLevel, name: root, flows: subFlows, viewControllers: subViewControllers)
+    }
+
+    private func listViewController(root: String, lastLevel: Int) -> ViewController? {
+        return nil
     }
 
 }

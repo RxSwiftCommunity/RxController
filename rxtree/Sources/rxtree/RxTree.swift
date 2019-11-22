@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import Rainbow
 
 struct Pattern {
-    static let iegalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
-    static let viewController = "(.viewController\\(\(Pattern.iegalIdentifier)\\))|(.viewController\\(\(Pattern.iegalIdentifier), with: [\\s\\S]*?\\))"
+    static let legalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
+    static let viewController = "(.viewController\\(\(Pattern.legalIdentifier)\\))|(.viewController\\(\(Pattern.legalIdentifier), with: [\\s\\S]*?\\))"
+    static let flow = ".flow\\(\(Pattern.legalIdentifier), with: \(Pattern.legalIdentifier).\(Pattern.legalIdentifier)\\)"
 }
 
 class RxTree {
@@ -31,7 +33,7 @@ class RxTree {
             }.map {
                 $0.last == "/" ? String($0.dropLast()) : $0
             }.compactMap {
-                $0.last(separatedBy: "/")?.matchFirst(with: "(\(Pattern.iegalIdentifier).xcodeproj)|(\(Pattern.iegalIdentifier).xcworkspace)")
+                $0.last(separatedBy: "/")?.matchFirst(with: "(\(Pattern.legalIdentifier).xcodeproj)|(\(Pattern.legalIdentifier).xcworkspace)")
             }
 
         } while (projects.isEmpty && !currentDirectory.isEmpty)
@@ -43,7 +45,7 @@ class RxTree {
         // Load all flows
         flows = swiftFiles.map { url in
             url.lines.compactMap {
-                $0.matchFirst(with: "class \(Pattern.iegalIdentifier): Flow")
+                $0.matchFirst(with: "class \(Pattern.legalIdentifier): Flow")
             }.compactMap {
                 $0.last(separatedBy: "class ")?.first(separatedBy: ":")
             }.map {
@@ -54,13 +56,14 @@ class RxTree {
         // Load all view controllers
         viewControllers = swiftFiles.map { url in
             url.lines.compactMap {
-                $0.matchFirst(with: "class :\(Pattern.iegalIdentifier) BaseViewController<\(Pattern.iegalIdentifier)>")
+                $0.matchFirst(with: "class \(Pattern.legalIdentifier): BaseViewController<\(Pattern.legalIdentifier)>")
             }.compactMap {
                 $0.last(separatedBy: "class ")?.first(separatedBy: ":")
             }.map {
                 Keyword(name: $0, url: url)
             }
         }.reduce([], +)
+
     }
 
     func list(root: String) -> Node? {
@@ -79,12 +82,12 @@ class RxTree {
         }
         let lines = rootFlow.url.lines
         let content = rootFlow.url.content
-        guard let step = content.matchFirst(with: "enum \(Pattern.iegalIdentifier): Step \\{[\\s\\S]*?\\}") else {
+        guard let step = content.matchFirst(with: "enum \(Pattern.legalIdentifier): Step \\{[\\s\\S]*?\\}") else {
             return nil
         }
         // Find all steps in the flow.
         let steps = step.components(separatedBy: "\n").compactMap {
-            $0.matchFirst(with: "case \(Pattern.iegalIdentifier)")?.last(separatedBy: "case ")
+            $0.matchFirst(with: "case \(Pattern.legalIdentifier)")?.last(separatedBy: "case ")
         }.compactMap {
             content.matchFirst(with: "(case .\($0)[\\s\\S]*?return[\\s\\S]*?case)|(case .\($0)[\\s\\S]*?return[\\s\\S]*?\\})")
         }
@@ -105,8 +108,21 @@ class RxTree {
                     $0.contains(viewController + " = ")
                 }?.last(separatedBy: " = ")?.first(separatedBy: "(")
             }
+            if className == nil {
+                className = lines.compactMap {
+                    $0.matchFirst(with: "\(viewController): \(Pattern.legalIdentifier)")
+                }.first?.last(separatedBy: ": ")
+            }
+            if className == nil {
+                print("[Warning] Class name not found for \(viewController), check the following code.\n)".yellow)
+                step.components(separatedBy: "\n").enumerated().forEach { index, line in
+                    print((index + 1).lineNumber.lightBlack + line.lightBlack)
+                }
+            }
             return className
-        }.uniques.sorted().map {
+        }.uniques.sorted().filter {
+            viewControllers.names.contains($0)
+        }.map {
             ViewController(level: lastLevel + 1, name: $0, viewControllers: [])
         }
 
@@ -114,7 +130,7 @@ class RxTree {
         let subFlows = steps.map {
             $0.components(separatedBy: "\n").dropLast()
         }.reduce([], +).map {
-            $0.match(with: ".flow\\(\(Pattern.iegalIdentifier), with: \(Pattern.iegalIdentifier).\(Pattern.iegalIdentifier)\\)")
+            $0.match(with: Pattern.flow)
         }.reduce([], +).compactMap {
             $0.last(separatedBy: ".flow(")?.first(separatedBy: ",")
         }.compactMap { name in

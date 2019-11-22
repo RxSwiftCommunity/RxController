@@ -31,7 +31,7 @@ struct Flow: Node {
             indent += (0..<level - 1).map { _ in "│   "}.reduce("", +)
             indent += "├── "
         }
-        return indent + name + "\n" + flowsDescription + viewControllerDescription
+        return indent + name.lightBlue + "\n" + flowsDescription + viewControllerDescription
     }
 
 }

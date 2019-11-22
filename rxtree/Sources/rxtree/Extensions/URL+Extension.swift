@@ -1,5 +1,5 @@
 //
-//  main.swift
+//  URL+Extension.swift
 //  rxtree
 //
 //  Created by Meng Li on 2019/11/19.
@@ -23,20 +23,22 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Commander
 import Foundation
 
-let main = command(
-    Argument<String>("root", description: "Root node, a flow or a view controller."),
-    Option("dir", default: "", description: "Directory to scan the Xcode project.")
-) { root, dir in
-    guard let rxtree = dir.isEmpty ? RxTree() : RxTree(directory: dir) else {
-        print("Xcode project not found.")
-        return
-    }
-    if let node = rxtree.list(root: root) {
-        print(node.description)
-    }
-}
+extension URL {
 
-main.run()
+    var content: String {
+        var data = ""
+        do {
+            data = try String(contentsOf: self, encoding: .utf8)
+        } catch {
+            print("Error while reading file \(self.path): \(error.localizedDescription)")
+        }
+        return data
+    }
+
+    var lines: [String] {
+        return content.components(separatedBy: .newlines)
+    }
+
+}

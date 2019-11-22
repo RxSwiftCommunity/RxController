@@ -1,8 +1,8 @@
 //
-//  main.swift
+//  Array+Extension.swift
 //  rxtree
 //
-//  Created by Meng Li on 2019/11/19.
+//  Created by Meng Li on 2019/11/22.
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -23,20 +23,18 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import Commander
 import Foundation
 
-let main = command(
-    Argument<String>("root", description: "Root node, a flow or a view controller."),
-    Option("dir", default: "", description: "Directory to scan the Xcode project.")
-) { root, dir in
-    guard let rxtree = dir.isEmpty ? RxTree() : RxTree(directory: dir) else {
-        print("Xcode project not found.")
-        return
-    }
-    if let node = rxtree.list(root: root) {
-        print(node.description)
-    }
-}
+extension Array where Element: Hashable {
 
-main.run()
+    var uniques: Array {
+        reduce(Set<Element>()) {
+            var result = $0
+            result.insert($1)
+            return result
+        }.reduce([Element]()) {
+            $0 + [$1]
+        }
+    }
+
+}

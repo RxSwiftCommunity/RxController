@@ -98,19 +98,22 @@ class RxTree {
         guard let rootFlow = flows.first(name: root) else {
             return nil
         }
-        let lines = rootFlow.url.lines
+
         let content = rootFlow.url.content
-        guard let step = content.matchFirst(with: "enum \(Pattern.legalIdentifier): Step \\{[\\s\\S]*?\\}") else {
+        guard let stepName = content.matchFirst(with: "enum \(Pattern.legalIdentifier): Step \\{[\\s\\S]*?\\}") else {
             return nil
         }
         // Find all steps in the flow.
-        let steps = step.components(separatedBy: "\n").compactMap {
+        let steps = stepName.components(separatedBy: "\n").compactMap {
             $0.matchFirst(with: "case \(Pattern.legalIdentifier)")?.last(separatedBy: "case ")
         }.compactMap {
             content.matchFirst(with: "(case .\($0)[\\s\\S]*?return[\\s\\S]*?case)|(case .\($0)[\\s\\S]*?return[\\s\\S]*?\\})")
         }
 
-        // Find the variable names of sub view controllers
+        let linesOfSteps = steps.map { $0.components(separatedBy: "/") }.reduce([], +)
+        let linesExceptSteps = rootFlow.url.lines.filter { !linesOfSteps.contains($0 )}
+
+        // Find class names of sub view controllers
         let subViewControllers = steps.compactMap { step -> String? in
             guard
                 let returnViewController = step.matchFirst(with: Pattern.viewController),
@@ -118,24 +121,25 @@ class RxTree {
             else {
                 return nil
             }
+            // Search class name from `case` to `return` at first.
             var className = step.components(separatedBy: "\n").dropLast().first {
                 $0.contains(viewController + " = ")
             }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+            // Search class name from lines except all step cases with pattern `xxxViewController = XxxViewController`
             if className == nil {
-                className = lines.first {
+                className = linesExceptSteps.first {
                     $0.contains(viewController + " = ")
                 }?.last(separatedBy: " = ")?.first(separatedBy: "(")
             }
+            // Search class name from lines except all step cases with pattern `xxxViewController: XxxViewController`
             if className == nil {
-                className = lines.compactMap {
+                className = linesExceptSteps.compactMap {
                     $0.matchFirst(with: "\(viewController): \(Pattern.legalIdentifier)")
                 }.first?.last(separatedBy: ": ")
             }
+            // Class name not found, print warning.
             if className == nil {
-                print("[Warning] Class name not found for \(viewController), check the following code.\n)".yellow)
-                step.components(separatedBy: "\n").enumerated().forEach { index, line in
-                    print((index + 1).lineNumber.lightBlack + line.lightBlack)
-                }
+                classNameNotFound(for: viewController, code: step, url: rootFlow.url)
             }
             return className
         }.uniques.sorted().filter {
@@ -144,19 +148,38 @@ class RxTree {
             ViewController(level: lastLevel + 1, name: $0, viewControllers: [])
         }
 
-        // Find the variable names of sub flows
-        let subFlows = steps.map {
-            $0.components(separatedBy: "\n").dropLast()
-        }.reduce([], +).map {
-            $0.match(with: Pattern.flow)
-        }.reduce([], +).compactMap {
-            $0.last(separatedBy: ".flow(")?.first(separatedBy: ",")
-        }.compactMap { name in
-            lines.first {
-                $0.contains(name + " =")
-            }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+        // Find class names of sub flows
+        let subFlows = steps.compactMap { step in
+            step.match(with: Pattern.flow).compactMap {
+                $0.last(separatedBy: ".flow(")?.first(separatedBy: ",")
+            }.compactMap { flow -> String? in
+                // Search flow name from `case` to `return` at first.
+                var className = step.components(separatedBy: "\n").dropLast().first {
+                    $0.contains(flow + " = ")
+                }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+                // Search class name from lines except all step cases with pattern `xxxFlow: XxxFlow`
+                if className == nil {
+                    className = linesExceptSteps.first {
+                        $0.contains(flow + " = ")
+                    }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+                }
+                // Search class name from lines except all step cases with pattern `xxxFlow: XxxFlow`
+                if className == nil {
+                    className = linesExceptSteps.compactMap {
+                        $0.matchFirst(with: "\(flow): \(Pattern.legalIdentifier)")
+                    }.first?.last(separatedBy: ": ")
+                }
+                // Class name not found, print warning.
+                if className == nil {
+                    classNameNotFound(for: flow, code: step, url: rootFlow.url)
+                }
+                return className
+            }
+        }.reduce([], +).uniques.sorted().filter {
+            flows.names.contains($0)
         }.compactMap { name -> Flow? in
             guard let subFlow = listFlow(root: name, lastLevel: lastLevel + 1) else {
+                print(name)
                 return nil
             }
             return Flow(
@@ -172,6 +195,13 @@ class RxTree {
 
     private func listViewController(root: String, lastLevel: Int) -> ViewController? {
         return nil
+    }
+
+    private func classNameNotFound(for name: String, code: String, url: URL) {
+        print("[Warning] Class name not found for \(name), check the following code in \(url.absoluteString).\n".yellow)
+        code.components(separatedBy: "\n").enumerated().forEach { index, line in
+            print((index + 1).lineNumber.lightBlack + line.lightBlack)
+        }
     }
 
 }

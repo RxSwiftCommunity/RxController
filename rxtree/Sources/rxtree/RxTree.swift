@@ -106,7 +106,7 @@ class RxTree {
                 }?.last(separatedBy: " = ")?.first(separatedBy: "(")
             }
             return className
-        }.map {
+        }.uniques.sorted().map {
             ViewController(level: lastLevel + 1, name: $0, viewControllers: [])
         }
 

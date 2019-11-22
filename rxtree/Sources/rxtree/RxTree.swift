@@ -9,6 +9,7 @@ import Foundation
 
 struct Pattern {
     static let iegalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
+    static let viewController = "(.viewController\\(\(Pattern.iegalIdentifier)\\))|(.viewController\\(\(Pattern.iegalIdentifier), with: [\\s\\S]*?\\))"
 }
 
 class RxTree {
@@ -86,25 +87,33 @@ class RxTree {
             $0.matchFirst(with: "case \(Pattern.iegalIdentifier)")?.last(separatedBy: "case ")
         }.compactMap {
             content.matchFirst(with: "(case .\($0)[\\s\\S]*?return[\\s\\S]*?case)|(case .\($0)[\\s\\S]*?return[\\s\\S]*?\\})")
-        }.map {
-            $0.components(separatedBy: "\n").dropLast()
-        }.reduce([], +)
+        }
 
         // Find the variable names of sub view controllers
-        let subViewControllers = steps.map {
-            $0.match(with: "(.viewController\\(\(Pattern.iegalIdentifier)\\))|(.viewController\\(\(Pattern.iegalIdentifier), with: [\\s\\S]*?\\))")
-        }.reduce([], +).compactMap {
-            $0.last(separatedBy: ".viewController(")?.first(separatedBy: ",")?.first(separatedBy: ")")
-        }.compactMap { name in
-            lines.first {
-                $0.contains(name + " =")
+        let subViewControllers = steps.compactMap { step -> String? in
+            guard
+                let returnViewController = step.matchFirst(with: Pattern.viewController),
+                let viewController = returnViewController.last(separatedBy: ".viewController(")?.first(separatedBy: ",")?.first(separatedBy: ")")
+            else {
+                return nil
+            }
+            var className = step.components(separatedBy: "\n").dropLast().first {
+                $0.contains(viewController + " = ")
             }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+            if className == nil {
+                className = lines.first {
+                    $0.contains(viewController + " = ")
+                }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+            }
+            return className
         }.map {
             ViewController(level: lastLevel + 1, name: $0, viewControllers: [])
         }
 
         // Find the variable names of sub flows
         let subFlows = steps.map {
+            $0.components(separatedBy: "\n").dropLast()
+        }.reduce([], +).map {
             $0.match(with: ".flow\\(\(Pattern.iegalIdentifier), with: \(Pattern.iegalIdentifier).\(Pattern.iegalIdentifier)\\)")
         }.reduce([], +).compactMap {
             $0.last(separatedBy: ".flow(")?.first(separatedBy: ",")

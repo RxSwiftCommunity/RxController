@@ -36,6 +36,8 @@ let main = command(
     }
     if let node = rxtree.list(root: root) {
         print(node.description)
+    } else {
+        print("Node not found for name: \(root)".red)
     }
 }
 

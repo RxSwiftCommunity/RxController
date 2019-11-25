@@ -30,6 +30,7 @@ struct Pattern {
     static let legalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
     static let viewController = "(.viewController\\(\(Pattern.legalIdentifier)\\))|(.viewController\\(\(Pattern.legalIdentifier), with: [\\s\\S]*?\\))"
     static let flow = ".flow\\(\(Pattern.legalIdentifier), with: \(Pattern.legalIdentifier).\(Pattern.legalIdentifier)\\)"
+    static let addChild = "addChild\\(\(Pattern.legalIdentifier), to: \(Pattern.legalIdentifier)\\)"
 }
 
 class RxTree {
@@ -94,8 +95,22 @@ class RxTree {
         return nil
     }
 
-    private func listViewController(root: String, lastLevel: Int) -> ViewController? {
-        return nil
+    // Search class name by property name from lines of code
+    private func searchClassName(for name: String, in lines: [String]) -> String? {
+        var className: String? = nil
+        // Search class name from code with pattern `xxxFlow = XxxFlow`
+        if className == nil {
+            className = lines.first {
+                $0.contains(name + " = ")
+            }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+        }
+        // Search class name from lines except all step cases with pattern `xxxFlow: XxxFlow`
+        if className == nil {
+            className = lines.compactMap {
+                $0.matchFirst(with: "\(name): \(Pattern.legalIdentifier)")
+            }.first?.last(separatedBy: ": ")
+        }
+        return className
     }
 
 }
@@ -119,8 +134,12 @@ extension RxTree {
             content.matchFirst(with: "(case .\($0)[\\s\\S]*?return[\\s\\S]*?case)|(case .\($0)[\\s\\S]*?return[\\s\\S]*?\\})")
         }
 
-        let linesOfSteps = steps.map { $0.components(separatedBy: "/") }.reduce([], +)
-        let linesExceptSteps = rootFlow.url.lines.filter { !linesOfSteps.contains($0 )}
+        let linesOfSteps = steps.map {
+            $0.components(separatedBy: "/")
+        }.reduce([], +)
+        let linesExceptSteps = rootFlow.url.lines.filter {
+            !linesOfSteps.contains($0)
+        }
 
         // Find class names of sub view controllers
         let subViewControllers = steps.compactMap { step in
@@ -131,8 +150,8 @@ extension RxTree {
             }
         }.reduce([], +).uniques.sorted().filter {
             viewControllers.names.contains($0)
-        }.map {
-            ViewController(level: lastLevel + 1, name: $0, viewControllers: [])
+        }.compactMap {
+            listViewController(root: $0, lastLevel: lastLevel + 1)
         }
 
         // Find class names of sub flows
@@ -144,14 +163,13 @@ extension RxTree {
             }
         }.reduce([], +).uniques.sorted().filter {
             flows.names.contains($0)
-        }.compactMap { name -> Flow? in
-            guard let subFlow = listFlow(root: name, lastLevel: lastLevel + 1) else {
-                print(name)
+        }.compactMap { className -> Flow? in
+            guard let subFlow = listFlow(root: className, lastLevel: lastLevel + 1) else {
                 return nil
             }
             return Flow(
                 level: lastLevel + 1,
-                name: name,
+                name: className,
                 flows: subFlow.flows,
                 viewControllers: subFlow.viewControllers
             )
@@ -162,29 +180,47 @@ extension RxTree {
 
     private func searchClassName(for name: String, step: String, linesExceptSteps: [String], rootFlow: Keyword) -> String? {
         // Search flow name from `case` to `return` at first.
-        var className = step.components(separatedBy: "\n").dropLast().first {
+        let classNameInStep = step.components(separatedBy: "\n").dropLast().first {
             $0.contains(name + " = ")
         }?.last(separatedBy: " = ")?.first(separatedBy: "(")
-        // Search class name from lines except all step cases with pattern `xxxFlow = XxxFlow`
-        if className == nil {
-            className = linesExceptSteps.first {
-                $0.contains(name + " = ")
-            }?.last(separatedBy: " = ")?.first(separatedBy: "(")
+        if classNameInStep != nil {
+            return classNameInStep
         }
-        // Search class name from lines except all step cases with pattern `xxxFlow: XxxFlow`
-        if className == nil {
-            className = linesExceptSteps.compactMap {
-                $0.matchFirst(with: "\(name): \(Pattern.legalIdentifier)")
-            }.first?.last(separatedBy: ": ")
+        // Search flow name from lines except step.
+        let classNameExceptStep = searchClassName(for: name, in: linesExceptSteps)
+        if classNameExceptStep != nil {
+            return classNameExceptStep
         }
         // Class name not found, print warning.
-        if className == nil {
-            print("[Warning] Class name not found for \(name), check the following code in \(rootFlow.url.absoluteString).\n".yellow)
-            step.components(separatedBy: "\n").enumerated().forEach { index, line in
-                print((index + 1).lineNumber.lightBlack + line.lightBlack)
-            }
+        print("[Warning] Class name not found for \(name), check the code in \(rootFlow.url.absoluteString).\n".yellow)
+        return nil
+    }
+
+}
+
+extension RxTree {
+
+    private func listViewController(root: String, lastLevel: Int) -> ViewController? {
+        guard let rootViewController = viewControllers.first(name: root) else {
+            return nil
         }
-        return className
+        let content = rootViewController.url.content
+        let lines = content.components(separatedBy: "\n")
+        let childViewControllers = content.match(with: Pattern.addChild).compactMap {
+            $0.last(separatedBy: "(")?.first(separatedBy: ",")
+        }.compactMap {
+            searchClassName(for: $0, in: lines)
+        }.compactMap { className -> ViewController? in
+            guard let childViewController = listViewController(root: className, lastLevel: lastLevel + 1) else {
+                return nil
+            }
+            return ViewController(
+                level: lastLevel + 1,
+                name: className,
+                viewControllers: childViewController.viewControllers
+            )
+        }
+        return ViewController(level: lastLevel, name: root, viewControllers: childViewControllers)
     }
 
 }

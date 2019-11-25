@@ -65,7 +65,9 @@ struct ViewController: Node {
             indent += (0..<level - 1).map { _ in "│   "}.reduce("", +)
             indent += "├── "
         }
-        return indent + name + "\n"
+        return indent + name + "\n" + viewControllers.map {
+            $0.description
+        }.reduce([], +)
     }
 
 }

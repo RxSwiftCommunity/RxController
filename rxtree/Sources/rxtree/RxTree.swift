@@ -169,13 +169,13 @@ extension RxTree {
             }
             return Flow(
                 level: lastLevel + 1,
-                name: className,
+                className: className,
                 flows: subFlow.flows,
                 viewControllers: subFlow.viewControllers
             )
         }
 
-        return Flow(level: lastLevel, name: root, flows: subFlows, viewControllers: subViewControllers)
+        return Flow(level: lastLevel, className: root, flows: subFlows, viewControllers: subViewControllers)
     }
 
     private func searchClassName(for name: String, step: String, linesExceptSteps: [String], rootFlow: Keyword) -> String? {
@@ -216,11 +216,11 @@ extension RxTree {
             }
             return ViewController(
                 level: lastLevel + 1,
-                name: className,
+                className: className,
                 viewControllers: childViewController.viewControllers
             )
         }
-        return ViewController(level: lastLevel, name: root, viewControllers: childViewControllers)
+        return ViewController(level: lastLevel, className: root, viewControllers: childViewControllers)
     }
 
 }

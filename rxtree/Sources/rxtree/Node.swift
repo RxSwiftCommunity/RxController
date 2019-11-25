@@ -27,13 +27,13 @@ import Foundation
 
 protocol Node {
     var level: Int { get }
-    var name: String { get }
+    var className: String { get }
     var description: String { get }
 }
 
 struct Flow: Node {
     let level: Int
-    let name: String
+    let className: String
     let flows: [Flow]
     let viewControllers: [ViewController]
 
@@ -49,14 +49,14 @@ struct Flow: Node {
             indent += (0..<level - 1).map { _ in "│   "}.reduce("", +)
             indent += "├── "
         }
-        return indent + name.lightBlue + "\n" + flowsDescription + viewControllerDescription
+        return indent + className.lightBlue + "\n" + flowsDescription + viewControllerDescription
     }
 
 }
 
 struct ViewController: Node {
     let level: Int
-    let name: String
+    let className: String
     let viewControllers: [ViewController]
 
     var description: String {
@@ -65,7 +65,7 @@ struct ViewController: Node {
             indent += (0..<level - 1).map { _ in "│   "}.reduce("", +)
             indent += "├── "
         }
-        return indent + name + "\n" + viewControllers.map {
+        return indent + className + "\n" + viewControllers.map {
             $0.description
         }.reduce([], +)
     }

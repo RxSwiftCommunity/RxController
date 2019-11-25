@@ -30,7 +30,13 @@ struct Pattern {
     static let legalIdentifier = "[a-zA-Z\\_][0-9a-zA-Z\\_]*"
     static let viewController = "(.viewController\\(\(Pattern.legalIdentifier)\\))|(.viewController\\(\(Pattern.legalIdentifier), with: [\\s\\S]*?\\))"
     static let flow = ".flow\\(\(Pattern.legalIdentifier), with: \(Pattern.legalIdentifier).\(Pattern.legalIdentifier)\\)"
+    static let stepEnum = "enum \(Pattern.legalIdentifier): Step \\{[\\s\\S]*?\\}"
+    static let stepCase = "case \(Pattern.legalIdentifier)"
     static let addChild = "addChild\\(\(Pattern.legalIdentifier), to: \(Pattern.legalIdentifier)\\)"
+    
+    static func stepCase(for name: String) -> String {
+        "(case .\(name)[\\s\\S]*?return[\\s\\S]*?case)|(case .\(name)[\\s\\S]*?return[\\s\\S]*?\\})"
+    }
 }
 
 class RxTree {
@@ -90,7 +96,7 @@ class RxTree {
             return listFlow(root: root, lastLevel: 0)
         }
         if viewControllers.names.contains(root) {
-            return listViewController(root: root, lastLevel: 0)
+            return listViewController(root: root, isChildViewController: false, lastLevel: 0)
         }
         return nil
     }
@@ -124,14 +130,14 @@ extension RxTree {
         }
 
         let content = rootFlow.url.content
-        guard let stepName = content.matchFirst(with: "enum \(Pattern.legalIdentifier): Step \\{[\\s\\S]*?\\}") else {
+        guard let stepName = content.matchFirst(with: Pattern.stepEnum) else {
             return nil
         }
         // Find all steps in the flow.
         let steps = stepName.components(separatedBy: "\n").compactMap {
-            $0.matchFirst(with: "case \(Pattern.legalIdentifier)")?.last(separatedBy: "case ")
+            $0.matchFirst(with: Pattern.stepCase)?.last(separatedBy: "case ")
         }.compactMap {
-            content.matchFirst(with: "(case .\($0)[\\s\\S]*?return[\\s\\S]*?case)|(case .\($0)[\\s\\S]*?return[\\s\\S]*?\\})")
+            content.matchFirst(with: Pattern.stepCase(for: $0))
         }
 
         let linesOfSteps = steps.map {
@@ -151,7 +157,7 @@ extension RxTree {
         }.reduce([], +).uniques.sorted().filter {
             viewControllers.names.contains($0)
         }.compactMap {
-            listViewController(root: $0, lastLevel: lastLevel + 1)
+            listViewController(root: $0, isChildViewController: false, lastLevel: lastLevel + 1)
         }
 
         // Find class names of sub flows
@@ -200,7 +206,7 @@ extension RxTree {
 
 extension RxTree {
 
-    private func listViewController(root: String, lastLevel: Int) -> ViewController? {
+    private func listViewController(root: String, isChildViewController: Bool, lastLevel: Int) -> ViewController? {
         guard let rootViewController = viewControllers.first(name: root) else {
             return nil
         }
@@ -211,16 +217,22 @@ extension RxTree {
         }.compactMap {
             searchClassName(for: $0, in: lines)
         }.compactMap { className -> ViewController? in
-            guard let childViewController = listViewController(root: className, lastLevel: lastLevel + 1) else {
+            guard let childViewController = listViewController(root: className, isChildViewController: false, lastLevel: lastLevel + 1) else {
                 return nil
             }
             return ViewController(
                 level: lastLevel + 1,
                 className: className,
+                isChildViewController: true,
                 viewControllers: childViewController.viewControllers
             )
         }
-        return ViewController(level: lastLevel, className: root, viewControllers: childViewControllers)
+        return ViewController(
+            level: lastLevel,
+            className: root,
+            isChildViewController: isChildViewController,
+            viewControllers: childViewControllers
+        )
     }
 
 }

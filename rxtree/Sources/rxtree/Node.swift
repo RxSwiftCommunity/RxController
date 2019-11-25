@@ -57,6 +57,7 @@ struct Flow: Node {
 struct ViewController: Node {
     let level: Int
     let className: String
+    let isChildViewController: Bool
     let viewControllers: [ViewController]
 
     var description: String {
@@ -65,7 +66,8 @@ struct ViewController: Node {
             indent += (0..<level - 1).map { _ in "│   "}.reduce("", +)
             indent += "├── "
         }
-        return indent + className + "\n" + viewControllers.map {
+        let classNameDescription = isChildViewController ? className.lightBlack : className
+        return indent + classNameDescription + "\n" + viewControllers.map {
             $0.description
         }.reduce([], +)
     }

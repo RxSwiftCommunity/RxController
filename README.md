@@ -207,6 +207,31 @@ steps.accept(DemoStep.stepname)
 RxController provides a command line tool `rxtree` to print the relationship among flows and view controllers,
 just like using the `tree` command.
 
+```shell
+➜  ./rxtree MainFlow
+MainFlow
+├── ProjectFlow
+│   ├── RequestFlow
+│   │   ├── AddProjectViewController
+│   │   ├── RequestViewController
+│   │   ├── ResultViewController
+│   │   ├── SaveToProjectViewController
+│   ├── ProjectIntroductionViewController
+│   ├── ProjectNameViewController
+│   ├── ProjectViewController
+│   ├── ProjectsViewController
+├── RequestFlow
+│   ├── AddProjectViewController
+│   ├── RequestViewController
+│   ├── ResultViewController
+│   ├── SaveToProjectViewController
+├── SettingsFlow
+│   ├── IPAddressViewController
+│   ├── PingViewController
+│   ├── SettingsViewController
+│   ├── WhoisViewController
+├── AddProjectViewController
+```
 
 ### Install RxTree with CocoaPods
 
@@ -221,6 +246,15 @@ end
 ```
 
 Once `pod install` or `pod update` is executed, the corresponding version of `rxtree` will be installed at the same time. 
+
+### Use RxTree
+
+The executed file `rxtree` will be copied to the root directory of the project.
+A **root node** which can be a subclass of `Flow` or a subclass of `RxViewController` must be selected as the root of the tree.
+
+```shell
+./rxtree MainFlow
+```
 
 ## Author
 

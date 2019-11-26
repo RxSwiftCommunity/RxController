@@ -33,7 +33,15 @@ struct Pattern {
     static let stepEnum = "enum \(Pattern.legalIdentifier): Step \\{[\\s\\S]*?\\}"
     static let stepCase = "case \(Pattern.legalIdentifier)"
     static let addChild = "addChild\\(\(Pattern.legalIdentifier), to: \(Pattern.legalIdentifier)\\)"
-    
+
+    static func parentViewControllerClass(for classNames: [String]) -> String {
+        classNames.map {
+            "(class \(Pattern.legalIdentifier): \($0)<\(Pattern.legalIdentifier)>)"
+        }.reduce("") {
+            $0.isEmpty ? $1 : $0 + "|" + $1
+        }
+    }
+
     static func stepCase(for name: String) -> String {
         "(case .\(name)[\\s\\S]*?return[\\s\\S]*?case)|(case .\(name)[\\s\\S]*?return[\\s\\S]*?\\})"
     }
@@ -78,10 +86,12 @@ class RxTree {
             }
         }.reduce([], +)
 
+        let scanner = Scanner(urls: swiftFiles)
+        let viewControllersPattern = Pattern.parentViewControllerClass(for: scanner.scanClassForRxViewController())
         // Load all view controllers
         viewControllers = swiftFiles.map { url in
             url.lines.compactMap {
-                $0.matchFirst(with: "class \(Pattern.legalIdentifier): BaseViewController<\(Pattern.legalIdentifier)>")
+                $0.matchFirst(with: viewControllersPattern)
             }.compactMap {
                 $0.last(separatedBy: "class ")?.first(separatedBy: ":")
             }.map {

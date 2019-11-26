@@ -202,6 +202,26 @@ With RxController, it is able to send a step to the flow from a child view model
 steps.accept(DemoStep.stepname)
 ```
 
+## RxTree
+
+RxController provides a command line tool `rxtree` to print the relationship among flows and view controllers,
+just like using the `tree` command.
+
+
+### Install RxTree with CocoaPods
+
+`rxtree` relays on the design of RxController. 
+Once RxController updated, the old version of `rxtree` may be noneffective.
+For this reason, it is recommend to be installed with `post_install` of CocoaPods.
+
+```ruby
+post_install do |installer|
+  system("bash #{Pathname(installer.sandbox.root)}/RxController/rxtree/build_for_xcode.sh")
+end
+```
+
+Once `pod install` or `pod update` is executed, the corresponding version of `rxtree` will be installed at the same time. 
+
 ## Author
 
 lm2343635, lm2343635@126.com

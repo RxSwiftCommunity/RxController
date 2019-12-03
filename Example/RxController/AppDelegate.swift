@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }).disposed(by: disposeBag)
         
         coordinate {
-            (AppFlow(window: $0), AppStep.start)
+            (AppFlow(window: $0), AppStep.main)
         }
         return true
     }

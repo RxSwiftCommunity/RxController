@@ -35,6 +35,8 @@
 		BBB12B3B2395FB1B00FFB99D /* RecursionFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B3A2395FB1B00FFB99D /* RecursionFlow.swift */; };
 		BBB12B3D2395FBC500FFB99D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B3C2395FBC500FFB99D /* ProfileViewController.swift */; };
 		BBB12B402395FCB300FFB99D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B3F2395FCB300FFB99D /* ProfileViewModel.swift */; };
+		BBE3570623960AC000FAEBA8 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3570523960AC000FAEBA8 /* FriendsViewController.swift */; };
+		BBE3570823960ADD00FAEBA8 /* FirendsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3570723960ADD00FAEBA8 /* FirendsViewModel.swift */; };
 		D5DD1EA932BA41CCC8C91656 /* Pods_RxController_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00ECD899D269DE6403F0DD20 /* Pods_RxController_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +88,8 @@
 		BBB12B3A2395FB1B00FFB99D /* RecursionFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionFlow.swift; sourceTree = "<group>"; };
 		BBB12B3C2395FBC500FFB99D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BBB12B3F2395FCB300FFB99D /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		BBE3570523960AC000FAEBA8 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		BBE3570723960ADD00FAEBA8 /* FirendsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirendsViewModel.swift; sourceTree = "<group>"; };
 		C637CF4A525F6C1B170AC2A5 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		E9B7364AF4E4CEC90176D8BC /* Pods_RxController_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxController_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F70B0EE16AAC20B3283B9936 /* RxController.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxController.podspec; path = ../RxController.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
@@ -158,7 +162,6 @@
 				77EE85232266DC8B00F06394 /* Controller */,
 				77EE85242266DC9F00F06394 /* Flow */,
 				BBB12B312395F64400FFB99D /* Library */,
-				BBB12B3E2395FBD500FFB99D /* Recursion */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
@@ -223,10 +226,10 @@
 		77EE85232266DC8B00F06394 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				BBB12B3E2395FBD500FFB99D /* Recursion */,
 				7716934222BCB3AB00140179 /* ChildController */,
 				7716933C22BCB26A00140179 /* MenuViewController.swift */,
 				7716933E22BCB27600140179 /* MenuViewModel.swift */,
-				7716934022BCB2EA00140179 /* SelectionTableViewCell.swift */,
 				BBB12B2D2395F51800FFB99D /* MainViewController.swift */,
 				BBB12B2F2395F52400FFB99D /* MainViewModel.swift */,
 			);
@@ -249,6 +252,7 @@
 			children = (
 				BBB12B322395F65200FFB99D /* BaseViewController.swift */,
 				BBB12B342395F65D00FFB99D /* BaseViewModel.swift */,
+				7716934022BCB2EA00140179 /* SelectionTableViewCell.swift */,
 			);
 			path = Library;
 			sourceTree = "<group>";
@@ -258,6 +262,8 @@
 			children = (
 				BBB12B3C2395FBC500FFB99D /* ProfileViewController.swift */,
 				BBB12B3F2395FCB300FFB99D /* ProfileViewModel.swift */,
+				BBE3570523960AC000FAEBA8 /* FriendsViewController.swift */,
+				BBE3570723960ADD00FAEBA8 /* FirendsViewModel.swift */,
 			);
 			path = Recursion;
 			sourceTree = "<group>";
@@ -479,11 +485,13 @@
 				771FB71D22A4C47800E4F6B6 /* LastNameViewController.swift in Sources */,
 				7716934122BCB2EA00140179 /* SelectionTableViewCell.swift in Sources */,
 				607FACD81AFB9204008FA782 /* InfoViewController.swift in Sources */,
+				BBE3570823960ADD00FAEBA8 /* FirendsViewModel.swift in Sources */,
 				BBB12B402395FCB300FFB99D /* ProfileViewModel.swift in Sources */,
 				BBB12B3B2395FB1B00FFB99D /* RecursionFlow.swift in Sources */,
 				BBB12B332395F65200FFB99D /* BaseViewController.swift in Sources */,
 				77EE85172265684A00F06394 /* AppFlow.swift in Sources */,
 				77EE851922656BBE00F06394 /* InfotViewModel.swift in Sources */,
+				BBE3570623960AC000FAEBA8 /* FriendsViewController.swift in Sources */,
 				BBB12B2E2395F51800FFB99D /* MainViewController.swift in Sources */,
 				BBB12B302395F52400FFB99D /* MainViewModel.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,

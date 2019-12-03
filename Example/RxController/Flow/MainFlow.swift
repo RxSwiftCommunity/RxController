@@ -39,7 +39,7 @@ class MainFlow: Flow {
             return .multiple(flowContributors: [
                 .contribute(withNextPresentable: mainViewController, withNextStepper: mainViewModel),
                 .flow(childFlow, with: ChildStep.start),
-                .flow(recursionFlow, with: RecursionStep.profile)
+                .flow(recursionFlow, with: RecursionStep.start)
             ])
         }
     }

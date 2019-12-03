@@ -9,7 +9,9 @@
 import RxFlow
 
 enum RecursionStep: Step {
-    case profile
+    case start
+    case profile(String)
+    case friends(String)
 }
 
 class RecursionFlow: Flow {
@@ -20,13 +22,25 @@ class RecursionFlow: Flow {
     
     private let profileViewController = ProfileViewController(viewModel: .init())
     
+    private var navigationController: UINavigationController? {
+        profileViewController.navigationController
+    }
+    
     func navigate(to step: Step) -> FlowContributors {
         guard let recursionStep = step as? RecursionStep else {
             return .none
         }
         switch recursionStep {
-        case .profile:
+        case .start:
             return .viewController(profileViewController)
+        case .profile(let name):
+            let profileViewController = ProfileViewController(viewModel: .init(name: name))
+            navigationController?.pushViewController(profileViewController, animated: true)
+            return .viewController(profileViewController)
+        case .friends(let name):
+            let friendsViewController = FriendsViewController(viewModel: .init(name: name))
+            navigationController?.pushViewController(friendsViewController, animated: true)
+            return .viewController(friendsViewController)
         }
     }
     

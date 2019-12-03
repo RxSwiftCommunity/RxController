@@ -45,8 +45,9 @@ struct Selection {
         self.title = title
     }
     
-    init(title: String) {
+    init(title: String, accessory: UITableViewCell.AccessoryType = .none) {
         self.title = title
+        self.accessory = accessory
     }
     
 }

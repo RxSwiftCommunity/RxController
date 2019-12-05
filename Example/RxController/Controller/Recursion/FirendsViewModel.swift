@@ -41,7 +41,7 @@ class FriendsViewModel: BaseViewModel {
         guard 0..<firindsRelay.value.count ~= index else {
             return
         }
-        steps.accept(RecursionStep.profile(firindsRelay.value[index]))
+        steps.accept(FriendsStep.profile(firindsRelay.value[index]))
     }
     
 }

@@ -27,7 +27,7 @@ class ProfileViewModel: BaseViewModel {
         guard let name = nameRelay.value else {
             return
         }
-        steps.accept(RecursionStep.friends(name))
+        steps.accept(ProfileStep.friends(name))
     }
     
 }

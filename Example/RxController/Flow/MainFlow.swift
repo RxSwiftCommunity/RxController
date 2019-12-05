@@ -32,14 +32,14 @@ class MainFlow: Flow {
         switch step {
         case .start:
             let childFlow = ChildFlow()
-            let recursionFlow = RecursionFlow()
-            Flows.whenReady(flow1: childFlow, flow2: recursionFlow) {
+            let profileFlow = ProfileFlow()
+            Flows.whenReady(flow1: childFlow, flow2: profileFlow) {
                 self.mainViewController.viewControllers = [$0, $1]
             }
             return .multiple(flowContributors: [
                 .contribute(withNextPresentable: mainViewController, withNextStepper: mainViewModel),
                 .flow(childFlow, with: ChildStep.start),
-                .flow(recursionFlow, with: RecursionStep.start)
+                .flow(profileFlow, with: ProfileStep.start)
             ])
         }
     }

@@ -26,13 +26,14 @@
 		77EE851D22656EC400F06394 /* NameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851C22656EC400F06394 /* NameViewModel.swift */; };
 		77EE851F22656EEB00F06394 /* NumberViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE851E22656EEB00F06394 /* NumberViewController.swift */; };
 		77EE852122656EF600F06394 /* NumberViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77EE852022656EF600F06394 /* NumberViewModel.swift */; };
+		BB79DFB8239890A100A995E9 /* FriendsFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB79DFB7239890A100A995E9 /* FriendsFlow.swift */; };
+		BB79DFBA239890AD00A995E9 /* ProfileFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB79DFB9239890AD00A995E9 /* ProfileFlow.swift */; };
 		BBB12B2E2395F51800FFB99D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B2D2395F51800FFB99D /* MainViewController.swift */; };
 		BBB12B302395F52400FFB99D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B2F2395F52400FFB99D /* MainViewModel.swift */; };
 		BBB12B332395F65200FFB99D /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B322395F65200FFB99D /* BaseViewController.swift */; };
 		BBB12B352395F65D00FFB99D /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B342395F65D00FFB99D /* BaseViewModel.swift */; };
 		BBB12B372395FAE400FFB99D /* MainFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B362395FAE400FFB99D /* MainFlow.swift */; };
 		BBB12B392395FB0A00FFB99D /* ChildFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B382395FB0A00FFB99D /* ChildFlow.swift */; };
-		BBB12B3B2395FB1B00FFB99D /* RecursionFlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B3A2395FB1B00FFB99D /* RecursionFlow.swift */; };
 		BBB12B3D2395FBC500FFB99D /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B3C2395FBC500FFB99D /* ProfileViewController.swift */; };
 		BBB12B402395FCB300FFB99D /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBB12B3F2395FCB300FFB99D /* ProfileViewModel.swift */; };
 		BBE3570623960AC000FAEBA8 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBE3570523960AC000FAEBA8 /* FriendsViewController.swift */; };
@@ -79,13 +80,14 @@
 		77EE851C22656EC400F06394 /* NameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NameViewModel.swift; sourceTree = "<group>"; };
 		77EE851E22656EEB00F06394 /* NumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberViewController.swift; sourceTree = "<group>"; };
 		77EE852022656EF600F06394 /* NumberViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberViewModel.swift; sourceTree = "<group>"; };
+		BB79DFB7239890A100A995E9 /* FriendsFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFlow.swift; sourceTree = "<group>"; };
+		BB79DFB9239890AD00A995E9 /* ProfileFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFlow.swift; sourceTree = "<group>"; };
 		BBB12B2D2395F51800FFB99D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		BBB12B2F2395F52400FFB99D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		BBB12B322395F65200FFB99D /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		BBB12B342395F65D00FFB99D /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 		BBB12B362395FAE400FFB99D /* MainFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainFlow.swift; sourceTree = "<group>"; };
 		BBB12B382395FB0A00FFB99D /* ChildFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildFlow.swift; sourceTree = "<group>"; };
-		BBB12B3A2395FB1B00FFB99D /* RecursionFlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecursionFlow.swift; sourceTree = "<group>"; };
 		BBB12B3C2395FBC500FFB99D /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		BBB12B3F2395FCB300FFB99D /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		BBE3570523960AC000FAEBA8 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
@@ -242,7 +244,8 @@
 				77EE85162265684A00F06394 /* AppFlow.swift */,
 				BBB12B382395FB0A00FFB99D /* ChildFlow.swift */,
 				BBB12B362395FAE400FFB99D /* MainFlow.swift */,
-				BBB12B3A2395FB1B00FFB99D /* RecursionFlow.swift */,
+				BB79DFB7239890A100A995E9 /* FriendsFlow.swift */,
+				BB79DFB9239890AD00A995E9 /* ProfileFlow.swift */,
 			);
 			path = Flow;
 			sourceTree = "<group>";
@@ -487,13 +490,14 @@
 				607FACD81AFB9204008FA782 /* InfoViewController.swift in Sources */,
 				BBE3570823960ADD00FAEBA8 /* FirendsViewModel.swift in Sources */,
 				BBB12B402395FCB300FFB99D /* ProfileViewModel.swift in Sources */,
-				BBB12B3B2395FB1B00FFB99D /* RecursionFlow.swift in Sources */,
 				BBB12B332395F65200FFB99D /* BaseViewController.swift in Sources */,
 				77EE85172265684A00F06394 /* AppFlow.swift in Sources */,
 				77EE851922656BBE00F06394 /* InfotViewModel.swift in Sources */,
 				BBE3570623960AC000FAEBA8 /* FriendsViewController.swift in Sources */,
+				BB79DFBA239890AD00A995E9 /* ProfileFlow.swift in Sources */,
 				BBB12B2E2395F51800FFB99D /* MainViewController.swift in Sources */,
 				BBB12B302395F52400FFB99D /* MainViewModel.swift in Sources */,
+				BB79DFB8239890A100A995E9 /* FriendsFlow.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 				77EE851B22656EBA00F06394 /* NameViewController.swift in Sources */,
 				7716933D22BCB26A00140179 /* MenuViewController.swift in Sources */,

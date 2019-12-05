@@ -34,7 +34,7 @@ class InfoViewModel: RxViewModel {
     }
     
     func close() {
-        steps.accept(AppStep.childIsComplete)
+//        steps.accept(AppStep.childIsComplete)
     }
     
 }

@@ -28,10 +28,16 @@ import Foundation
 
 let main = command(
     Argument<String>("root", description: "Root node, a flow or a view controller."),
-    Option("dir", default: "", description: "Directory to scan the Xcode project.")
-) { root, dir in
-    guard let rxtree = dir.isEmpty ? RxTree() : RxTree(directory: dir) else {
-        print("Xcode project not found.")
+    Option("dir", default: "", description: "Directory to scan the Xcode project."),
+    Option("maxLevels", default: "10", description: "Max levels.")
+) { root, dir, maxLevels in
+    guard let maxLevels = Int(maxLevels), maxLevels > 0 else {
+        print("maxLevels should be a number greater than 0.")
+        return
+    }
+    let rootDir = dir.isEmpty ? FileManager.default.currentDirectoryPath : dir
+    guard let rxtree = RxTree(directory: rootDir, maxLevels: maxLevels) else {
+        print("Xcode project not found.".red)
         return
     }
     if let node = rxtree.list(root: root) {

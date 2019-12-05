@@ -51,8 +51,9 @@ class RxTree {
 
     private let flows: [Keyword]
     private let viewControllers: [Keyword]
+    private let maxLevels: Int
 
-    init?(directory: String = FileManager.default.currentDirectoryPath) {
+    init?(directory: String, maxLevels: Int) {
         var currentDirectory = directory + "/"
         var projects: [String] = []
         repeat {
@@ -99,6 +100,7 @@ class RxTree {
             }
         }.reduce([], +)
 
+        self.maxLevels = maxLevels
     }
 
     func list(root: String) -> Node? {
@@ -167,7 +169,7 @@ extension RxTree {
         }.reduce([], +).uniques.sorted().filter {
             viewControllers.names.contains($0)
         }.compactMap {
-            listViewController(root: $0, isChildViewController: false, lastLevel: lastLevel + 1)
+            lastLevel < maxLevels ? listViewController(root: $0, isChildViewController: false, lastLevel: lastLevel + 1) : nil
         }
 
         // Find class names of sub flows
@@ -180,7 +182,7 @@ extension RxTree {
         }.reduce([], +).uniques.sorted().filter {
             flows.names.contains($0)
         }.compactMap { className -> Flow? in
-            guard let subFlow = listFlow(root: className, lastLevel: lastLevel + 1) else {
+            guard lastLevel < maxLevels, let subFlow = listFlow(root: className, lastLevel: lastLevel + 1) else {
                 return nil
             }
             return Flow(

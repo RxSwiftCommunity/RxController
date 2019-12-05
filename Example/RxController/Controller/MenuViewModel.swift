@@ -32,9 +32,11 @@ class MenuViewModel: RxViewModel {
         }
         switch selectionsRelay.value[index] {
         case .childController:
-            steps.accept(AppStep.child)
+//            steps.accept(AppStep.child)
+            break
         case .childNavigationController:
-            steps.accept(AppStep.childOnNavigation)
+//            steps.accept(AppStep.childOnNavigation)
+            break
         default:
             break
         }

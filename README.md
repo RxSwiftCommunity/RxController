@@ -258,7 +258,7 @@ A **root node** which can be a subclass of `Flow` or a subclass of `RxViewContro
 
 To prevent recustion calling, the default max levels of `rxtree` is 10.
 It means that only 10 levels of flows and view controllers will be listed by default.
-To change the value of max levels, use `--maxLevles 5`.
+To change the value of max levels, use the paramter `maxLevels`.
 
 ```shell
 ./rxtree MainFlow --maxLevels 5

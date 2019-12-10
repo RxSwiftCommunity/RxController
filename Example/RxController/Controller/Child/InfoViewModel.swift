@@ -16,25 +16,21 @@ struct InfoEvent {
     static let number = RxControllerEvent.identifier()
 }
 
-class InfoViewModel: RxViewModel {
+class InfoViewModel: BaseViewModel {
     
     private let faker = Faker(locale: "nb-NO")
     
     var name: Observable<String?> {
-        return events.value(of: InfoEvent.name)
+        events.value(of: InfoEvent.name)
     }
     
     var number: Observable<String?> {
-        return events.value(of: InfoEvent.number)
+        events.value(of: InfoEvent.number)
     }
     
     func updateAll() {
         events.accept(InfoEvent.name.event(faker.name.name()))
         events.accept(InfoEvent.number.event(faker.phoneNumber.cellPhone()))
     }
-    
-    func close() {
-//        steps.accept(AppStep.childIsComplete)
-    }
-    
+
 }

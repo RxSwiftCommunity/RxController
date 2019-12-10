@@ -6,10 +6,37 @@
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 
-import UIKit
-import RxController
+private struct Const {
+    struct title {
+        static let marginLeft = 10
+    }
+    
+    struct name {
+        static let marginTop = 10
+    }
+    
+    struct number {
+        static let marginRight = 10
+    }
+    
+    struct update {
+        static let width = 150
+        static let marginTop = 10
+    }
+    
+    struct firstName {
+        static let height = 100
+        static let marginTop = 30
+    }
+    
+    struct lastName {
+        static let height = 100
+        static let marginTop = 30
+    }
+    
+}
 
-class NameViewController: RxViewController<NameViewModel> {
+class NameViewController: BaseViewController<NameViewModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -42,10 +69,11 @@ class NameViewController: RxViewController<NameViewModel> {
         return button
     }()
     
-    private lazy var firstNameViewController = FirstNameViewController(viewModel: viewModel.firstNameViewModel)
+    private lazy var firstNameView = UIView()
+    private lazy var lastNameView = UIView()
     
-    private lazy var lastNameContainerView = UIView()
-    private lazy var lastNameViewController = LastNameViewController(viewModel: viewModel.lastNameViewModel)
+    private lazy var firstNameViewController = FirstNameViewController(viewModel: .init())
+    private lazy var lastNameViewController = LastNameViewController(viewModel: .init())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,15 +83,18 @@ class NameViewController: RxViewController<NameViewModel> {
         view.addSubview(nameLabel)
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
-        view.addSubview(lastNameContainerView)
+        view.addSubview(firstNameView)
+        view.addSubview(lastNameView)
 
-        addChild(firstNameViewController)
-        addChild(lastNameViewController, to: lastNameContainerView)
+        addChild(firstNameViewController, to: firstNameView)
+        addChild(lastNameViewController, to: lastNameView)
         
         createConstraints()
         
-        viewModel.name ~> nameLabel.rx.text ~ disposeBag
-        viewModel.number ~> numberLabel.rx.text ~ disposeBag
+        disposeBag ~ [
+            viewModel.name ~> nameLabel.rx.text,
+            viewModel.number ~> numberLabel.rx.text
+        ]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,41 +102,42 @@ class NameViewController: RxViewController<NameViewModel> {
         
         viewModel.updateName()
     }
-    
+
     private func createConstraints() {
         
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.equalToSuperview().offset(Const.title.marginLeft)
             $0.top.equalToSuperview()
         }
         
         nameLabel.snp.makeConstraints {
             $0.left.equalTo(titleLabel)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Const.name.marginTop)
         }
         
         numberLabel.snp.makeConstraints {
             $0.centerY.equalTo(nameLabel)
-            $0.right.equalToSuperview().offset(-10)
+            $0.right.equalToSuperview().offset(-Const.number.marginRight)
         }
         
         updateButton.snp.makeConstraints {
+            $0.width.equalTo(Const.update.width)
+            $0.top.equalTo(numberLabel.snp.bottom).offset(Const.update.marginTop)
             $0.right.equalTo(numberLabel)
-            $0.top.equalTo(numberLabel.snp.bottom).offset(10)
-            $0.width.equalTo(150)
         }
         
-        firstNameViewController.view.snp.makeConstraints {
+        firstNameView.snp.makeConstraints {
+            $0.height.equalTo(Const.firstName.height)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(100)
-            $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
+            $0.top.equalTo(updateButton.snp.bottom).offset(Const.firstName.marginTop)
         }
         
-        lastNameContainerView.snp.makeConstraints {
+        lastNameView.snp.makeConstraints {
+            $0.height.equalTo(Const.lastName.height)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(100)
-            $0.top.equalTo(self.firstNameViewController.view.snp.bottom).offset(30)
+            $0.top.equalTo(firstNameViewController.view.snp.bottom).offset(Const.lastName.marginTop)
         }
+        
     }
     
 }

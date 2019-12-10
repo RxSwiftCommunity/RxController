@@ -6,10 +6,25 @@
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 
-import UIKit
-import RxController
+private struct Const {
+    
+    struct title {
+        static let marginLeft = 10
+    }
+    
+    struct number {
+        static let marginTop = 10
+    }
+    
+    struct update {
+        static let width = 150
+        static let marginTop = 10
+        static let marginRight = 10
+    }
+    
+}
 
-class NumberViewController: RxViewController<NumberViewModel> {
+class NumberViewController: BaseViewController<NumberViewModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -17,9 +32,7 @@ class NumberViewController: RxViewController<NumberViewModel> {
         label.textColor = .blue
         return label
     }()
-    
-    private lazy var nameLabel = UILabel()
-    
+
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
@@ -44,13 +57,14 @@ class NumberViewController: RxViewController<NumberViewModel> {
         
         view.backgroundColor = .white
         view.addSubview(titleLabel)
-        view.addSubview(nameLabel)
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
         createConstraints()
         
-        viewModel.name ~> nameLabel.rx.text ~ disposeBag
-        viewModel.number ~> numberLabel.rx.text ~ disposeBag
+        disposeBag ~ [
+            viewModel.number ~> numberLabel.rx.text
+        ]
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -62,24 +76,19 @@ class NumberViewController: RxViewController<NumberViewModel> {
     private func createConstraints() {
         
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
+            $0.left.equalToSuperview().offset(Const.title.marginLeft)
             $0.top.equalToSuperview()
         }
         
-        nameLabel.snp.makeConstraints {
-            $0.left.equalTo(titleLabel)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-        }
-        
         numberLabel.snp.makeConstraints {
-            $0.centerY.equalTo(nameLabel)
-            $0.right.equalToSuperview().offset(-10)
+            $0.left.equalTo(titleLabel)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Const.number.marginTop)
         }
         
         updateButton.snp.makeConstraints {
-            $0.right.equalTo(numberLabel)
-            $0.top.equalTo(numberLabel.snp.bottom).offset(10)
-            $0.width.equalTo(150)
+            $0.width.equalTo(Const.update.width)
+            $0.top.equalTo(numberLabel.snp.bottom).offset(Const.update.marginTop)
+            $0.right.equalToSuperview().offset(-Const.update.marginRight)
         }
         
     }

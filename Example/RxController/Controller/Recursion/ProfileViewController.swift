@@ -6,6 +6,18 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+private struct Const {
+    
+    struct name {
+        static let marginTop = 130
+    }
+    
+    struct friends {
+        static let marginTop = 30
+    }
+
+}
+
 class ProfileViewController: BaseViewController<ProfileViewModel> {
     
     private lazy var nameLabel = UILabel()
@@ -37,12 +49,12 @@ class ProfileViewController: BaseViewController<ProfileViewModel> {
         
         nameLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().offset(130)
+            $0.top.equalToSuperview().offset(Const.name.marginTop)
         }
         
         friendsButton.snp.makeConstraints {
             $0.centerX.equalToSuperview()
-            $0.top.equalTo(nameLabel.snp.bottom).offset(30)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(Const.friends.marginTop)
         }
         
     }

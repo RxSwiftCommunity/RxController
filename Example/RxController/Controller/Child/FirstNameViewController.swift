@@ -1,30 +1,49 @@
 //
-//  LastNameViewController.swift
+//  FirstNameViewController.swift
 //  RxController_Example
 //
 //  Created by Meng Li on 2019/06/03.
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import UIKit
-import RxController
+private struct Const {
+    
+    struct title {
+        static let marginLeft = 30
+    }
+    
+    struct firstName {
+        static let marginTop = 10
+    }
+    
+    struct lastNameLabel {
+        static let marginTop = 10
+    }
+    
+    struct update {
+        static let width = 150
+        static let marginTop = 10
+        static let marginRight = 10
+    }
+    
+}
 
-class LastNameViewController: RxViewController<LastNameViewModel> {
+class FirstNameViewController: BaseViewController<FirstNameViewModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "LastNameChildViewController"
+        label.text = "FirstNameChildViewController"
         label.textColor = .cyan
         return label
     }()
     
-    private lazy var firstNameLabel = UILabel()
-    
-    private lazy var lastNameLabel: UILabel = {
+    private lazy var firstNameLabel: UILabel = {
         let label = UILabel()
         label.textColor = .red
         return label
     }()
+    
+    private lazy var lastNameLabel = UILabel()
     
     private lazy var updateButton: UIButton = {
         let button = UIButton()
@@ -33,7 +52,7 @@ class LastNameViewController: RxViewController<LastNameViewModel> {
         button.layer.cornerRadius = 5
         button.layer.masksToBounds = true
         button.rx.tap.bind { [unowned self] in
-            self.viewModel.updateLastName()
+            self.viewModel.updateFirstName()
         }.disposed(by: disposeBag)
         return button
     }()
@@ -53,28 +72,29 @@ class LastNameViewController: RxViewController<LastNameViewModel> {
             viewModel.lastName ~> lastNameLabel.rx.text
         ]
     }
+
     
     private func createConstraints() {
         
         titleLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(30)
+            $0.left.equalToSuperview().offset(Const.title.marginLeft)
             $0.top.equalToSuperview()
         }
         
         firstNameLabel.snp.makeConstraints {
             $0.left.equalTo(titleLabel)
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(Const.firstName.marginTop)
         }
         
         lastNameLabel.snp.makeConstraints {
             $0.centerY.equalTo(firstNameLabel)
-            $0.left.equalTo(firstNameLabel.snp.right).offset(10)
+            $0.left.equalTo(firstNameLabel.snp.right).offset(Const.lastNameLabel.marginTop)
         }
         
         updateButton.snp.makeConstraints {
-            $0.right.equalToSuperview().offset(-10)
-            $0.top.equalTo(firstNameLabel.snp.bottom).offset(10)
-            $0.width.equalTo(150)
+            $0.width.equalTo(Const.update.width)
+            $0.top.equalTo(firstNameLabel.snp.bottom).offset(Const.update.marginTop)
+            $0.right.equalToSuperview().offset(-Const.update.marginRight)
         }
         
     }

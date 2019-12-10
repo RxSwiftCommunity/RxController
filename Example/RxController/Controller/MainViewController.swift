@@ -25,7 +25,7 @@ enum MainTabType: Int {
     var navigationTitle: String? {
         switch self {
         case .child:
-            return "Child View Controller"
+            return "Child View Controller Demo"
         case .recursion:
             return "Recursion Test"
         }

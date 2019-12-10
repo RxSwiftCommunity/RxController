@@ -10,6 +10,34 @@ import UIKit
 import RxController
 import SnapKit
 
+private struct Const {
+    
+    struct name {
+        static let marginLeft = 10
+        static let marginTop = 100
+    }
+    
+    struct number {
+        static let marginRight = 10
+    }
+    
+    struct update {
+        static let width = 150
+        static let marginTop = 10
+    }
+    
+    struct nameContainer {
+        static let height = 360
+        static let marginTop = 30
+    }
+    
+    struct numbeContainer {
+        static let height = 100
+        static let marginTop = 30
+    }
+    
+}
+
 class InfoViewController: RxViewController<InfoViewModel> {
     
     private lazy var nameLabel = UILabel()
@@ -32,20 +60,10 @@ class InfoViewController: RxViewController<InfoViewModel> {
         return button
     }()
     
-    private lazy var numberContainerView = UIView()
-    
-    private lazy var closeButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Close", for: .normal)
-        button.backgroundColor = .blue
-        button.rx.tap.bind { [unowned self] in
-            self.viewModel.close()
-        }.disposed(by: disposeBag)
-        return button
-    }()
+    private lazy var nameContainerView = UIView()
+    private lazy var numberContainer = UIView()
     
     private lazy var nameViewController = NameViewController(viewModel: .init())
-
     private lazy var numberViewController = NumberViewController(viewModel: .init())
 
     override func viewDidLoad() {
@@ -55,51 +73,50 @@ class InfoViewController: RxViewController<InfoViewModel> {
         view.addSubview(nameLabel)
         view.addSubview(numberLabel)
         view.addSubview(updateButton)
-        view.addSubview(numberContainerView)
-        view.addSubview(closeButton)
+        view.addSubview(nameContainerView)
+        view.addSubview(numberContainer)
         
-        addChild(nameViewController)
-        addChild(numberViewController, to: numberContainerView)
+        addChild(nameViewController, to: nameContainerView)
+        addChild(numberViewController, to: numberContainer)
         
         createConstraints()
         
-        viewModel.name ~> nameLabel.rx.text ~ disposeBag
-        viewModel.number ~> numberLabel.rx.text ~ disposeBag
+        disposeBag ~ [
+            viewModel.name ~> nameLabel.rx.text,
+            viewModel.number ~> numberLabel.rx.text
+        ]
     }
     
     private func createConstraints() {
+        
         nameLabel.snp.makeConstraints {
-            $0.left.equalToSuperview().offset(10)
-            $0.top.equalToSuperview().offset(100)
+            $0.left.equalToSuperview().offset(Const.name.marginLeft)
+            $0.top.equalToSuperview().offset(Const.name.marginTop)
         }
         
         numberLabel.snp.makeConstraints {
             $0.centerY.equalTo(nameLabel)
-            $0.right.equalToSuperview().offset(-10)
+            $0.right.equalToSuperview().offset(-Const.number.marginRight)
         }
         
         updateButton.snp.makeConstraints {
+            $0.width.equalTo(Const.update.width)
+            $0.top.equalTo(numberLabel.snp.bottom).offset(Const.update.marginTop)
             $0.right.equalTo(numberLabel)
-            $0.top.equalTo(numberLabel.snp.bottom).offset(10)
-            $0.width.equalTo(150)
         }
         
-        nameViewController.view.snp.makeConstraints {
+        nameContainerView.snp.makeConstraints {
+            $0.height.equalTo(Const.nameContainer.height)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(360)
-            $0.top.equalTo(self.updateButton.snp.bottom).offset(30)
+            $0.top.equalTo(updateButton.snp.bottom).offset(Const.nameContainer.marginTop)
         }
         
-        numberContainerView.snp.makeConstraints {
+        numberContainer.snp.makeConstraints {
+            $0.height.equalTo(Const.numbeContainer.height)
             $0.left.right.equalToSuperview()
-            $0.height.equalTo(100)
-            $0.top.equalTo(self.nameViewController.view.snp.bottom).offset(30)
+            $0.top.equalTo(nameContainerView.snp.bottom).offset(Const.numbeContainer.marginTop)
         }
-        
-        closeButton.snp.makeConstraints {
-            $0.centerX.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom).offset(-20)
-        }
+
     }
     
 }

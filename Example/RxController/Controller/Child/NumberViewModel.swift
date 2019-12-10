@@ -6,24 +6,26 @@
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 
-import RxSwift
-import RxController
 import Fakery
+import RxCocoa
+import RxSwift
 
-class NumberViewModel: RxViewModel {
+class NumberViewModel: BaseViewModel {
     
     private let faker = Faker(locale: "nb-NO")
     
-    func updateNumber() {
-        parentEvents.accept(InfoEvent.number.event(faker.phoneNumber.cellPhone()))
-    }
+    private let numberRelay = BehaviorRelay<String?>(value: nil)
     
-    var name: Observable<String?> {
-        return parentEvents.value(of: InfoEvent.name)
+    override func prepareForParentEvents() {
+        bindParentEvents(to: numberRelay, with: InfoEvent.number)
     }
     
     var number: Observable<String?> {
-        return parentEvents.value(of: InfoEvent.number)
+        numberRelay.asObservable()
+    }
+    
+    func updateNumber() {
+        parentEvents.accept(InfoEvent.number.event(faker.phoneNumber.cellPhone()))
     }
     
 }

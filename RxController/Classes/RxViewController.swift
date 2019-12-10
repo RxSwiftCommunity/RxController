@@ -63,15 +63,17 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     }
     
     func subviews() -> [UIView] {
-        fatalError("subviews() has not been overrided.")
+        Log.debug("[WARNING] \(type(of: self)).subview() has not been overrided")
+        return []
     }
     
     func createConstraints() {
-        fatalError("createConstraints() has not been overrided.")
+        Log.debug("[WARNING] \(type(of: self)).createConstraints() has not been overrided.")
     }
     
     func bind() -> [Disposable] {
-        fatalError("bind() has not been overrided.")
+        Log.debug("[WARNING] \(type(of: self)).bind() has not been overrided.")
+        return []
     }
 
     /**

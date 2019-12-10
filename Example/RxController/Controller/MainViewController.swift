@@ -6,7 +6,6 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-
 import RxSwift
 
 enum MainTabType: Int {

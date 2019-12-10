@@ -23,9 +23,9 @@ class NameViewModel: BaseViewModel {
     
     private let nameRelay = BehaviorRelay<String?>(value: nil)
     
+    
     override func prepareForParentEvents() {
         bindParentEvents(to: nameRelay, with: InfoEvent.name)
-        
     }
 
     var name: Observable<String?> {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		331551C1D0089C012D69FDF8 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 33155353CE40FBB35400AA25 /* README.md */; };
 		51250CABAD21E9150BC9E5E5 /* Pods_RxController_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9B7364AF4E4CEC90176D8BC /* Pods_RxController_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* InfoViewController.swift */; };
@@ -54,6 +55,7 @@
 		047C032C5BB69DA1FA0B6B66 /* Pods-RxController_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxController_Example.release.xcconfig"; path = "Target Support Files/Pods-RxController_Example/Pods-RxController_Example.release.xcconfig"; sourceTree = "<group>"; };
 		21279561E2311B8CB379625C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		286BAC7EDE2E1C9F4E3E154C /* Pods-RxController_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxController_Example.debug.xcconfig"; path = "Target Support Files/Pods-RxController_Example/Pods-RxController_Example.debug.xcconfig"; sourceTree = "<group>"; };
+		33155353CE40FBB35400AA25 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3C28DB5DF7520DAA21F1015D /* Pods-RxController_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxController_Tests.release.xcconfig"; path = "Target Support Files/Pods-RxController_Tests/Pods-RxController_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		4193FEA5C477F0C5BB7F7673 /* Pods-RxController_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxController_Tests.debug.xcconfig"; path = "Target Support Files/Pods-RxController_Tests/Pods-RxController_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxController_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxController_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +144,7 @@
 				607FACD11AFB9204008FA782 /* Products */,
 				4DF527682D3DB325AF050001 /* Pods */,
 				2B5F0E8B72D35558C80D0CC9 /* Frameworks */,
+				33155353CE40FBB35400AA25 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -501,6 +504,7 @@
 				77EE851D22656EC400F06394 /* NameViewModel.swift in Sources */,
 				77EE851F22656EEB00F06394 /* NumberViewController.swift in Sources */,
 				771FB71F22A4C48600E4F6B6 /* LastNameViewModel.swift in Sources */,
+				331551C1D0089C012D69FDF8 /* README.md in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

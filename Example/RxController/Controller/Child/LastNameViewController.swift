@@ -6,7 +6,6 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
-import UIKit
 import RxController
 
 class LastNameViewController: RxViewController<LastNameViewModel> {

@@ -16,7 +16,7 @@ struct InfoEvent {
     static let number = RxControllerEvent.identifier()
 }
 
-class InfoViewModel: RxViewModel {
+class InfoViewModel: BaseViewModel {
     
     private let faker = Faker(locale: "nb-NO")
     

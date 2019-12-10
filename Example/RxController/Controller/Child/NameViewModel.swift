@@ -17,7 +17,7 @@ struct NameEvent {
     static let lastName = RxControllerEvent.identifier()
 }
 
-class NameViewModel: RxViewModel {
+class NameViewModel: BaseViewModel {
     
     private let faker = Faker(locale: "nb-NO")
     
@@ -25,17 +25,17 @@ class NameViewModel: RxViewModel {
     
     override func prepareForParentEvents() {
         bindParentEvents(to: nameRelay, with: InfoEvent.name)
+        
     }
 
     var name: Observable<String?> {
-//        return Observable.merge(
-//            parentEvents.value(of: ),
-//            Observable.combineLatest(
-//                events.unwrappedValue(of: NameEvent.firstName),
-//                events.unwrappedValue(of: NameEvent.lastName)
-//            ).map { $0 + " " + $1 }
-//        )
-        nameRelay.asObservable()
+        Observable.merge(
+            nameRelay.asObservable(),
+            Observable.combineLatest(
+                events.unwrappedValue(of: NameEvent.firstName),
+                events.unwrappedValue(of: NameEvent.lastName)
+            ).map { $0 + " " + $1 }
+        )
     }
     
     var number: Observable<String?> {

@@ -6,10 +6,6 @@
 //  Copyright (c) 2019 XFLAG. All rights reserved.
 //
 
-import UIKit
-import RxController
-import SnapKit
-
 private struct Const {
     
     struct nameTitle {
@@ -38,7 +34,7 @@ private struct Const {
     
 }
 
-class InfoViewController: RxViewController<InfoViewModel> {
+class InfoViewController: BaseViewController<InfoViewModel> {
     
     private lazy var nameTitleLabel = UILabel()
     

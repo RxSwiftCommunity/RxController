@@ -6,8 +6,6 @@
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 
-import RxController
-
 private struct Const {
     struct title {
         static let marginLeft = 10
@@ -38,7 +36,7 @@ private struct Const {
     
 }
 
-class NameViewController: RxViewController<NameViewModel> {
+class NameViewController: BaseViewController<NameViewModel> {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()

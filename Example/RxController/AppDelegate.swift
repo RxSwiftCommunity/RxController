@@ -6,7 +6,7 @@
 //  Copyright (c) 2019 XFLAG. All rights reserved.
 //
 
-import UIKit
+import SnapKit
 import RxSwift
 import RxFlow
 @_exported import RxBinding

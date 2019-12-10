@@ -7,21 +7,29 @@
 //
 
 import Fakery
-import RxController
+import RxCocoa
 import RxSwift
 
-class FirstNameViewModel: RxViewModel {
-    
-    var firstName: Observable<String?> {
-        return parentEvents.value(of: NameEvent.firstName)
-    }
-    
-    var lastName: Observable<String?> {
-        return parentEvents.value(of: NameEvent.lastName)
-    }
+class FirstNameViewModel: BaseViewModel {
     
     private let faker = Faker(locale: "nb-NO")
     
+    private let firstNameRelay = BehaviorRelay<String?>(value: nil)
+    private let lastNameRelay = BehaviorRelay<String?>(value: nil)
+    
+    override func prepareForParentEvents() {
+        bindParentEvents(to: firstNameRelay, with: NameEvent.firstName)
+        bindParentEvents(to: lastNameRelay, with: NameEvent.lastName)
+    }
+    
+    var firstName: Observable<String?> {
+        firstNameRelay.asObservable()
+    }
+    
+    var lastName: Observable<String?> {
+        lastNameRelay.asObservable()
+    }
+
     func updateFirstName() {
         parentEvents.accept(NameEvent.firstName.event(faker.name.lastName()))
     }

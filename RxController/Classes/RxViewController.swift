@@ -54,6 +54,26 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         Log.debug("[DEINIT View Controller] \(type(of: self))")
     }
     
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        subviews().forEach { $0.addSubview($0) }
+        createConstraints()
+        bind().forEach { $0.disposed(by: disposeBag) }
+    }
+    
+    func subviews() -> [UIView] {
+        fatalError("subviews() has not been overrided.")
+    }
+    
+    func createConstraints() {
+        fatalError("createConstraints() has not been overrided.")
+    }
+    
+    func bind() -> [Disposable] {
+        fatalError("bind() has not been overrided.")
+    }
+
     /**
      Add a child view controller to the root view of the parent view controller.
 

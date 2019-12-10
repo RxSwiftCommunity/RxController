@@ -30,7 +30,7 @@ the corresponding label in the parent view controller can be updated.
 
 As same as the system constituted by `InfoViewController`, `FirstNameViewController`, `LastNameViewController`,
 the sub system constituted by `NameViewController`, `FirstNameViewController`, `LastNameViewController` have some events in the view model `NameViewModel`.
-These events helps data changing among the view models of the sub system.
+These events help data exchanging among the view models of the sub system.
 
 By default, events from `InfoViewModel` cannot be transported to `FirstNameViewModel` or `LastNameViewModel`.
 Also, the events from `FirstNameViewModel` or `LastNameViewModel` cannot be transported to `InfoViewModel`.

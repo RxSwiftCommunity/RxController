@@ -57,21 +57,21 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        subviews().forEach { $0.addSubview($0) }
+        subviews().forEach { view.addSubview($0) }
         createConstraints()
         bind().forEach { $0.disposed(by: disposeBag) }
     }
     
-    func subviews() -> [UIView] {
+    open func subviews() -> [UIView] {
         Log.debug("[WARNING] \(type(of: self)).subview() has not been overrided")
         return []
     }
     
-    func createConstraints() {
+    open func createConstraints() {
         Log.debug("[WARNING] \(type(of: self)).createConstraints() has not been overrided.")
     }
     
-    func bind() -> [Disposable] {
+    open func bind() -> [Disposable] {
         Log.debug("[WARNING] \(type(of: self)).bind() has not been overrided.")
         return []
     }

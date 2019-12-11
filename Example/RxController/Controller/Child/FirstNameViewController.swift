@@ -6,6 +6,8 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+import RxSwift
+
 private struct Const {
     
     struct title {
@@ -59,22 +61,27 @@ class FirstNameViewController: BaseViewController<FirstNameViewModel> {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
-        
-        view.addSubview(titleLabel)
-        view.addSubview(firstNameLabel)
-        view.addSubview(lastNameLabel)
-        view.addSubview(updateButton)
-        createConstraints()
-        
-        disposeBag ~ [
+    }
+
+    override func subviews() -> [UIView] {
+        return [
+            titleLabel,
+            firstNameLabel,
+            lastNameLabel,
+            updateButton
+        ]
+    }
+    
+    override func bind() -> [Disposable] {
+        return [
             viewModel.firstName ~> firstNameLabel.rx.text,
             viewModel.lastName ~> lastNameLabel.rx.text
         ]
     }
-
     
-    private func createConstraints() {
+    override func createConstraints() {
         
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(Const.title.marginLeft)

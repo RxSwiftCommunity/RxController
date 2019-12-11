@@ -6,6 +6,8 @@
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 
+import RxSwift
+
 private struct Const {
     struct title {
         static let marginLeft = 10
@@ -78,23 +80,9 @@ class NameViewController: BaseViewController<NameViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        view.addSubview(titleLabel)
-        view.addSubview(nameLabel)
-        view.addSubview(numberLabel)
-        view.addSubview(updateButton)
-        view.addSubview(firstNameView)
-        view.addSubview(lastNameView)
 
         addChild(firstNameViewController, to: firstNameView)
         addChild(lastNameViewController, to: lastNameView)
-        
-        createConstraints()
-        
-        disposeBag ~ [
-            viewModel.name ~> nameLabel.rx.text,
-            viewModel.number ~> numberLabel.rx.text
-        ]
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -102,8 +90,26 @@ class NameViewController: BaseViewController<NameViewModel> {
         
         viewModel.updateName()
     }
+    
+    override func subviews() -> [UIView] {
+        return [
+            titleLabel,
+            nameLabel,
+            numberLabel,
+            updateButton,
+            firstNameView,
+            lastNameView
+        ]
+    }
 
-    private func createConstraints() {
+    override func bind() -> [Disposable] {
+        return [
+            viewModel.name ~> nameLabel.rx.text,
+            viewModel.number ~> numberLabel.rx.text
+        ]
+    }
+    
+    override func createConstraints() {
         
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(Const.title.marginLeft)
@@ -135,7 +141,7 @@ class NameViewController: BaseViewController<NameViewModel> {
         lastNameView.snp.makeConstraints {
             $0.height.equalTo(Const.lastName.height)
             $0.left.right.equalToSuperview()
-            $0.top.equalTo(firstNameViewController.view.snp.bottom).offset(Const.lastName.marginTop)
+            $0.top.equalTo(firstNameView.snp.bottom).offset(Const.lastName.marginTop)
         }
         
     }

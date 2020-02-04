@@ -89,7 +89,7 @@ func navigate(to step: Step) -> FlowContributors {
 
 ### Exchange data among parent and child view models
 
-In a standard MVVM-C architecture using RxFlow, view models exchange data via the a flow class using the `steps.accept()` method.
+In a standard MVVM-C architecture using RxFlow, view models exchange data via a flow class using the `steps.accept()` method.
 With `RxChildViewModel`, we can exchange data among parent and child view models without the flow class.
 
 Use the following method to add a child view controller to the root view or a customized view of its parent controller.

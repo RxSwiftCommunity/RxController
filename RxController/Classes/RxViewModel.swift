@@ -98,6 +98,22 @@ open class RxViewModel: NSObject, Stepper {
         return events
     }
     
+    public func removeCachedEvent(at eventIdentifier: RxControllerEvent.Identifier) {
+        let cachedEventIds = cachedEvents.map { $0.identifier.id }
+        if let index = cachedEventIds.firstIndex(of: eventIdentifier.id) {
+            cachedEvents.remove(at: index)
+        }
+    }
+    
+    public func removeCachedEvents(_ eventIdentifiers: [RxControllerEvent.Identifier]) {
+        eventIdentifiers.forEach {
+            removeCachedEvent(at: $0)
+        }
+    }
+    
+    public func removeAllCachedEvents() {
+        cachedEvents.removeAll()
+    }
 }
 
 extension RxViewModel: RxControllerEventBinder {}

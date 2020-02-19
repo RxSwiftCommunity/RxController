@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxController'
-  s.version          = '0.9.3'
+  s.version          = '0.10'
   s.summary          = 'A library for developing with MVVM-C based on RxFlow and RxSwift.'
 
 # This description is used to generate tags and improve search results.

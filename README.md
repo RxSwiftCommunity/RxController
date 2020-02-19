@@ -1,9 +1,8 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/lm2343635/RxController/master/images/logo.jpg" alt="RxController" title="RxController" width="600"/>
+<img src="https://raw.githubusercontent.com/RxSwiftCommunity/RxController/master/images/logo.jpg" alt="RxController" title="RxController" width="600"/>
 </p>
 
 <p align="center">
-<a href="https://app.bitrise.io/app/60e541fa833b19d2"><img src="https://app.bitrise.io/app/60e541fa833b19d2/status.svg?token=FWKV3OHJ-W0F2AtZP4M1bw&branch=master"></a>
 <a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/v/RxController.svg?style=flat"></a>
 <a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/l/RxController.svg?style=flat"></a>
 <a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/p/RxController.svg?style=flat"></a>
@@ -28,15 +27,15 @@ These classes make it easy to transfer data among the flows, the parent view mod
 ## Recommended guideline
 
 We recommend to develop a MMVM-C based on **RxController**, **RxFlow** and **RxSwift** in this guideline.
-It better to read the documentation of [RxController](https://github.com/xflagstudio/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift) at first, if you are not familiar with them.
+It better to read the documentation of [RxController](https://github.com/RxSwiftCommunity/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift) at first, if you are not familiar with them.
 
-- Chapter 1: [Introduction](https://github.com/xflagstudio/RxController/blob/master/document/chapter1-introduction.md)
-- Chapter 2: [Using RxFlow](https://github.com/xflagstudio/RxController/blob/master/document/chapter2-rxflow.md)
-- Chapter 3: [View controller](https://github.com/xflagstudio/RxController/blob/master/document/chapter3-viewcontroller.md)
-- Chapter 4: [View model](https://github.com/xflagstudio/RxController/blob/master/document/chapter4-viewmodel.md)
-- Chapter 5: [View](https://github.com/xflagstudio/RxController/blob/master/document/chapter5-view.md)
-- Chapter 6: [Table and collection view cell](https://github.com/xflagstudio/RxController/blob/master/document/chapter6-cell.md)
-- Chapter 7: [Manager classes](https://github.com/xflagstudio/RxController/blob/master/document/chapter7-manager.md)
+- Chapter 1: [Introduction](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter1-introduction.md)
+- Chapter 2: [Using RxFlow](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter2-rxflow.md)
+- Chapter 3: [View controller](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter3-viewcontroller.md)
+- Chapter 4: [View model](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter4-viewmodel.md)
+- Chapter 5: [View](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter5-view.md)
+- Chapter 6: [Table and collection view cell](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter6-cell.md)
+- Chapter 7: [Manager classes](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter7-manager.md)
 
 ## Documentation
 

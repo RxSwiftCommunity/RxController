@@ -1,0 +1,15 @@
+name: pull_request_build_check
+
+on: [pull_request]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Pod install
+      run: pod install --repo-update
+    - name: Run test
+      run: set -o pipefail && xcodebuild -workspace Example/RxController.xcworkspace -scheme RxController -sdk iphonesimulator build CODE_SIGNING_REQUIRED=NO | xcpretty -c

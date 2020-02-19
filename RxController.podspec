@@ -23,10 +23,10 @@ RxController provides the basic view controller and view model classes.
 These classes make it easy to transfer data among the flows, the parent view models and the child view models.
                        DESC
 
-  s.homepage         = 'https://github.com/xflagstudio/RxController'
+  s.homepage         = 'https://github.com/RxSwiftCommunity/RxController'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Meng Li' => 'lm2343635@126.com' }
-  s.source           = { :git => 'https://github.com/xflagstudio/RxController.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/RxSwiftCommunity/RxController.git', :tag => s.version.to_s }
 
   s.ios.deployment_target = '9.0'
   s.swift_versions = '5.0'

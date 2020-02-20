@@ -268,7 +268,7 @@ We don't receommend to use RxSwift directly in a customized view.
 
 To make it easy to understand this problem, we can refer to the following grpah.
 
-![subviews_and_child_controller](https://raw.githubusercontent.com/lm2343635/RxController/master/images/subviews_and_child_controller.jpg)
+![subviews_and_child_controller](https://raw.githubusercontent.com/RxSwiftCommunity/RxController/master/images/subviews_and_child_controller.jpg)
 
 In this graph, both the count of subviews and the user interactions in the group are considered.
 In the situation with less subviews and less user interactions, compared to add the subviews into the parent view controller directly,
@@ -280,7 +280,7 @@ The parent plan is recommended with the high relevancy degree between the user i
 
 A child view controller also extends the BaseViewController, so it can take advantage of view model and RxSwift.
 
-![Platform](https://raw.githubusercontent.com/lm2343635/RxController/master/images/child_view_controllers.jpg)
+![Platform](https://raw.githubusercontent.com/RxSwiftCommunity/RxController/master/images/child_view_controllers.jpg)
 
 **Using a container view is recommended for a child view controller.**
 For example, to add the `childViewController1` into the parent view controller, a container view `containerView1` should be prepared at first.

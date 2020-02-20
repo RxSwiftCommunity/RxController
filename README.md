@@ -120,7 +120,7 @@ struct InfoEvent {
 }
 ```
 
-![Platform](https://raw.githubusercontent.com/lm2343635/RxController/master/images/viewmodel.jpg)
+![Platform](https://raw.githubusercontent.com/RxSwiftCommunity/RxController/master/images/viewmodel.jpg)
 
 As shown in the graph, the events can only be transfered among a parent view model and its first generation child view models.
 For example, the `InfoEvent` we defined above, is enabled among `InfoViewModel`, `NameViewModel` and `NumberViewModel`.

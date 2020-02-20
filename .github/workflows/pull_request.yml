@@ -10,6 +10,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Pod install
-      run: pod install --repo-update
+      run: pod install --project-directory=Example --repo-update
     - name: Run test
       run: set -o pipefail && xcodebuild -workspace Example/RxController.xcworkspace -scheme RxController -sdk iphonesimulator build CODE_SIGNING_REQUIRED=NO | xcpretty -c

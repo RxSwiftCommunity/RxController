@@ -184,7 +184,7 @@ struct InfoEvent {
 A **common** view model depends on the structure of view controllers and the business logic.
 It can be a parent view model or a child view model.
 
-![Child view models](https://raw.githubusercontent.com/lm2343635/RxController/master/images/child_view_models.jpg)
+![Child view models](https://raw.githubusercontent.com/RxSwiftCommunity/RxController/master/images/child_view_models.jpg)
 
 In this graph, there are 6 view models, and the arrows represent the relationship among them.
 There a 3 child view controller systems:

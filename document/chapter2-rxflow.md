@@ -2,7 +2,7 @@
 
 This chapter introduces the basic usage of RxFlow in our guideline.
 
-![RxFlow](https://raw.githubusercontent.com/lm2343635/RxController/master/images/rxflow.jpg)
+![RxFlow](https://raw.githubusercontent.com/RxSwiftCommunity/RxController/master/images/rxflow.jpg)
 
 In RxFlow, a step enum is a way to express a state that can lead to a navigation.
 A flow class which holds the references of some view controllers and flows, defines a navigation area in your application.

@@ -123,6 +123,11 @@ To simplify the code, they are not recommended to be imported.
 viewModel.title ~> titleLabel.rx.text
 ```
 
+For some situations, the `self` keyword cannot be omitted.
+For example, when the properties are used with in a clousre, the `self` property should be captured with `[unowned self]` or `[weak self]` to avoid memoery leak.
+If there are too many `self` keywoard within our code, it is difficult for us to concentrate on those situations we need pay attention to.
+For this reason, unnecessary `self` keywords are recommended to be omitted.
+
 - Omit `class`, `struct` and `enum` keyword if possible.
 
 ```swift

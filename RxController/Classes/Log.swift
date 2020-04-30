@@ -29,7 +29,7 @@ import Foundation
 
 struct Log {
     
-    static func debug(_ message: String, tag: String = "", tags:[String] = []) {
+    static func debug(_ message: String, tag: String = "", tags: [String] = []) {
         output(tag: tag, tags: tags, message: message)
     }
     

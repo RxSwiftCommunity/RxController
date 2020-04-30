@@ -6,6 +6,8 @@
 //  Copyright © 2019 XFLAG. All rights reserved.
 //
 
+import RxSwift
+
 private struct Const {
     
     struct title {
@@ -56,15 +58,6 @@ class NumberViewController: BaseViewController<NumberViewModel> {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        view.addSubview(titleLabel)
-        view.addSubview(numberLabel)
-        view.addSubview(updateButton)
-        createConstraints()
-        
-        disposeBag ~ [
-            viewModel.number ~> numberLabel.rx.text
-        ]
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,7 +66,21 @@ class NumberViewController: BaseViewController<NumberViewModel> {
         viewModel.updateNumber()
     }
     
-    private func createConstraints() {
+    override func subviews() -> [UIView] {
+        return [
+            titleLabel,
+            numberLabel,
+            updateButton
+        ]
+    }
+    
+    override func bind() -> [Disposable] {
+        return [
+            viewModel.number ~> numberLabel.rx.text
+        ]
+    }
+    
+    override func createConstraints() {
         
         titleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(Const.title.marginLeft)

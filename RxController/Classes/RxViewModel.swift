@@ -92,7 +92,7 @@ open class RxViewModel: NSObject, Stepper {
     
     public var parentEvents: PublishRelay<RxControllerEvent> {
         guard let events = _parentEvents else {
-            Log.debug("parentEvents have NOT been prepared in \(type(of: self))!\n use prepareForParentEvents if you subscribed parentEvents.")
+            Log.debug("[WARNING] parentEvents have NOT been prepared in \(type(of: self))! Override prepareForParentEvents() if you subscribed parentEvents.")
             return PublishRelay()
         }
         return events

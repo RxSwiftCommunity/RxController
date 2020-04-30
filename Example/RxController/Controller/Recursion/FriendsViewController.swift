@@ -6,6 +6,8 @@
 //  Copyright © 2019 CocoaPods. All rights reserved.
 //
 
+import RxSwift
+
 class FriendsViewController: BaseViewController<FriendsViewModel> {
  
     private lazy var tableView: UITableView = {
@@ -22,18 +24,23 @@ class FriendsViewController: BaseViewController<FriendsViewModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        view.addSubview(tableView)
-        createConstraints()
-        
-        disposeBag ~ [
+        view.backgroundColor = .white        
+    }
+    
+    override func subviews() -> [UIView] {
+        return [
+            tableView
+        ]
+    }
+    
+    override func bind() -> [Disposable] {
+        return [
             viewModel.title ~> rx.title,
             viewModel.friendSection ~> tableView.rx.items(dataSource: dataSource)
         ]
-        
     }
     
-    private func createConstraints() {
+    override func createConstraints() {
         tableView.snp.makeConstraints {
             $0.left.right.bottom.equalToSuperview()
             $0.top.equalTo(view.safeAreaInsets.top)

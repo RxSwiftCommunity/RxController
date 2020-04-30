@@ -1,6 +1,10 @@
-name: pull_request_build_check
+name: build_check
 
-on: [pull_request]
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
 
 jobs:
   build:
@@ -8,7 +12,7 @@ jobs:
     runs-on: macOS-latest
 
     steps:
-    - uses: actions/checkout@v1
+    - uses: actions/checkout@v2
     - name: Pod install
       run: pod install --project-directory=Example --repo-update
     - name: Run test

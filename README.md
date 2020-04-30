@@ -3,6 +3,7 @@
 </p>
 
 <p align="center">
+<a href="https://github.com/RxSwiftCommunity/RxController/actions"><img src="https://github.com/RxSwiftCommunity/RxController/workflows/build_check/badge.svg?branch=master"></a>
 <a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/v/RxController.svg?style=flat"></a>
 <a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/l/RxController.svg?style=flat"></a>
 <a href="https://cocoapods.org/pods/RxController"><img src="https://img.shields.io/cocoapods/p/RxController.svg?style=flat"></a>
@@ -85,6 +86,22 @@ func navigate(to step: Step) -> FlowContributors {
     }
 }
 ```
+
+Within RxViewController, the following standard methods are provided for building UI and binding data.
+
+- `open func subviews() -> [UIView]`
+
+The subview method return an array of some views.
+These views will be added to the root view of the view controller orderly.
+
+- `open func createConstraints()`
+
+Create constranint for subviews of root view.
+
+- `open func bind() -> [Disposable]`
+
+The bind method return an array of `Disposable`.
+The RxSwift style data binding can be listed in this method, without writting a `disposed(by:)` method.
 
 ### Exchange data among parent and child view models
 

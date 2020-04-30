@@ -3,8 +3,10 @@
 //  RxController
 //
 //  Created by Meng Li on 04/01/2019.
-//  Copyright (c) 2019 XFLAG. All rights reserved.
+//  Copyright (c) 2019 MuShare. All rights reserved.
 //
+
+import RxSwift
 
 private struct Const {
     
@@ -66,24 +68,28 @@ class InfoViewController: BaseViewController<InfoViewModel> {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        view.addSubview(nameTitleLabel)
-        view.addSubview(numberTitleLabel)
-        view.addSubview(updateButton)
-        view.addSubview(nameView)
-        view.addSubview(numberView)
-        
         addChild(nameViewController, to: nameView)
         addChild(numberViewController, to: numberView)
-        
-        createConstraints()
-        
-        disposeBag ~ [
+    }
+    
+    override func subviews() -> [UIView] {
+        return [
+            nameTitleLabel,
+            numberTitleLabel,
+            updateButton,
+            nameView,
+            numberView
+        ]
+    }
+    
+    override func bind() -> [Disposable] {
+        return [
             viewModel.name ~> nameTitleLabel.rx.text,
             viewModel.number ~> numberTitleLabel.rx.text
         ]
     }
     
-    private func createConstraints() {
+    override func createConstraints() {
         
         nameTitleLabel.snp.makeConstraints {
             $0.left.equalToSuperview().offset(Const.nameTitle.marginLeft)

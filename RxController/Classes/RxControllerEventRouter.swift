@@ -3,7 +3,7 @@
 //  RxController
 //
 //  Created by Meng Li on 08/06/2019.
-//  Copyright © 2019 XFLAG. All rights reserved.
+//  Copyright © 2019 MuShare. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal

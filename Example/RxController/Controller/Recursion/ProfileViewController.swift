@@ -3,8 +3,10 @@
 //  RxController_Example
 //
 //  Created by Meng Li on 12/3/19.
-//  Copyright © 2019 CocoaPods. All rights reserved.
+//  Copyright © 2019 MuShare. All rights reserved.
 //
+
+import RxSwift
 
 private struct Const {
     
@@ -36,16 +38,22 @@ class ProfileViewController: BaseViewController<ProfileViewModel> {
         super.viewDidLoad()
         
         view.backgroundColor = .white
-        view.addSubview(nameLabel)
-        view.addSubview(friendsButton)
-        createConstraints()
-        
-        disposeBag ~ [
+    }
+    
+    override func subviews() -> [UIView] {
+        return [
+            nameLabel,
+            friendsButton
+        ]
+    }
+    
+    override func bind() -> [Disposable] {
+        return [
             viewModel.name ~> nameLabel.rx.text
         ]
     }
     
-    private func createConstraints() {
+    override func createConstraints() {
         
         nameLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()

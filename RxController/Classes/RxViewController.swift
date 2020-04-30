@@ -3,7 +3,7 @@
 //  RxController
 //
 //  Created by Meng Li on 04/09/2019.
-//  Copyright (c) 2019 XFLAG. All rights reserved.
+//  Copyright (c) 2019 MuShare. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,6 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-import UIKit
 import RxSwift
 import RxCocoa
 
@@ -54,6 +53,28 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         Log.debug("[DEINIT View Controller] \(type(of: self))")
     }
     
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        subviews().forEach { view.addSubview($0) }
+        createConstraints()
+        bind().forEach { $0.disposed(by: disposeBag) }
+    }
+    
+    open func subviews() -> [UIView] {
+        Log.debug("[WARNING] \(type(of: self)).subview() has not been overrided")
+        return []
+    }
+    
+    open func createConstraints() {
+        Log.debug("[WARNING] \(type(of: self)).createConstraints() has not been overrided.")
+    }
+    
+    open func bind() -> [Disposable] {
+        Log.debug("[WARNING] \(type(of: self)).bind() has not been overrided.")
+        return []
+    }
+
     /**
      Add a child view controller to the root view of the parent view controller.
 

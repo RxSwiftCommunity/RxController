@@ -102,7 +102,7 @@ However, for the continuous semantic structure like `user_profile_full_name($0)`
 
 #### Omit if possible
 
-- Omit `return` if possible.
+- Omit `return` for computed property.
 
 ```swift
 var name: Binder<String?> {
@@ -111,6 +111,8 @@ var name: Binder<String?> {
     }
 }
 ```
+
+Even it is able to omit `return` for a method with a single line, such a style is not recommended, because it makes harder to distingush a method that returns a value and which does not returns a value.
 
 - Omit `import Foundation` and `import UIKit`
 

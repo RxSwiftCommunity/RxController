@@ -93,7 +93,7 @@ A new line is recommended when a method is invoked or a closure content is start
 ```swift
 var name: Observable<String?> {
     user.map { $0.name }.distinctUntilChanged().take(1).map {
-        return R.string.localizable.user_profile_full_name($0)
+        R.string.localizable.user_profile_full_name($0)
     }
 }
 ```

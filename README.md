@@ -103,6 +103,16 @@ Create constranint for subviews of root view.
 The bind method return an array of `Disposable`.
 The RxSwift style data binding can be listed in this method, without writting a `disposed(by:)` method.
 
+### Access lifecycle from view model directly
+
+The following lifecycle signal can be accessed from view model directly.
+
+- `viewDidLoad: Observable<Void>`
+- `viewWillAppear: Observable<Void>`
+- `viewDidAppear: Observable<Void>`
+- `viewWillDisappear: Observable<Void>`
+- `viewDidDisappear: Observable<Void>`
+
 ### Exchange data among parent and child view models
 
 In a standard MVVM-C architecture using RxFlow, view models exchange data via a flow class using the `steps.accept()` method.

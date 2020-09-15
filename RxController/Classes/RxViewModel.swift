@@ -29,6 +29,12 @@ import RxFlow
 
 open class RxViewModel: NSObject, Stepper {
     
+    let viewDidLoadSubject = PublishSubject<Void>()
+    let viewWillAppearSubject = PublishSubject<Void>()
+    let viewDidAppearSubject = PublishSubject<Void>()
+    let viewWillDisappearSubject = PublishSubject<Void>()
+    let viewDidDisappearSubject = PublishSubject<Void>()
+    
     public let steps = PublishRelay<Step>()
     public let events = PublishRelay<RxControllerEvent>()
     public let disposeBag = DisposeBag()
@@ -97,6 +103,25 @@ open class RxViewModel: NSObject, Stepper {
         return events
     }
     
+    public var viewDidLoad: Observable<Void> {
+        viewDidLoadSubject.asObservable()
+    }
+    
+    public var viewWillAppear: Observable<Void> {
+        viewWillAppearSubject.asObservable()
+    }
+    
+    public var viewDidAppear: Observable<Void> {
+        viewDidAppearSubject.asObservable()
+    }
+    
+    public var viewWillDisappear: Observable<Void> {
+        viewWillDisappearSubject.asObservable()
+    }
+    
+    public var viewDidDisappear: Observable<Void> {
+        viewDidDisappearSubject.asObservable()
+    }
 }
 
 extension RxViewModel: RxControllerEventBinder {}

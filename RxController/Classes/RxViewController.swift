@@ -56,9 +56,35 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     open override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.viewDidLoadSubject.onNext(())
+        
         subviews().forEach { view.addSubview($0) }
         createConstraints()
         bind().forEach { $0.disposed(by: disposeBag) }
+    }
+    
+    open override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        viewModel.viewWillAppearSubject.onNext(())
+    }
+    
+    open override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        viewModel.viewDidAppearSubject.onNext(())
+    }
+    
+    open override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        viewModel.viewWillDisappearSubject.onNext(())
+    }
+    
+    open override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        viewModel.viewDidDisappearSubject.onNext(())
     }
     
     open func subviews() -> [UIView] {
@@ -74,10 +100,9 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         Log.debug("[WARNING] \(type(of: self)).bind() has not been overrided.")
         return []
     }
-
+    
     /**
      Add a child view controller to the root view of the parent view controller.
-
      @param childController: a child view controller.
      */
     override open func addChild(_ childController: UIViewController) {
@@ -89,11 +114,11 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         guard let childController = childController as? RxViewControllerProtocol else { return }
         viewModel.addChild(childController.rxViewModel)
     }
-
+    
     /**
      Add a child view controller to the a container view of the parent view controller.
      The edges of the child view controller is same as the container view by default.
-
+     
      @param childController: a child view controller.
      @param containerView: a container view of childController.
      */
@@ -102,7 +127,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         // Add child view controller to a container view of the parent view controller.
         containerView.addSubview(childController.view)
         childController.didMove(toParent: self)
-
+        
         // Create constraints for the root view of the child view controller.
         childController.view.translatesAutoresizingMaskIntoConstraints = false
         childController.view.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true

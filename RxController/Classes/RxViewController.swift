@@ -43,10 +43,35 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     public init(viewModel: ViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
+        
+        rx.methodInvoked(#selector(viewDidLoad))
+            .map { _ in }
+            .bind(to: viewModel.viewDidLoadSubject)
+            .disposed(by: disposeBag)
+        
+        rx.methodInvoked(#selector(viewWillAppear(_:)))
+            .map { _ in }
+            .bind(to: viewModel.viewWillAppearSubject)
+            .disposed(by: disposeBag)
+        
+        rx.methodInvoked(#selector(viewDidAppear))
+            .map { _ in }
+            .bind(to: viewModel.viewDidAppearSubject)
+            .disposed(by: disposeBag)
+        
+        rx.methodInvoked(#selector(viewWillDisappear(_:)))
+            .map { _ in }
+            .bind(to: viewModel.viewWillDisappearSubject)
+            .disposed(by: disposeBag)
+        
+        rx.methodInvoked(#selector(viewDidDisappear(_:)))
+            .map { _ in }
+            .bind(to: viewModel.viewDidDisappearSubject)
+            .disposed(by: disposeBag)
     }
     
     required public init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("RxController does not support to initialized from storyboard or xib!")
     }
     
     deinit {
@@ -56,35 +81,9 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     open override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel.viewDidLoadSubject.onNext(())
-        
         subviews().forEach { view.addSubview($0) }
         createConstraints()
         bind().forEach { $0.disposed(by: disposeBag) }
-    }
-    
-    open override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        viewModel.viewWillAppearSubject.onNext(())
-    }
-    
-    open override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        viewModel.viewDidAppearSubject.onNext(())
-    }
-    
-    open override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        viewModel.viewWillDisappearSubject.onNext(())
-    }
-    
-    open override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        
-        viewModel.viewDidDisappearSubject.onNext(())
     }
     
     open func subviews() -> [UIView] {

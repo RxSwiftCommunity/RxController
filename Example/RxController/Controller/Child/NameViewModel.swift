@@ -23,7 +23,6 @@ class NameViewModel: BaseViewModel {
     
     private let nameRelay = BehaviorRelay<String?>(value: nil)
     
-    
     override func prepareForParentEvents() {
         bindParentEvents(to: nameRelay, with: InfoEvent.name)
     }
@@ -31,15 +30,17 @@ class NameViewModel: BaseViewModel {
     var name: Observable<String?> {
         Observable.merge(
             nameRelay.asObservable(),
-            Observable.combineLatest(
-                events.unwrappedValue(of: NameEvent.firstName),
-                events.unwrappedValue(of: NameEvent.lastName)
-            ).map { $0 + " " + $1 }
+            Observable
+                .combineLatest(
+                    events.unwrappedValue(of: NameEvent.firstName),
+                    events.unwrappedValue(of: NameEvent.lastName)
+                )
+                .map { $0 + " " + $1 }
         )
     }
     
     var number: Observable<String?> {
-        return parentEvents.value(of: InfoEvent.number)
+        parentEvents.value(of: InfoEvent.number)
     }
     
     func updateName() {

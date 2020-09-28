@@ -30,11 +30,13 @@ class FriendsViewModel: BaseViewModel {
     }
     
     var friendSection: Observable<SingleSection<Selection>> {
-        firindsRelay.map {
-            $0.map { Selection(title: $0, accessory: .disclosureIndicator) }
-        }.map {
-            SingleSection.create($0)
-        }
+        firindsRelay
+            .map {
+                $0.map { Selection(title: $0, accessory: .disclosureIndicator) }
+            }
+            .map {
+                SingleSection.create($0)
+            }
     }
     
     func pick(at index: Int) {

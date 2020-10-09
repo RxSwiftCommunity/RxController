@@ -25,6 +25,13 @@ RxController provides the the following basic view controller and view model cla
 
 These classes make it easy to transfer data among the flows, the parent view models and the child view models.
 
+## Demo applications
+
+The following 2 open source apps based on RxController are prepared to make it easier for understanding this library.
+
+- Githuber, a simple github search app: https://github.com/MuShare/Githuber
+- Httper, a RESTful api test app: https://github.com/MuShare/Httper-iOS
+
 ## Recommended guideline
 
 We recommend to develop a MMVM-C based on **RxController**, **RxFlow** and **RxSwift** in this guideline.

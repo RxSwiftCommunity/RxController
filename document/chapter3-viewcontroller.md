@@ -370,12 +370,13 @@ iconImageView.snp.makeConstraints {
 
 **However, for multiple constraints of different groups, a single line is not recommended**
 
-``swift
-nameLable.snp.makeConstraints {
-    $0.width.equalToSuperview()
-    $0.centerY.equalToSuperview()
+```swift
+nameLabel.snp.makeConstraints {
+    $0.width.centerY.equalToSuperview()
 }
-``
+```
+
+Different groups of constraints should be separated to make it easier for understanding.
 
 ## 3.5 Reactive extension for view controller
 

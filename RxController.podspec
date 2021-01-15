@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxController'
-  s.version          = '1.1.2'
+  s.version          = '1.2'
   s.summary          = 'A library for developing with MVVM-C based on RxFlow and RxSwift.'
 
 # This description is used to generate tags and improve search results.
@@ -33,8 +33,8 @@ These classes make it easy to transfer data among the flows, the parent view mod
   s.source_files = 'RxController/Classes/**/*'
   s.preserve_paths = 'rxtree/**/*'
   
-  s.dependency 'RxSwift', '~> 5'
-  s.dependency 'RxCocoa', '~> 5'
-  s.dependency 'RxFlow', '~> 2.7'
+  s.dependency 'RxSwift', '~> 6'
+  s.dependency 'RxCocoa', '~> 6'
+  s.dependency 'RxFlow', '~> 2.12'
 
 end

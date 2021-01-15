@@ -38,7 +38,7 @@ class FriendsFlow: Flow {
             return .viewController(friendsViewController)
         case .profile(let name):
             let profileFlow = ProfileFlow(name: name)
-            Flows.whenReady(flow1: profileFlow) {
+            Flows.use(profileFlow, when: .ready) {
                 self.navigationController?.pushViewController($0, animated: true)
             }
             return .flow(profileFlow, with: ProfileStep.start)

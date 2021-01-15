@@ -35,7 +35,7 @@ class AppFlow: Flow {
         switch appStep {
         case .main:
             let mainFlow = MainFlow()
-            Flows.whenReady(flow1: mainFlow) { [unowned self] in
+            Flows.use(mainFlow, when: .ready ) { [unowned self] in
                 self.navigationController.viewControllers = [$0]
             }
             return .flow(mainFlow, with: MainStep.start)

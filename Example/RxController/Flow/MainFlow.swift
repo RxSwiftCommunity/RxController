@@ -33,7 +33,7 @@ class MainFlow: Flow {
         case .start:
             let childFlow = ChildFlow()
             let profileFlow = ProfileFlow()
-            Flows.whenReady(flow1: childFlow, flow2: profileFlow) {
+            Flows.use(childFlow, profileFlow, when: .ready) {
                 self.mainViewController.viewControllers = [$0, $1]
             }
             return .multiple(flowContributors: [

@@ -59,7 +59,7 @@ public struct RxControllerEvent {
 extension ObservableType where Element == RxControllerEvent {
     
     public func value<T>(of identifier: RxControllerEvent.Identifier, type: T.Type = T.self) -> Observable<T?> {
-        return observeOn(MainScheduler.asyncInstance).filter {
+        return observe(on: MainScheduler.asyncInstance).filter {
             $0.identifier.id == identifier.id
         }.map {
             $0.value as? T

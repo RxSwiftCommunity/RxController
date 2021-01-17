@@ -35,63 +35,91 @@ public protocol RxControllerEventBinder: class {
 extension RxControllerEventBinder {
     
     public func bindToEvents<O: ObservableType>(from observable: O, with identifier: RxControllerEvent.Identifier) {
-        observable.subscribe(onNext: { [unowned self] in
-            self.events.accept(identifier.event($0))
-        }).disposed(by: disposeBag)
+        observable
+            .subscribe(onNext: { [unowned self] in
+                self.events.accept(identifier.event($0))
+            })
+            .disposed(by: disposeBag)
     }
     
     public func bindToParentEvents<O: ObservableType>(from observable: O, with identifier: RxControllerEvent.Identifier) {
-        observable.subscribe(onNext: { [unowned self] in
-            self.parentEvents.accept(identifier.event($0))
-        }).disposed(by: disposeBag)
+        observable
+            .subscribe(onNext: { [unowned self] in
+                self.parentEvents.accept(identifier.event($0))
+            })
+            .disposed(by: disposeBag)
     }
     
     public func bindEvents<T>(to relay: BehaviorRelay<T?>, with identifier: RxControllerEvent.Identifier) {
-        events.value(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        events.value(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindEvents<T>(to relay: PublishRelay<T?>, with identifier: RxControllerEvent.Identifier) {
-        events.value(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        events.value(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindEvents<T, O: ObserverType>(to observer: O, with identifier: RxControllerEvent.Identifier) where O.Element == T? {
-        events.value(of: identifier, type: T.self).bind(to: observer).disposed(by: disposeBag)
+        events.value(of: identifier, type: T.self)
+            .bind(to: observer)
+            .disposed(by: disposeBag)
     }
     
     public func bindEvents<T>(to relay: BehaviorRelay<T>, with identifier: RxControllerEvent.Identifier) {
-        events.unwrappedValue(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        events.unwrappedValue(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindEvents<T>(to relay: PublishRelay<T>, with identifier: RxControllerEvent.Identifier) {
-        events.unwrappedValue(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        events.unwrappedValue(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindEvents<T, O: ObserverType>(to observer: O, with identifier: RxControllerEvent.Identifier) where O.Element == T {
-        events.unwrappedValue(of: identifier, type: T.self).bind(to: observer).disposed(by: disposeBag)
+        events.unwrappedValue(of: identifier, type: T.self)
+            .bind(to: observer)
+            .disposed(by: disposeBag)
     }
     
     public func bindParentEvents<T>(to relay: BehaviorRelay<T?>, with identifier: RxControllerEvent.Identifier) {
-        parentEvents.value(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        parentEvents.value(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindParentEvents<T>(to relay: PublishRelay<T?>, with identifier: RxControllerEvent.Identifier) {
-        parentEvents.value(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        parentEvents.value(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindParentEvents<T, O: ObserverType>(to observer: O, with identifier: RxControllerEvent.Identifier) where O.Element == T? {
-        parentEvents.value(of: identifier, type: T.self).bind(to: observer).disposed(by: disposeBag)
+        parentEvents.value(of: identifier, type: T.self)
+            .bind(to: observer)
+            .disposed(by: disposeBag)
     }
     
     public func bindParentEvents<T>(to relay: BehaviorRelay<T>, with identifier: RxControllerEvent.Identifier) {
-        parentEvents.unwrappedValue(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        parentEvents.unwrappedValue(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindParentEvents<T>(to relay: PublishRelay<T>, with identifier: RxControllerEvent.Identifier) {
-        parentEvents.unwrappedValue(of: identifier).bind(to: relay).disposed(by: disposeBag)
+        parentEvents.unwrappedValue(of: identifier)
+            .bind(to: relay)
+            .disposed(by: disposeBag)
     }
     
     public func bindParentEvents<T, O: ObserverType>(to observer: O, with identifier: RxControllerEvent.Identifier) where O.Element == T {
-        parentEvents.unwrappedValue(of: identifier, type: T.self).bind(to: observer).disposed(by: disposeBag)
+        parentEvents.unwrappedValue(of: identifier, type: T.self)
+            .bind(to: observer)
+            .disposed(by: disposeBag)
     }
     
 }

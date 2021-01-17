@@ -38,7 +38,7 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
     public let viewModel: ViewModel
     
     var rxViewModel: RxViewModel {
-        return viewModel
+        viewModel
     }
     
     public init(viewModel: ViewModel) {

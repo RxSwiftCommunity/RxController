@@ -70,6 +70,11 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
             .bind(to: viewModel.viewDidDisappearSubject)
             .disposed(by: disposeBag)
         
+        rx.methodInvoked(#selector(viewWillLayoutSubviews))
+            .map { _ in }
+            .bind(to: viewModel.viewWillLayoutSubviewsSubject)
+            .disposed(by: disposeBag)
+        
         rx.methodInvoked(#selector(viewDidLayoutSubviews))
             .map { _ in }
             .bind(to: viewModel.viewDidLayoutSubviewsSubject)

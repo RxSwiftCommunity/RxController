@@ -35,6 +35,7 @@ open class RxViewModel: NSObject, Stepper {
     let viewDidAppearSubject = PublishSubject<Void>()
     let viewWillDisappearSubject = PublishSubject<Void>()
     let viewDidDisappearSubject = PublishSubject<Void>()
+    let viewWillLayoutSubviewsSubject = PublishSubject<Void>()
     let viewDidLayoutSubviewsSubject = PublishSubject<Void>()
     
     public let steps = PublishRelay<Step>()
@@ -123,6 +124,10 @@ open class RxViewModel: NSObject, Stepper {
     
     public var viewDidDisappear: Observable<Void> {
         viewDidDisappearSubject.asObservable()
+    }
+    
+    public var viewWillLayoutSubviews: Observable<Void> {
+        viewWillLayoutSubviewsSubject.asObservable()
     }
     
     public var viewDidLayoutSubviews: Observable<Void> {

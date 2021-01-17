@@ -69,8 +69,13 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
             .map { _ in }
             .bind(to: viewModel.viewDidDisappearSubject)
             .disposed(by: disposeBag)
+        
+        rx.methodInvoked(#selector(viewDidLayoutSubviews))
+            .map { _ in }
+            .bind(to: viewModel.viewDidLayoutSubviewsSubject)
+            .disposed(by: disposeBag)
     }
-    
+
     required public init?(coder aDecoder: NSCoder) {
         fatalError("RxController does not support to initialized from storyboard or xib!")
     }

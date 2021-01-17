@@ -79,6 +79,13 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
             .map { _ in }
             .bind(to: viewModel.viewDidLayoutSubviewsSubject)
             .disposed(by: disposeBag)
+        
+        if #available(iOS 11.0, *) {
+            rx.methodInvoked(#selector(viewSafeAreaInsetsDidChange))
+                .map { _ in }
+                .bind(to: viewModel.viewSafeAreaInsetsDidChangeSubject)
+                .disposed(by: disposeBag)
+        }
     }
 
     required public init?(coder aDecoder: NSCoder) {

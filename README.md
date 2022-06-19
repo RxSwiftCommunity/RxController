@@ -225,7 +225,7 @@ func forward(parentEvent: ,toEvent: ,flatMapLatest:)
 func forward(toEvent: ,parentEvent:)
 
 // Forward an event to a parent event with a `flatMapLatest` closure
-func forward(toEvent: , parentEvent: ,flatMapLatest:)
+func forward(toEvent: ,parentEvent: ,flatMapLatest:)
 ```
 
 ### Send a step to the flow from a child view model

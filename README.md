@@ -35,7 +35,7 @@ The following 2 open source apps based on RxController are prepared to make it e
 ## Recommended guideline
 
 We recommend to develop a MMVM-C based on **RxController**, **RxFlow** and **RxSwift** in this guideline.
-It better to read the documentation of [RxController](https://github.com/RxSwiftCommunity/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift) at first, if you are not familiar with them.
+It is better to read the documentation of [RxController](https://github.com/RxSwiftCommunity/RxController), [RxFlow](https://github.com/RxSwiftCommunity/RxFlow) and [RxSwift](https://github.com/ReactiveX/RxSwift) at first, if you are not familiar with them.
 
 - Chapter 1: [Introduction](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter1-introduction.md)
 - Chapter 2: [Using RxFlow](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter2-rxflow.md)

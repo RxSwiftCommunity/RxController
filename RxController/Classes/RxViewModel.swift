@@ -30,14 +30,14 @@ import RxFlow
 
 open class RxViewModel: NSObject, Stepper {
     
-    let viewDidLoadSubject = PublishSubject<Void>()
-    let viewWillAppearSubject = PublishSubject<Void>()
-    let viewDidAppearSubject = PublishSubject<Void>()
-    let viewWillDisappearSubject = PublishSubject<Void>()
-    let viewDidDisappearSubject = PublishSubject<Void>()
-    let viewWillLayoutSubviewsSubject = PublishSubject<Void>()
-    let viewDidLayoutSubviewsSubject = PublishSubject<Void>()
-    let viewSafeAreaInsetsDidChangeSubject = PublishSubject<Void>()
+    public let viewDidLoadSubject = PublishSubject<Void>()
+    public let viewWillAppearSubject = PublishSubject<Void>()
+    public let viewDidAppearSubject = PublishSubject<Void>()
+    public let viewWillDisappearSubject = PublishSubject<Void>()
+    public let viewDidDisappearSubject = PublishSubject<Void>()
+    public let viewWillLayoutSubviewsSubject = PublishSubject<Void>()
+    public let viewDidLayoutSubviewsSubject = PublishSubject<Void>()
+    public let viewSafeAreaInsetsDidChangeSubject = PublishSubject<Void>()
     
     public let steps = PublishRelay<Step>()
     public let events = PublishRelay<RxControllerEvent>()

@@ -118,6 +118,7 @@ The following lifecycle signal can be accessed from view model directly.
 - `viewWillAppear: Observable<Void>`
 - `viewDidAppear: Observable<Void>`
 - `viewWillDisappear: Observable<Void>`
+- `viewIsAppearing`: Observable<Void>`
 - `viewDidDisappear: Observable<Void>`
 - `viewDidLayoutSubview: Observable<Void>`
 - `viewWillLayoutSubviews: Observable<Void>`

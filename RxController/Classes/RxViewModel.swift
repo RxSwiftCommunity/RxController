@@ -32,6 +32,7 @@ open class RxViewModel: NSObject, Stepper {
     
     public let viewDidLoadSubject = PublishSubject<Void>()
     public let viewWillAppearSubject = PublishSubject<Void>()
+    public let viewIsAppearingSubject = PublishSubject<Void>()
     public let viewDidAppearSubject = PublishSubject<Void>()
     public let viewWillDisappearSubject = PublishSubject<Void>()
     public let viewDidDisappearSubject = PublishSubject<Void>()
@@ -138,6 +139,11 @@ open class RxViewModel: NSObject, Stepper {
     @available(iOS 11.0, *)
     public var viewSafeAreaInsetsDidChange: Observable<Void> {
         viewSafeAreaInsetsDidChangeSubject.asObservable()
+    }
+  
+    @available(iOS 13.0, *)
+    public var viewIsAppearing: Observable<Void> {
+        viewIsAppearingSubject.asObservable()
     }
 }
 

@@ -6,14 +6,47 @@ on:
   pull_request:
     branches: [ master ]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
+    name: Xcode ${{ matrix.xcode }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-15
+            xcode: "16.4"
+          - os: macos-26
+            xcode: "26.6"
 
-    runs-on: macOS-latest
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Pod install
-      run: pod install --project-directory=Example --repo-update
-    - name: Run test
-      run: set -o pipefail && xcodebuild -workspace Example/RxController.xcworkspace -scheme RxController -sdk iphonesimulator build CODE_SIGNING_REQUIRED=NO | xcpretty -c
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s "/Applications/Xcode_${{ matrix.xcode }}.app/Contents/Developer"
+
+      - name: Toolchain versions
+        run: |
+          xcodebuild -version
+          swift --version
+
+      - name: Resolve SwiftPM dependencies
+        run: swift package resolve
+
+      - name: Build RxController
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -scheme RxController \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO \
+            build

@@ -25,7 +25,7 @@ PODS:
     - RxCocoa (~> 6)
     - RxDataSources (~> 5)
     - RxSwift (~> 6)
-  - RxFlow (2.13.2):
+  - RxFlow (2.13.0):
     - RxCocoa (>= 6.0.0)
     - RxSwift (>= 6.0.0)
   - RxRelay (6.0.0):

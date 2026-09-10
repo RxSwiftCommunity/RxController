@@ -65,9 +65,8 @@ extension ObservableType where Element == RxControllerEvent {
     }
     
     public func unwrappedValue<T>(of identifier: RxControllerEvent.Identifier, type: T.Type = T.self) -> Observable<T> {
-        return value(of: identifier)
-            .filter { $0 != nil }
-            .map { $0! }
+        return value(of: identifier, type: type)
+            .compactMap { $0 }
     }
 
 }

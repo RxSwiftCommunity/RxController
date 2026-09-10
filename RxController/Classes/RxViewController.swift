@@ -45,50 +45,50 @@ open class RxViewController<ViewModel: RxViewModel>: UIViewController, RxViewCon
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
-        rx.methodInvoked(#selector(viewDidLoad))
+        rx.methodInvoked(#selector(UIViewController.viewDidLoad))
             .map { _ in }
             .bind(to: viewModel.viewDidLoadSubject)
             .disposed(by: disposeBag)
         
-        rx.methodInvoked(#selector(viewWillAppear(_:)))
+        rx.methodInvoked(#selector(UIViewController.viewWillAppear(_:)))
             .map { _ in }
             .bind(to: viewModel.viewWillAppearSubject)
             .disposed(by: disposeBag)
         
-        rx.methodInvoked(#selector(viewDidAppear))
+        rx.methodInvoked(#selector(UIViewController.viewDidAppear(_:)))
             .map { _ in }
             .bind(to: viewModel.viewDidAppearSubject)
             .disposed(by: disposeBag)
         
-        rx.methodInvoked(#selector(viewWillDisappear(_:)))
+        rx.methodInvoked(#selector(UIViewController.viewWillDisappear(_:)))
             .map { _ in }
             .bind(to: viewModel.viewWillDisappearSubject)
             .disposed(by: disposeBag)
         
-        rx.methodInvoked(#selector(viewDidDisappear(_:)))
+        rx.methodInvoked(#selector(UIViewController.viewDidDisappear(_:)))
             .map { _ in }
             .bind(to: viewModel.viewDidDisappearSubject)
             .disposed(by: disposeBag)
         
-        rx.methodInvoked(#selector(viewWillLayoutSubviews))
+        rx.methodInvoked(#selector(UIViewController.viewWillLayoutSubviews))
             .map { _ in }
             .bind(to: viewModel.viewWillLayoutSubviewsSubject)
             .disposed(by: disposeBag)
         
-        rx.methodInvoked(#selector(viewDidLayoutSubviews))
+        rx.methodInvoked(#selector(UIViewController.viewDidLayoutSubviews))
             .map { _ in }
             .bind(to: viewModel.viewDidLayoutSubviewsSubject)
             .disposed(by: disposeBag)
         
         if #available(iOS 11.0, *) {
-            rx.methodInvoked(#selector(viewSafeAreaInsetsDidChange))
+            rx.methodInvoked(#selector(UIViewController.viewSafeAreaInsetsDidChange))
                 .map { _ in }
                 .bind(to: viewModel.viewSafeAreaInsetsDidChangeSubject)
                 .disposed(by: disposeBag)
         }
       
         if #available(iOS 13.0, *) {
-            rx.methodInvoked(#selector(viewIsAppearing))
+            rx.methodInvoked(#selector(UIViewController.viewIsAppearing(_:)))
                 .map { _ in }
                 .bind(to: viewModel.viewIsAppearingSubject)
                 .disposed(by: disposeBag)

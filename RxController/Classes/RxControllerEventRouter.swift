@@ -26,7 +26,7 @@
 import RxCocoa
 import RxSwift
 
-public protocol RxControllerEventRouter: class {
+public protocol RxControllerEventRouter: AnyObject {
     var events: PublishRelay<RxControllerEvent> { get }
     var parentEvents: PublishRelay<RxControllerEvent> { get }
     var disposeBag: DisposeBag { get }

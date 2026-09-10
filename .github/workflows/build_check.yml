@@ -39,11 +39,22 @@ jobs:
           xcodebuild -version
           swift --version
 
+      - name: Prepare SwiftPM package
+        run: |
+          package_dir="$RUNNER_TEMP/RxControllerPackage"
+          rm -rf "$package_dir"
+          mkdir -p "$package_dir"
+          cp Package.swift "$package_dir/"
+          cp -R RxController "$package_dir/"
+
       - name: Resolve SwiftPM dependencies
-        run: swift package resolve
+        run: |
+          cd "$RUNNER_TEMP/RxControllerPackage"
+          swift package resolve
 
       - name: Build RxController
         run: |
+          cd "$RUNNER_TEMP/RxControllerPackage"
           set -o pipefail
           xcodebuild \
             -scheme RxController \

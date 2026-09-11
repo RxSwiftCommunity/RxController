@@ -25,6 +25,22 @@ RxController provides the the following basic view controller and view model cla
 
 These classes make it easy to transfer data among the flows, the parent view models and the child view models.
 
+## Maintenance status
+
+RxController is actively maintained again in 2026. The current modernization work targets
+Xcode 26, Swift 6 compilers in Swift 5 language mode, RxSwift 6.10.x, and RxFlow 2.13.x.
+
+### Compatibility target for the next major release
+
+- iOS 15+
+- Xcode 16.4 and Xcode 26.6 CI coverage
+- Swift 5 language mode on current Swift 6 compilers
+- RxSwift 6.10.x with Swift Package Manager
+- RxFlow 2.13.x
+
+Swift Package Manager is the recommended integration path for new projects. CocoaPods is
+kept as a legacy transition path while the ecosystem continues migrating to SwiftPM.
+
 ## Demo applications
 
 The following 2 open source apps based on RxController are prepared to make it easier for understanding this library.
@@ -45,7 +61,15 @@ It is better to read the documentation of [RxController](https://github.com/RxSw
 - Chapter 6: [Table and collection view cell](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter6-cell.md)
 - Chapter 7: [Manager classes](https://github.com/RxSwiftCommunity/RxController/blob/master/document/chapter7-manager.md)
 
-## Documentation
+## Installation
+
+### Swift Package Manager (recommended)
+
+In Xcode, use **File → Add Package Dependencies…** and add the RxController repository.
+For a package manifest, add RxController as a package dependency and include the
+`RxController` product in your target.
+
+### CocoaPods (legacy)
 
 RxController is available through [CocoaPods](https://cocoapods.org). To install
 it, simply add the following line to your Podfile:
@@ -53,6 +77,8 @@ it, simply add the following line to your Podfile:
 ```ruby
 pod 'RxController'
 ```
+
+## Documentation
 
 ### Example
 

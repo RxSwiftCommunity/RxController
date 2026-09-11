@@ -28,13 +28,13 @@ These classes make it easy to transfer data among the flows, the parent view mod
   s.author           = { 'Meng Li' => 'lm2343635@126.com' }
   s.source           = { :git => 'https://github.com/RxSwiftCommunity/RxController.git', :tag => s.version.to_s }
 
-  s.ios.deployment_target = '9.0'
-  s.swift_versions = '5.1'
+  s.ios.deployment_target = '15.0'
+  s.swift_versions = '5.0'
   s.source_files = 'RxController/Classes/**/*'
   s.preserve_paths = 'rxtree/**/*'
   
   s.dependency 'RxSwift', '~> 6'
   s.dependency 'RxCocoa', '~> 6'
-  s.dependency 'RxFlow', '~> 2.12'
+  s.dependency 'RxFlow', '~> 2.13'
 
 end
